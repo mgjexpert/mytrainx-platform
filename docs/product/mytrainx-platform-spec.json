@@ -1,0 +1,141 @@
+{
+  "project": {
+    "name": "MyTrainX",
+    "domain": "mytrainx.fit",
+    "repository": "mgjexpert/mytrainx-platform",
+    "legacy_repository": "mgjexpert/wkt-militar",
+    "positioning": "AI-first fitness ecosystem with the Personal Trainer AI as the central product"
+  },
+  "stack": {
+    "framework": "Next.js 16 App Router",
+    "hosting": "Vercel",
+    "database": "Supabase Postgres",
+    "auth": "Supabase Auth via @supabase/ssr",
+    "payments": "XPayments PIX S2S",
+    "full_workout_video": "Google Drive Preview",
+    "marketing_video": "public CDN / Vercel Blob later"
+  },
+  "routes": {
+    "public": [
+      "/",
+      "/trainer",
+      "/programas",
+      "/programas/wkt-militar",
+      "/programas/wkt-militar/oferta",
+      "/master",
+      "/community",
+      "/library",
+      "/events",
+      "/checkout",
+      "/login"
+    ],
+    "member": [
+      "/app",
+      "/app/trainer",
+      "/app/hoje",
+      "/app/programas",
+      "/app/programas/wkt-militar",
+      "/app/workout/[slug]",
+      "/app/performance",
+      "/app/library",
+      "/app/community",
+      "/app/master",
+      "/app/profile"
+    ]
+  },
+  "products": {
+    "core": "MyTrainX AI",
+    "programs": [
+      "WKT Militar",
+      "HIIT Pro (future)",
+      "Core 30 (future)",
+      "Calisthenics (future)"
+    ],
+    "recurring": "MyTrainX Master",
+    "extras": [
+      "ebooks",
+      "manuals",
+      "events",
+      "live classes",
+      "vouchers",
+      "partner offers"
+    ]
+  },
+  "command_center": {
+    "panels": [
+      "AITrainerHero",
+      "ProgressPanel",
+      "TodaysTraining",
+      "MyPrograms",
+      "MasterBenefits",
+      "LibraryPreview"
+    ],
+    "mobile_priority": [
+      "AI Trainer",
+      "Today's Training",
+      "Progress",
+      "Programs",
+      "Master",
+      "Library"
+    ]
+  },
+  "ai_trainer": {
+    "name": "X",
+    "capabilities": [
+      "explain workouts",
+      "use owned-program context",
+      "organize routines",
+      "summarize progress",
+      "adapt general suggestions to time/equipment/preferences"
+    ],
+    "tools": [
+      "get_user_profile",
+      "get_entitlements",
+      "get_current_program",
+      "get_today_mission",
+      "get_workout_history",
+      "get_progress_summary",
+      "search_library",
+      "get_upcoming_events"
+    ],
+    "safety": [
+      "no diagnosis",
+      "no medication instructions",
+      "no injury diagnosis",
+      "redirect pain/injury symptoms to qualified professionals"
+    ]
+  },
+  "wkt": {
+    "role": "first paid program",
+    "unique_workouts": 21,
+    "schedule": "12 weeks, Monday-Friday",
+    "full_video_provider": "google-drive-preview",
+    "public_teasers": "5-15 second muted loops only"
+  },
+  "security": {
+    "rls": "required on every exposed table",
+    "client_key": "Supabase publishable key only",
+    "server_secrets": [
+      "SUPABASE_SECRET_KEY",
+      "XPAYMENTS_API_KEY",
+      "OPENAI_API_KEY"
+    ],
+    "authorization": "verified auth identity + server checks + RLS + entitlements"
+  },
+  "payments": {
+    "provider": "XPayments",
+    "currency": "BRL",
+    "method": "pix",
+    "wkt_price_cents": 6700,
+    "final_state": "payment_intent.succeeded + succeeded",
+    "preview_mode": "mock"
+  },
+  "phases": [
+    "Supabase foundation + MyTrainX brand shell",
+    "Command Center",
+    "WKT as program",
+    "AI Trainer MVP",
+    "Master + Library + Community + Events",
+    "WhatsApp channel"
+  ]
+}
