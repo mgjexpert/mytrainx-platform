@@ -1,0 +1,81 @@
+{
+  "project": {
+    "name": "MyTrainX",
+    "domain": "mytrainx.fit",
+    "positioning": "AI-first fitness ecosystem",
+    "primary_product": "MyTrainX AI / X Personal Trainer",
+    "first_paid_program": "WKT Militar"
+  },
+  "routes": {
+    "public": [
+      "/",
+      "/trainer",
+      "/programas",
+      "/programas/wkt-militar",
+      "/programas/wkt-militar/oferta",
+      "/master",
+      "/community",
+      "/library",
+      "/events",
+      "/checkout",
+      "/login"
+    ],
+    "member": [
+      "/app",
+      "/app/trainer",
+      "/app/hoje",
+      "/app/programas",
+      "/app/programas/wkt-militar",
+      "/app/workout/[slug]",
+      "/app/performance",
+      "/app/library",
+      "/app/community",
+      "/app/master",
+      "/app/profile"
+    ]
+  },
+  "command_center": {
+    "modules": [
+      "AI Trainer",
+      "Today's Training",
+      "Progress",
+      "My Programs",
+      "MyTrainX Master",
+      "Library & Resources"
+    ],
+    "visual_priority": "AI Trainer is the dominant module."
+  },
+  "architecture": {
+    "frontend": "Next.js App Router",
+    "hosting": "Vercel",
+    "auth_database": "Supabase",
+    "payments": "XPayments PIX S2S",
+    "wkt_video": "Google Drive Preview",
+    "ai": "OpenAI server-side",
+    "future_whatsapp": "Meta WhatsApp Business Platform"
+  },
+  "supabase": {
+    "auth": "Email magic link/OTP preferred for production",
+    "security": "RLS on all exposed user-data tables",
+    "planned_tables": [
+      "profiles",
+      "products",
+      "orders",
+      "entitlements",
+      "subscriptions",
+      "programs",
+      "workouts",
+      "program_days",
+      "workout_progress",
+      "ai_conversations",
+      "ai_messages",
+      "library_items",
+      "events"
+    ]
+  },
+  "migration": {
+    "source_repo": "mgjexpert/wkt-militar",
+    "target_repo": "mgjexpert/mytrainx-platform",
+    "rule": "Port proven functionality; do not rebuild working payment/video logic without reason."
+  }
+}
