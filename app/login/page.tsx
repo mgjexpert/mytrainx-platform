@@ -4,10 +4,12 @@ export default function LoginPage() {
   return (
     <main className="centerPage">
       <div className="authCard">
-        <a className="brand" href="/">OPERAÇÃO <b>WKT</b></a>
-        <span className="eyebrow">ÁREA DO ALUNO</span>
-        <h1>Entrar na missão</h1>
-        <p>Use seu e-mail e o código de acesso do MVP.</p>
+        <a className="brand brandStack" href="/">
+          <span>MY</span><b>TRAINX</b>
+        </a>
+        <span className="eyebrow">ÁREA DO MEMBRO</span>
+        <h1>Entre no MyTrainX</h1>
+        <p>Receba um link seguro no e-mail usado na sua conta ou compra.</p>
         <LoginForm />
       </div>
     </main>

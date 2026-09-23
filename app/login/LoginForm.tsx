@@ -1,8 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { createClient } from "@/lib/supabase/client";
 
 export function LoginForm() {
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -10,26 +13,49 @@ export function LoginForm() {
     event.preventDefault();
     setLoading(true);
     setError("");
-    const form = new FormData(event.currentTarget);
-    const response = await fetch("/api/session/demo", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: form.get("email"), code: form.get("code") }),
+    setMessage("");
+
+    const supabase = createClient();
+    const redirectTo = `${window.location.origin}/auth/confirm?next=/app`;
+
+    const { error: authError } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        emailRedirectTo: redirectTo,
+      },
     });
-    if (!response.ok) {
-      setError("E-mail ou código inválido.");
+
+    if (authError) {
+      setError(authError.message);
       setLoading(false);
       return;
     }
-    location.href = "/app";
+
+    setMessage("Enviámos um acesso seguro para o seu e-mail.");
+    setLoading(false);
   }
 
   return (
     <form onSubmit={submit} className="form">
-      <label>E-mail<input name="email" type="email" required placeholder="voce@email.com"/></label>
-      <label>Código de acesso<input name="code" required placeholder="Código do MVP"/></label>
+      <label>
+        E-mail
+        <input
+          name="email"
+          type="email"
+          required
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          placeholder="voce@email.com"
+          autoComplete="email"
+        />
+      </label>
+
       {error && <div className="error">{error}</div>}
-      <button className="button full" disabled={loading}>{loading ? "Entrando..." : "Entrar →"}</button>
+      {message && <div className="authSuccess">{message}</div>}
+
+      <button className="button full" disabled={loading}>
+        {loading ? "Enviando..." : "Receber acesso por e-mail →"}
+      </button>
     </form>
   );
 }
