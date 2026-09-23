@@ -727,3 +727,19 @@ button,input,textarea{font:inherit}
   .todayCopy h2{font-size:38px}
   .workoutGrid{grid-template-columns:1fr 1fr}
 }
+
+
+/* MyTrainX global brand primitives */
+.mtxLogo{display:inline-flex;align-items:center;gap:9px;color:#f4f7f5;line-height:1}
+.mtxLogoMark{
+  width:34px;height:34px;display:grid;place-items:center;position:relative;
+  color:#06100c;background:linear-gradient(135deg,#32d96a 0%,#7cff72 50%,#b4ff25 100%);
+  clip-path:polygon(16% 7%,50% 40%,84% 7%,100% 22%,66% 50%,100% 78%,84% 93%,50% 60%,16% 93%,0 78%,34% 50%,0 22%);
+  font-size:0;filter:drop-shadow(0 0 11px #65f5724a)
+}
+.mtxLogoText{display:flex;flex-direction:column;gap:4px}
+.mtxLogoText b{font-size:20px;letter-spacing:-.055em;font-weight:950}
+.mtxLogoText b span{color:#7cff72}
+.mtxLogoText small{font-size:6px;letter-spacing:.22em;color:#75887d;font-weight:900}
+.mtxLogoCompact .mtxLogoMark{width:30px;height:30px}
+.authSuccess{background:#10291b;color:#92f99b;border:1px solid #315b3b;border-radius:4px;padding:10px;font-size:11px}
