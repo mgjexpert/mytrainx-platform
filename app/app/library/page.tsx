@@ -1,0 +1,3 @@
+import Link from "next/link";
+import styles from "@/components/member-section.module.css";
+export default function Page(){return <main className={styles.page}><Link className={styles.back} href="/app">← COMMAND CENTER</Link><section className={styles.head}><span>LIBRARY</span><h1>Resources</h1><p>Conteúdos adquiridos e itens Master ficam disponíveis aqui.</p></section><section className={styles.grid}><article className={styles.card}><span>MANUAL</span><b>Training Manual</b><small>Conteúdo premium</small></article><article className={styles.card}><span>GUIDE</span><b>Recovery Guide</b><small>Conteúdo premium</small></article><article className={styles.card}><span>PLAYBOOK</span><b>Mindset Playbook</b><small>Conteúdo premium</small></article></section></main>}

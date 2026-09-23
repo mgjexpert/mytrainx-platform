@@ -1,0 +1,1 @@
+import { redirect } from "next/navigation";import { workouts } from "@/lib/workouts";export default function Today(){redirect(`/app/workout/${workouts[0].slug}`)}

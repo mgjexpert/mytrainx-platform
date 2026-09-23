@@ -1,0 +1,3 @@
+import Link from "next/link";
+import styles from "@/components/member-section.module.css";
+export default function Page(){return <main className={styles.page}><Link className={styles.back} href="/app">← COMMAND CENTER</Link><section className={styles.head}><span>COMMUNITY</span><h1>MyTrainX Community</h1><p>Central de acesso à futura comunidade e seus eventos.</p></section><section className={styles.grid}><article className={styles.card}><span>WA</span><b>WhatsApp Community</b><small>Acesso futuro</small></article><article className={styles.card}><span>CHALLENGE</span><b>Monthly Challenge</b><small>Em breve</small></article><article className={styles.card}><span>LIVE</span><b>Member Live</b><small>Em breve</small></article></section></main>}
