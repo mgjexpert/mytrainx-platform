@@ -23,7 +23,10 @@ function priceCents() {
 export async function POST(request: Request) {
   const parsed = requestSchema.safeParse(await request.json().catch(() => null));
   if (!parsed.success) {
-    return NextResponse.json({ error: "Dados de pagamento inválidos." }, { status: 400 });
+    return NextResponse.json(
+      { error: "Dados de pagamento inválidos." },
+      { status: 400 }
+    );
   }
 
   const document = parsed.data.document.replace(/\D/g, "");
@@ -71,13 +74,15 @@ export async function POST(request: Request) {
     });
 
     if (admin) {
-      await admin
+      const { error } = await admin
         .from("orders")
         .update({
           provider_payment_id: charge.transactionId,
           status: charge.status,
         })
         .eq("external_id", reference);
+
+      if (error) throw error;
     }
 
     return NextResponse.json({
@@ -91,11 +96,14 @@ export async function POST(request: Request) {
     console.error("pix_create_error", error);
 
     if (admin) {
-      await admin
-        .from("orders")
-        .update({ status: "create_failed" })
-        .eq("external_id", reference)
-        .catch(() => undefined);
+      try {
+        await admin
+          .from("orders")
+          .update({ status: "create_failed" })
+          .eq("external_id", reference);
+      } catch (updateError) {
+        console.error("pix_create_status_update_failed", updateError);
+      }
     }
 
     return NextResponse.json(
