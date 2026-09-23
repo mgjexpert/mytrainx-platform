@@ -1,0 +1,4 @@
+import Link from "next/link";
+import { PublicHeader } from "@/components/PublicHeader";
+import styles from "@/components/public-sections.module.css";
+export default function MasterPage(){return <main className={styles.page}><PublicHeader/><section className={styles.hero}><span className={styles.kicker}>MYTRAINX MASTER</span><h1>GO<br/><em>FURTHER.</em></h1><p>A assinatura premium será a camada recorrente do ecossistema: AI Trainer Pro, comunidade, lives, manuais, desafios, eventos, bônus e novos drops.</p><Link className={styles.cta} href="/login">QUERO CONHECER →</Link></section><section className={styles.grid}>{["AI Trainer Pro","Master Community","Live Events","E-books & Manuals","Monthly Challenges","Bonuses & Vouchers"].map((x,i)=><article className={styles.card} key={x}><span>0{i+1}</span><h2>{x}</h2><p>Benefício premium integrado à mesma conta MyTrainX.</p></article>)}</section></main>}

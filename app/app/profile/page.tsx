@@ -1,0 +1,3 @@
+import Link from "next/link";
+import styles from "@/components/member-section.module.css";
+export default function Page(){return <main className={styles.page}><Link className={styles.back} href="/app">← COMMAND CENTER</Link><section className={styles.head}><span>PROFILE</span><h1>Your MyTrainX</h1><p>Preferências e dados do perfil virão da tabela profiles.</p></section><section className={styles.grid}><article className={styles.card}><span>ACCOUNT</span><b>Personal data</b><small>Gerenciar perfil</small></article><article className={styles.card}><span>TRAINING</span><b>Goals & equipment</b><small>Contexto para o X</small></article><article className={styles.card}><span>SECURITY</span><b>Session & access</b><small>Supabase Auth</small></article></section></main>}
