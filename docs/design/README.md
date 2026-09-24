@@ -1,60 +1,138 @@
-# Design References
+# MyTrainX Design References
 
-## Approved direction
+**Current visual system:** 1.0-orange  
+**Status:** APPROVED DIRECTION  
+**Reviewed:** 2026-09-24
 
-MyTrainX is a premium **fitness command center**, not a generic SaaS dashboard.
+## Product identity
 
-Approved mockups from the product-design conversation should be supplied to the coding agent alongside this repository:
+MyTrainX is a premium AI-first digital fitness ecosystem — a **personal operating system for physical evolution**.
 
-1. `mytrainx_fitness_command_center.png`
-2. `mytrainx_futuristic_fitness_brand_board.png`
-3. `mytrainx_logo_primary.png`
-4. `mytrainx_app_icon.png`
+The visual system must communicate a digital product, not a physical gym.
 
-## Visual system
+Central product:
+- **Coach X / X — Your Personal AI Trainer**
 
-- background: #050A08
-- secondary: #07110E
-- panel: #0A1512
-- elevated panel: #0E1B17
-- border: #22352D
-- neon green: #7CFF72
-- alt green: #48E568
-- primary text: #F4F7F5
-- secondary text: #8E9E96
-- Master accent: #E6D36B
+Human relationship layer:
+- **Sara — Concierge & Community**
+
+Internal rule:
+> **X cuida do treino. Sara cuida da relação.**
+
+## Current approved direction
+
+> **BLACK PERFORMANCE SYSTEM + MYTRAINX ORANGE**
+
+The earlier black/neon-green direction is now:
+
+> **SUPERSEDED — STRUCTURE REFERENCE**
+
+Its Command Center density and hierarchy remain useful, but green is no longer the primary brand accent.
+
+Canonical machine-readable source:
+- `MYTRAINX_VISUAL_SYSTEM_V1_ORANGE.json`
+
+Implementation handoff:
+- `../handoff/MYTRAINX_GPT_WORK_VISUAL_DIRECTION_V1.md`
+
+## Core palette
+
+- Black Core: `#050607`
+- Obsidian: `#090B0E`
+- Surface 01: `#0E1216`
+- Surface 02: `#14191F`
+- Surface Elevated: `#1B2128`
+- Border: `#29313A`
+- Primary Orange: `#FF4B0A`
+- Action Orange: `#FF641A`
+- Energy Highlight: `#FF8A35`
+- Deep Orange: `#B92B00`
+- Text Primary: `#F7F8F8`
+- Text Secondary: `#CBD0D4`
+- Success: `#37D67A`
+- Master Gold: `#E6D36B`
+
+Orange is normally only about **8–12%** of a composition.
+
+## Typography
+
+- Display: **Barlow Condensed / Barlow Semi Condensed**
+- UI: **Inter**
+- Micro / telemetry: **Space Mono**, sparingly
+
+## Brand assets
+
+Approved direction requires:
+- white / near-white MyTrain wordmark
+- proprietary angular orange X
+- standalone X as favicon/PWA/app icon
+- no generic-font X substitution
+
+## Current mockup references
+
+The Product Owner has supplied and approved the following current references for implementation:
+
+- `Maquete_Site.png` — landing / product storytelling direction
+- `Maquete_Team.png` — Sara + X + specialist team direction
+- `mytrainx-logo-orange-transparent.png` — wordmark direction
+- `Logo_Favicon.png` — standalone X / favicon direction
+
+These references are visual direction, not license to hardcode illustrative metrics or invent runtime state.
+
+## Landing hierarchy
+
+1. Header
+2. Hero — FIND YOUR X.
+3. Ecosystem strip
+4. Coach X
+5. Product / Command Center preview
+6. Programs
+7. Progress
+8. Sara human layer
+9. Community
+10. MyTrainX Master
+11. Final CTA
+12. Footer
 
 ## Command Center hierarchy
 
-Above the fold on desktop:
-
-1. AI Trainer X hero
-2. Progress panel
+Desktop:
+1. Coach X
+2. Progress
 3. Today's Training
 4. My Programs
-
-Below:
-
-5. MyTrainX Master
-6. Library & Resources
+5. Master
+6. Library
 7. Community / Events
 
-Mobile priority:
-
-1. AI Trainer
+Mobile:
+1. Coach X
 2. Today's Training
 3. Progress
 4. Programs
-5. Master
-6. Library
+5. Community
+6. Master
+7. Library
 
-## Branding
+## Data integrity
 
-Global:
-- MYTRAINX
-- Your AI Personal Trainer
-- technological / athletic / premium
+Never publish mockup/demo data as real business data.
 
-WKT:
-- may use "mission", "Alpha/Bravo/Charlie/Delta/Echo", military-style treatment
-- must visually remain a program inside MyTrainX, not the parent brand
+Examples that require production evidence:
+- member counts
+- completed workout totals
+- ratings
+- testimonials
+- performance claims
+- physical MyTrainX locations
+
+## WKT separation
+
+WKT Militar may use military/mission language.
+
+Do not spread military treatment to:
+- Coach X
+- Community
+- Master
+- other programs
+- global MyTrainX navigation
