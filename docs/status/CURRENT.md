@@ -1,6 +1,6 @@
 # Current Project State
 
-**Project version:** 0.2.0-docs  
+**Project version:** 0.3.0-orange-v1-kickoff  
 **State date:** 2026-09-24  
 **Overall status:** IN PROGRESS
 
@@ -51,11 +51,37 @@ Atendimento.Center Agent Core contract and runtime foundation.
 Next objective:
 MyTrainX Internal API contract + first Trainer X vertical slice.
 
-### Track D — Creative
-Active in parallel:
-brand identity, mockups, visual hierarchy, social media system and creative asset production.
+### Track D — Creative / Product UI
+**APPROVED DIRECTION / IMPLEMENTATION START**
 
-## Immediate milestone
+Current primary visual direction:
+- BLACK PERFORMANCE SYSTEM + MYTRAINX ORANGE
+- previous neon-green system is structural reference only
+- Coach X remains the central product
+- Sara is the verified real human Concierge & Community layer
+- specialist coaches remain AI personas
+
+Implementation branch:
+`feat/orange-visual-system-v1`
+
+GPT Work must begin with the repository audit defined in:
+`docs/handoff/MYTRAINX_GPT_WORK_VISUAL_DIRECTION_V1.md`
+
+Reusable foundations and the public landing are now implemented on the orange branch. Command Center/shared public/member chrome has also been converted to the orange system. PR #10 remains Draft pending final preview review and connected-environment regression checks.
+
+## Immediate visual milestone
+
+On `feat/orange-visual-system-v1`, GPT Work must:
+
+1. audit the current route/component tree;
+2. document exact landing/app files and current constraints;
+3. implement orange design tokens and reusable shared components;
+4. evolve the real landing without breaking validated behavior;
+5. validate desktop/mobile;
+6. run typecheck/build and regression checks;
+7. keep a dated implementation changelog.
+
+## Immediate integration milestone
 
 A logged-in user opens:
 

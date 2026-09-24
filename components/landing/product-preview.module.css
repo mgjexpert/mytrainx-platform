@@ -1,0 +1,14 @@
+.coachCard{padding:22px;background:linear-gradient(145deg,#14191f,#090b0e);box-shadow:0 30px 80px #0009}
+.previewTop{display:flex;justify-content:space-between;gap:16px;align-items:center;padding-bottom:18px;border-bottom:1px solid var(--color-border)}
+.previewTop>div{display:flex;align-items:center;gap:10px}.previewTop strong{font-size:.9rem}
+.xMark{width:34px;height:34px;display:grid;place-items:center;border-radius:6px;background:var(--color-orange);color:#08090a;font:800 1.2rem/1 var(--font-display)}
+.thread{padding-top:18px;display:grid;gap:14px}.thread p{margin:0}
+.user{justify-self:end;max-width:72%;padding:12px 14px;background:#222932;border-radius:8px;color:var(--color-secondary);font-size:.88rem}
+.reply{max-width:86%;padding:16px;border:1px solid #ff4b0a44;border-radius:8px;background:#ff4b0a09;display:grid;gap:5px}
+.reply>span{color:var(--color-highlight);font:400 .68rem/1.4 var(--font-micro);letter-spacing:.08em;text-transform:uppercase}
+.reply>strong{font-size:1.05rem}.reply>small{color:var(--color-muted)}
+.fakeActions{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.fakeActions>*{padding:7px 9px;border:1px solid var(--color-border);border-radius:4px;color:var(--color-secondary);font-size:.7rem}.fakeActions b{border-color:#ff4b0a66;color:var(--color-highlight)}
+.command{padding:26px;border:1px solid var(--color-border);background:linear-gradient(180deg,#0e1216,#090b0e);border-radius:10px;box-shadow:0 30px 80px #0008}
+.commandHead{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:18px}.commandHead>div{display:grid}.commandHead small{color:var(--color-highlight);font:400 .68rem/1.5 var(--font-micro);letter-spacing:.14em}.commandHead strong{font:800 2rem/1 var(--font-display)}
+.commandGrid{display:grid;grid-template-columns:1.2fr 1fr;gap:10px}.commandGrid article{box-shadow:none}.commandGrid article>small{display:block;color:var(--color-highlight);font:400 .62rem/1.4 var(--font-micro);letter-spacing:.12em}.commandGrid article>strong{display:block;margin:13px 0 6px;font-size:1rem}.commandGrid article p{margin:0;color:var(--color-muted);font-size:.78rem;line-height:1.55}.training{grid-row:span 2;min-height:220px;background:radial-gradient(circle at 20% 20%,#ff4b0a18,transparent 44%),var(--color-surface)}
+@media(max-width:700px){.previewTop,.commandHead{align-items:flex-start;flex-direction:column}.user,.reply{max-width:94%}.commandGrid{grid-template-columns:1fr}.training{grid-row:auto;min-height:auto}}
