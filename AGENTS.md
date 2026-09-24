@@ -109,19 +109,29 @@ Connector/MCP access may not be available to every agent. If unavailable, do not
 
 Use approved assets from the creative track.
 
+Current primary direction:
+
+> **BLACK PERFORMANCE SYSTEM + MYTRAINX ORANGE**
+
 Core visual language:
 
-- black / charcoal
-- neon green
-- premium athletic photography
+- black / charcoal / graphite foundations
+- controlled proprietary MyTrainX orange as the primary brand accent
+- premium realistic athletic photography
 - dense command-center modules
-- restrained glows
-- sharp 4–8px radii
+- restrained warm orange glows
+- sharp 4–8px product radii
 - strong condensed display type
-- MyTrainX global brand is technological/performance-focused
+- MyTrainX global brand is technological / performance-focused / human
+- semantic green is reserved for genuine success states
+- MyTrainX Master may use restrained premium gold
 - military language is limited to the WKT program
 
-Do not produce a generic SaaS dashboard.
+The previous neon-green identity is **SUPERSEDED — STRUCTURE REFERENCE**. Preserve its information hierarchy where useful, not its primary brand color.
+
+Read `docs/design/MYTRAINX_VISUAL_SYSTEM_V1_ORANGE.json` and `docs/handoff/MYTRAINX_GPT_WORK_VISUAL_DIRECTION_V1.md` before visual implementation.
+
+Do not produce a generic SaaS dashboard or a local-gym website.
 
 ## AI Trainer safety
 
