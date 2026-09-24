@@ -67,7 +67,7 @@ Implementation branch:
 GPT Work must begin with the repository audit defined in:
 `docs/handoff/MYTRAINX_GPT_WORK_VISUAL_DIRECTION_V1.md`
 
-Then implement reusable foundations before landing/app page-specific work.
+Reusable foundations and the public landing are now implemented on the orange branch. Command Center/shared public/member chrome has also been converted to the orange system. PR #10 remains Draft pending final preview review and connected-environment regression checks.
 
 ## Immediate visual milestone
 
