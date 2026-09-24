@@ -22,6 +22,33 @@ This workstream can run independently from product/backend engineering.
 - social media identity
 - profile/banner assets
 - launch visual calendar
+- persona identity system
+- AI character profiles
+- community/social persona behavior
+
+## Persona system
+
+Canonical persona documentation lives in:
+
+`docs/creative/personas/`
+
+Current v0.1 team:
+
+- **Ana** — MyTrainX Concierge; support, subscriptions, onboarding, communication and community
+- **X / Coach X** — central Personal Trainer AI
+- **Axel** — Strength Coach
+- **Luna** — Transformation Coach
+- **Pulse** — Endurance Coach
+- **Vita** — Recovery Coach
+
+Read:
+
+- `personas/README.md`
+- `personas/PERSONA-BLUEPRINT-v0.1.md`
+- `personas/CHANNEL-ROUTING-v0.1.md`
+- `personas/personas.v0.1.json`
+
+The persona biographies are fictional design references. Public experiences must clearly disclose virtual/AI identity and must not present a persona as a real employee or fabricate credentials/actions.
 
 ## Handoff rule
 
@@ -33,6 +60,8 @@ When a visual is approved:
 3. record it in `ASSET-REGISTER.md`;
 4. mark status APPROVED;
 5. state which UI surface it governs.
+
+Persona behavior follows the same principle: a creative profile does not silently become a production prompt. Atendimento.Center owns operational agent prompt/version/runtime implementation.
 
 ## Design separation
 
@@ -46,3 +75,9 @@ WKT:
 - may retain military/mission language
 
 Do not spread military terminology across unrelated MyTrainX modules.
+
+## Open brand-color decision
+
+The current repository records black/charcoal + neon green as an approved product direction. A parallel social exploration introduced an orange performance accent.
+
+Until this is reconciled and versioned, persona master assets should remain compatible with a neutral dark base and should not hard-code persona-specific accent colors as final production identity.
