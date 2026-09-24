@@ -21,22 +21,22 @@ Routing should preserve conversation continuity and avoid exposing internal agen
 
 | Intent | Primary persona | Secondary / handoff |
 |---|---|---|
-| New visitor / “what is MyTrainX?” | Ana | X if training-specific |
-| Plans / subscription options | Ana | human support for exceptions |
-| Checkout / payment status | Ana | authoritative payment tool / human |
-| Refund / disputed payment | Ana | human support |
-| Account access / platform help | Ana | human support if unresolved |
-| Onboarding | Ana | X after goals/context captured |
+| New visitor / “what is MyTrainX?” | Sara | X if training-specific |
+| Plans / subscription options | Sara | human support for exceptions |
+| Checkout / payment status | Sara | authoritative payment tool / human |
+| Refund / disputed payment | Sara | human support |
+| Account access / platform help | Sara | human support if unresolved |
+| Onboarding | Sara | X after goals/context captured |
 | “What is my workout today?” | X | specialist when appropriate |
 | General training plan explanation | X | specialist |
 | Strength / hypertrophy | Axel | X |
 | Weight-management support / adherence | Luna | X |
 | Cardio / running / conditioning | Pulse | X |
 | Mobility / recovery / readiness | Vita | X |
-| Community announcement | Ana | coaches for technical content |
-| Social media general reply | Ana | relevant coach |
+| Community announcement | Sara | coaches for technical content |
+| Social media general reply | Sara | relevant coach |
 | Medical diagnosis / acute symptoms | none | safe boundary + appropriate health professional |
-| Legal / privacy request | Ana | human support / product owner as required |
+| Legal / privacy request | Sara | human support / product owner as required |
 
 ---
 
@@ -44,9 +44,9 @@ Routing should preserve conversation continuity and avoid exposing internal agen
 
 ### Website public chat
 
-Default entry: **Ana**
+Default entry: **Sara / Sara-assisted reception**
 
-Ana determines whether the conversation is:
+Sara determines whether the conversation is:
 
 - commercial;
 - support;
@@ -60,40 +60,40 @@ Training intent moves to X.
 
 Default entry: **X**
 
-The member entered a training-specific surface, so do not force an Ana greeting first.
+The member entered a training-specific surface, so do not force an Sara greeting first.
 
-Ana remains available through support/help.
+Sara remains available through support/help.
 
 ### WhatsApp 1:1
 
-Default entry: **Ana**
+Default entry: **Sara**
 
 Reasons:
 
 - WhatsApp commonly mixes support, commercial and product questions;
 - identity and entitlement may need resolution;
-- Ana is the relationship layer.
+- Sara is the relationship layer.
 
-When training intent is clear and identity/context is resolved, Ana introduces X.
+When training intent is clear and identity/context is resolved, Sara introduces X.
 
 ### Facebook / Instagram DMs
 
-Default entry: **Ana**
+Default entry: **Sara**
 
 Coaches can enter when the user asks a domain-specific fitness question.
 
 ### Public comments
 
-Default author: **Ana · MyTrainX Team**
+Default author: **Sara · MyTrainX Team**
 
 If the post is explicitly hosted by a coach, that coach may reply in-character.
 
 ### Community
 
-- moderation/welcome/announcements → Ana;
+- moderation/welcome/announcements → Sara;
 - general fitness thread → X;
 - specialty thread → specialist;
-- unresolved conflict/account issue → Ana/human.
+- unresolved conflict/account issue → Sara/human.
 
 ---
 
@@ -109,13 +109,13 @@ A handoff must include:
 
 Example:
 
-> Ana: “Essa parte já é de treino. Vou chamar o X e passar-lhe o contexto do teu objetivo para não teres de repetir tudo.”
+> Sara: “Essa parte já é de treino. Vou chamar o X e passar-lhe o contexto do teu objetivo para não teres de repetir tudo.”
 
 Internal payload concept:
 
 ```json
 {
-  "from": "ana_concierge",
+  "from": "sara_concierge",
   "to": "coach_x",
   "reason": "training_intent",
   "conversation_context_ref": "...",
@@ -154,7 +154,7 @@ The specialist should not silently replace the member’s main coach.
 
 ---
 
-## 6. Ana routing logic
+## 6. Sara routing logic
 
 Route to X when intent includes:
 
@@ -166,7 +166,7 @@ Route to X when intent includes:
 - performance;
 - training schedule.
 
-Keep with Ana when intent includes:
+Keep with Sara when intent includes:
 
 - product;
 - plan;
@@ -271,8 +271,8 @@ Do not create separate duplicate agents purely for language.
 Example:
 
 ```
-ana_concierge + locale=pt-PT
-ana_concierge + locale=pt-BR
+sara_concierge + locale=pt-PT
+sara_concierge + locale=pt-BR
 ```
 
 ---
@@ -283,12 +283,12 @@ Recommended automation pipeline:
 
 ```
 content idea
-  -> Ana editorial orchestration
+  -> Sara editorial orchestration
   -> relevant coach contribution
   -> brand/safety rules
   -> approval policy
   -> publish
-  -> Ana monitors comments/DM
+  -> Sara monitors comments/DM
   -> coach routed when technical
   -> human escalated when required
 ```
@@ -335,11 +335,11 @@ Every routed agent run should be traceable with:
 ### A. Instagram lead
 
 1. User replies to a Reel: “Quanto custa?”
-2. Ana answers from current plan data.
+2. Sara answers from current plan data.
 3. User asks whether program works for home training.
-4. Ana introduces X.
+4. Sara introduces X.
 5. X checks product/training context and answers.
-6. Ana can return for checkout/subscription help.
+6. Sara can return for checkout/subscription help.
 
 ### B. Member in App
 
@@ -353,9 +353,9 @@ Every routed agent run should be traceable with:
 ### C. Payment complaint
 
 1. User contacts WhatsApp.
-2. Ana checks authoritative transaction/subscription state.
-3. If standard resolution exists, Ana explains/executes approved action.
-4. If dispute/exception, Ana escalates to human support with context.
+2. Sara checks authoritative transaction/subscription state.
+3. If standard resolution exists, Sara explains/executes approved action.
+4. If dispute/exception, Sara escalates to human support with context.
 
 ---
 
@@ -363,7 +363,7 @@ Every routed agent run should be traceable with:
 
 Before production routing:
 
-- [ ] Ana correctly distinguishes support vs fitness intent.
+- [ ] Sara correctly distinguishes support vs fitness intent.
 - [ ] X handles the first C1 vertical slice.
 - [ ] Handoffs preserve context.
 - [ ] Locale changes do not alter persona identity.
