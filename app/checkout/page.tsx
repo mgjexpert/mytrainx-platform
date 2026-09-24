@@ -27,7 +27,7 @@ export default function CheckoutPage() {
         </section>
         <section className="checkoutPayment">
           <div className="paymentTitle"><span>FORMA DE PAGAMENTO</span><b>PIX</b></div>
-          <CheckoutForm />
+          <CheckoutForm live={process.env.XPAYMENTS_MODE === "live" && Boolean(process.env.XPAYMENTS_API_KEY)} />
         </section>
       </div>
     </main>
