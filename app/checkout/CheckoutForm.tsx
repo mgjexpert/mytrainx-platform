@@ -1,27 +1,28 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 type Pix = { paymentId: string; status: string; copyPaste: string; qrCodeImage?: string };
 
 const TRACKING_KEYS = ["src","utm_source","utm_medium","utm_campaign","utm_content","utm_term","fbclid","gclid","ttclid"];
 
 export function CheckoutForm() {
-  const searchParams = useSearchParams();
   const [pix, setPix] = useState<Pix | null>(null);
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState("");
 
-  const source = useMemo(() => {
+  const [source, setSource] = useState<Record<string,string>>({});
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
     const entries: Record<string,string> = {};
     for (const key of TRACKING_KEYS) {
-      const value = searchParams.get(key);
+      const value = params.get(key);
       if (value) entries[key] = value;
     }
-    return entries;
-  }, [searchParams]);
+    setSource(entries);
+  }, []);
 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
