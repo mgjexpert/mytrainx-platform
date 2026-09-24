@@ -136,3 +136,20 @@ Do not spread military treatment to:
 - Master
 - other programs
 - global MyTrainX navigation
+
+## Phase 1 implementation — 2026-09-24
+
+Status: **IN REVIEW**, within Draft PR #10. Canonical values are now implemented in `app/globals.css` as `--color-*`, `--font-*`, `--radius-*`, `--space-*`, `--shadow-*` and `--motion-*` tokens. Legacy `--green` names are temporary compatibility aliases to orange; hardcoded legacy member/WKT styling is a separate Phase 3 conversion.
+
+| Reusable surface | Implementation |
+|---|---|
+| Button / navigation CTA | `components/ui/primitives.tsx` — `Button`, `ButtonLink`; primary, secondary, quiet and Master variants |
+| Input / Card / Badge | Same module; disabled, invalid, loading and semantic state styles |
+| Page width / section titles | `Container`, `SectionHeading` — shared responsive gutter and condensed display roles |
+| Proprietary brand | `components/MyTrainXLogo.tsx` — supplied wordmark and compact X, no CSS/font redraw |
+| Type | Local Inter variable, Barlow Condensed 700/800, Space Mono 400; `next/font/local`; no runtime font CDN |
+| PWA | Raster 192/512 icons; 32 favicon; 180 Apple icon; charcoal theme and existing `/app` entry |
+
+Primary orange buttons use black text for contrast. Focus rings use the brighter highlight with an offset; motion respects reduced-motion preferences. `Badge` success is reserved for verified success; development previews use neutral/brand badges. Links retain link semantics; loading/disabled behavior belongs to buttons.
+
+Asset provenance and unresolved production artwork are listed in `../creative/ASSET-REGISTER.md`. The landing will use the symbolic Coach X mode and an explicit text placeholder for Sara until a standalone approved portrait is available.
