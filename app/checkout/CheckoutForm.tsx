@@ -6,7 +6,7 @@ type Pix = { paymentId: string; status: string; copyPaste: string; qrCodeImage?:
 
 const TRACKING_KEYS = ["src","utm_source","utm_medium","utm_campaign","utm_content","utm_term","fbclid","gclid","ttclid"];
 
-export function CheckoutForm() {
+export function CheckoutForm({ live }: { live: boolean }) {
   const [pix, setPix] = useState<Pix | null>(null);
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -54,6 +54,18 @@ export function CheckoutForm() {
     if (!pix?.copyPaste) return;
     await navigator.clipboard.writeText(pix.copyPaste);
     setCopied(true);
+  }
+
+  if (!live) {
+    return (
+      <section className="payCard">
+        <span className="pill">ATENDIMENTO ASSISTIDO</span>
+        <h2>O PIX automático está em ativação.</h2>
+        <p className="payIntro">Para começar hoje sem usar um PIX de teste, fale com a receção MyTrainX. A Sara pode orientar o acesso e informar o fluxo disponível.</p>
+        <a className="button full" href="https://wa.me/5562994091930?text=Ol%C3%A1%20Sara%2C%20quero%20come%C3%A7ar%20o%20WKT%20Militar." target="_blank" rel="noreferrer">Falar com a Sara no WhatsApp →</a>
+        <small>Nenhuma cobrança é gerada nesta tela enquanto a integração live da XPayments não estiver ativa.</small>
+      </section>
+    );
   }
 
   return (
