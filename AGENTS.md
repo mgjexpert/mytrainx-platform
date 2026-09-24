@@ -2,6 +2,20 @@
 
 This file is mandatory reading for any AI coding agent or developer working in this repository.
 
+## Mandatory startup sequence
+
+Before changing code:
+
+1. Read `docs/README.md`.
+2. Read `docs/status/CURRENT.md`.
+3. Read `docs/governance/OWNERSHIP.md`.
+4. Read `docs/roadmap/MASTER-ROADMAP.md`.
+5. Identify the stage you are implementing.
+6. Read relevant ADRs.
+7. Fetch current `main` and verify there is no overlapping active work.
+
+Do not infer current architecture from an old chat alone.
+
 ## Mission
 
 Build **MyTrainX** as a premium AI-first fitness platform.
@@ -22,13 +36,33 @@ The product hierarchy is:
 - Do not make destructive changes to the production WKT repository as part of MyTrainX work.
 - Preserve all verified Google Drive workout IDs.
 
+## Agent-platform boundary
+
+MyTrainX does **not** own the shared Agent Runtime.
+
+Target architecture:
+
+```
+MyTrainX UI / Backend
+  -> Atendimento.Center Agent Gateway
+  -> Agent Runtime / Trainer X
+  -> approved tool
+  -> MyTrainX Internal API
+  -> Supabase
+```
+
+MyTrainX owns fitness/domain rules and data. Atendimento.Center owns agent orchestration, conversations, operational memory, channels and handoff.
+
+Never give the LLM unrestricted direct database access.
+
 ## Branch and merge policy
 
 - Never implement substantial features directly on `main`.
-- Use `feat/mytrainx-<feature>`, `fix/<issue>`, or `chore/<task>`.
-- Run typecheck + build before opening a PR.
+- Use branch names documented in `docs/governance/WORKFLOW.md`.
+- Run typecheck + build before PR.
 - Preview must be checked before merge.
 - Do not merge if login, checkout or WKT playback regresses.
+- A merge is not automatically a VALIDATED stage.
 
 ## Security
 
@@ -36,19 +70,20 @@ The product hierarchy is:
 - Browser may use only Supabase publishable key.
 - Supabase secret key is server-only.
 - XPayments API key is server-only.
-- OpenAI/API provider keys are server-only.
-- Enable RLS on every exposed Supabase table.
+- AI/model provider keys are server-only.
+- Enable RLS on every exposed Supabase user-data table.
 - Do not use user-editable metadata for authorization.
-- Authorization must be based on verified auth identity + RLS/entitlements.
+- Authorization must be based on verified identity + explicit scopes/RLS/entitlements.
+- Agent tools must derive authoritative user identity from authenticated server context.
 
 ## Authentication
 
 Use Supabase Auth + `@supabase/ssr`.
 
 - Refresh session via Next.js 16 `proxy.ts`.
-- Use `getClaims()` / verified identity for protected rendering.
+- Use verified identity for protected rendering.
 - Preferred member flow: email Magic Link / OTP.
-- /app must ultimately require both authentication and valid entitlement/access.
+- `/app` must ultimately require authentication and valid product access where applicable.
 
 ## Payments
 
@@ -68,11 +103,11 @@ Dedicated MyTrainX project ref:
 
 `ltfecmiipwkvvrnzpbsg`
 
-Current connector/MCP access may not be available to every agent. If unavailable, do not invent database state. Work from schema docs and request/establish the correct project connection before applying DDL.
+Connector/MCP access may not be available to every agent. If unavailable, do not invent database state. Prepare versioned migration SQL and require execution/validation against the real project.
 
 ## Visual direction
 
-Use the approved MyTrainX references.
+Use approved assets from the creative track.
 
 Core visual language:
 
@@ -105,11 +140,14 @@ It must not:
 - replace physicians/physiotherapists
 - encourage dangerous/extreme protocols
 
-## First implementation phases
+## Current first integration target
 
-1. Brand shell + Supabase foundation
-2. Command Center
-3. WKT as program
-4. AI Trainer MVP
-5. Master / Library / Community / Events
-6. WhatsApp channel
+The first validated Agent milestone is:
+
+1. authenticated member opens `/app/trainer`;
+2. asks “Qual meu treino hoje?”;
+3. Atendimento.Center streams a Trainer X run;
+4. X invokes `get_today_workout`;
+5. MyTrainX authorizes and reads real data;
+6. X responds through SSE;
+7. conversation/run is persisted and traceable.
