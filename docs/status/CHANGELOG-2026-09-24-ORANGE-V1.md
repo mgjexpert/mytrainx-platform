@@ -77,5 +77,5 @@ GPT Work: inspect current implementation and commit the Phase 0 audit before lar
 - **Files:** `app/app/page.tsx`; `app/app/command.module.css`; `components/member-section.module.css`; `components/public-sections.module.css`; `app/trainer/page.tsx`.
 - **Changes:** migrated Command Center/member/public shared chrome from green-led visuals to the approved orange/graphite system; removed the false “X ONLINE” claim; changed unbacked progress figures to pending placeholders; changed “Today's Training” to a truthful next-training/catalogue framing; removed the unimplemented 12-week claim.
 - **Preserved:** session/auth logic, Supabase boundaries, XPayments, WKT player and Drive IDs were not changed.
-- **Validation:** landing deployment already READY; the newest Command Center/shared-style commits are being built by Vercel at the time of this changelog entry.
-- **Next action:** wait for latest preview deployment to reach READY, inspect visuals manually, then record final review findings. Keep PR #10 Draft and do not merge yet.
+- **Validation:** latest functional commit `26b5e5f129d63ea898fbc02de4a2d177f768862a` reached **READY** on Vercel. The protected preview root responds HTTP 200 when accessed through Vercel's authorized share flow.
+- **Next action:** inspect desktop/mobile visuals manually, verify authenticated login/WKT paths in a configured environment, then decide whether to request further visual adjustments. Keep PR #10 Draft and do not merge yet.
