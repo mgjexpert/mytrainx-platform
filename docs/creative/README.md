@@ -34,7 +34,7 @@ Canonical persona documentation lives in:
 
 Current v0.1 team:
 
-- **Ana** — MyTrainX Concierge; support, subscriptions, onboarding, communication and community
+- **Sara** — real human Concierge & Community; reception, subscriptions, onboarding, support, communication and community; may also have an AI-assisted Atendimento.Center instance
 - **X / Coach X** — central Personal Trainer AI
 - **Axel** — Strength Coach
 - **Luna** — Transformation Coach
@@ -48,7 +48,7 @@ Read:
 - `personas/CHANNEL-ROUTING-v0.1.md`
 - `personas/personas.v0.1.json`
 
-The persona biographies are fictional design references. Public experiences must clearly disclose virtual/AI identity and must not present a persona as a real employee or fabricate credentials/actions.
+Sara is a real human team member and must use only verified biography/identity information. X and the specialist coaches are AI personas. Atendimento.Center may run a Sara-assisted instance, but automation and direct human attendance must remain operationally distinguishable.
 
 ## Handoff rule
 
@@ -76,8 +76,12 @@ WKT:
 
 Do not spread military terminology across unrelated MyTrainX modules.
 
-## Open brand-color decision
+## Approved brand-color direction
 
-The current repository records black/charcoal + neon green as an approved product direction. A parallel social exploration introduced an orange performance accent.
+The primary visual direction is now:
 
-Until this is reconciled and versioned, persona master assets should remain compatible with a neutral dark base and should not hard-code persona-specific accent colors as final production identity.
+> **BLACK PERFORMANCE SYSTEM + MYTRAINX ORANGE**
+
+The previous neon-green system is **SUPERSEDED — STRUCTURE REFERENCE**. Preserve its strong Command Center hierarchy, but do not retain green as the primary brand identity. Semantic success green remains allowed.
+
+The full implementation source of truth is the versioned visual system and GPT Work handoff under `docs/design/` and `docs/handoff/`.
