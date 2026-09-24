@@ -36,7 +36,7 @@ No changes were made to:
 - Vercel preview for landing commit `85d38b109bb0a8bd041f0d37b73a509149cb2277` reached **READY**.
 - Vercel preview is configured on branch `feat/orange-visual-system-v1`.
 - Work's Phase 0 audit records successful baseline `npm run typecheck` and production build before UI edits.
-- Newer Command Center/shared-style commits require the latest Vercel build to reach READY before final merge review.
+- Latest functional commit `26b5e5f129d63ea898fbc02de4a2d177f768862a` reached **READY** on Vercel.
 
 ## Still requires human/connected-environment validation
 
@@ -72,8 +72,7 @@ These are not visual blockers and must stay separate:
 Do **not** merge automatically.
 
 PR #10 should remain Draft until:
-1. latest Vercel deployment is READY;
-2. visual preview is reviewed;
-3. no responsive regression is found;
-4. authentication/WKT paths are checked in an environment with the required credentials;
-5. Product Owner approves the visual result.
+1. visual preview is reviewed;
+2. no responsive regression is found;
+3. authentication/WKT paths are checked in an environment with the required credentials;
+4. Product Owner approves the visual result.
