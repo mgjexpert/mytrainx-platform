@@ -17,23 +17,17 @@ export default function CheckoutPage() {
           <h1>Escolha sua missão.</h1>
           <div className="planGrid">
             <article className="planCard activePlan">
-              <span className="planBadge">Mais popular</span><small>OPERAÇÃO 21</small><h2>21 treinos guiados</h2>
+              <span className="planBadge">WKT MILITAR</span><small>ACESSO 21</small><h2>21 treinos guiados</h2>
               <div className="planPrice">R$ <b>67</b><sup>,00</sup></div>
-              <ul><li>✓ 21 treinos em vídeo</li><li>✓ Acesso imediato</li><li>✓ Área do aluno</li><li>✓ Progresso por missão</li></ul>
+              <ul><li>✓ 21 treinos completos em vídeo</li><li>✓ Área autenticada MyTrainX</li><li>✓ Acesso pelo navegador/PWA</li><li>✓ Catálogo organizado por missões</li></ul>
               <span className="planSelected">SELECIONADO</span>
             </article>
-            <article className="planCard futurePlan">
-              <span className="planBadge mutedBadge">Em breve</span><small>OPERAÇÃO 12 SEMANAS</small><h2>Jornada completa</h2>
-              <div className="planPrice faded">R$ <b>97</b><sup>,00</sup></div>
-              <ul><li>✓ Agenda de 12 semanas</li><li>✓ Check-ins de progresso</li><li>✓ Conquistas e desafios</li><li>✓ Bônus exclusivos</li></ul>
-              <span className="planDisabled">EM BREVE</span>
-            </article>
           </div>
-          <div className="secureNote">✓ Ambiente seguro • PIX processado via XPayments</div>
+          <div className="secureNote">PIX preparado via XPayments • a confirmação live depende da configuração do ambiente</div>
         </section>
         <section className="checkoutPayment">
           <div className="paymentTitle"><span>FORMA DE PAGAMENTO</span><b>PIX</b></div>
-          <CheckoutForm />
+          <CheckoutForm live={process.env.XPAYMENTS_MODE === "live" && Boolean(process.env.XPAYMENTS_API_KEY)} />
         </section>
       </div>
     </main>
