@@ -1,1 +1,475 @@
-The requested file reference is not currently visible. Use files.search or files.list to rediscover the file, then retry with a returned ref_id or file_id.
+{
+  "project": {
+    "name": "MyTrainX",
+    "repository": "mgjexpert/mytrainx-platform",
+    "visual_system_version": "1.0-orange",
+    "direction_date": "2026-09-24",
+    "direction_status": "APPROVED_DIRECTION",
+    "product_category": "Premium AI-first digital fitness ecosystem",
+    "product_definition": "A personal operating system for physical evolution",
+    "canonical_brand": "MyTrainX",
+    "master_tagline": "FIND YOUR X.",
+    "core_promise": "Treino inteligente. Evolução real.",
+    "primary_ai_product": {
+      "name": "Coach X",
+      "alternate_name": "X",
+      "descriptor": "Your Personal AI Trainer"
+    },
+    "human_layer": {
+      "primary_person": "Sara",
+      "title": "Concierge & Community",
+      "concept": "X cuida do treino. Sara cuida da relação."
+    }
+  },
+  "source_precedence": [
+    "Current GitHub repository architecture and governance",
+    "This orange visual system + GPT Work handoff",
+    "Approved orange landing/site mockup",
+    "Approved Team mockup + real Sara references",
+    "Existing implementation",
+    "Old green MyTrainX mockups as structural reference only"
+  ],
+  "non_negotiable_product_rules": {
+    "mytrainx_is": [
+      "AI-first fitness ecosystem",
+      "personalized training platform",
+      "program platform",
+      "progress system",
+      "community platform",
+      "premium digital performance product"
+    ],
+    "mytrainx_is_not": [
+      "traditional gym website",
+      "local gym brand",
+      "generic SaaS dashboard",
+      "generic personal trainer site",
+      "bodybuilding-only parent brand",
+      "military parent brand"
+    ],
+    "central_product": "Coach X",
+    "wkt_role": "First structured paid training program inside MyTrainX",
+    "military_language_scope": "WKT only",
+    "preserve": [
+      "Atendimento.Center ownership boundary",
+      "authentication architecture",
+      "payments architecture",
+      "validated WKT behavior"
+    ]
+  },
+  "brand": {
+    "wordmark": {
+      "text": "MyTrainX",
+      "mytrain": "near-white",
+      "x": "proprietary angular orange X",
+      "rules": [
+        "Do not replace proprietary X with generic typeface X",
+        "Retain angular X geometry",
+        "Green is not the primary brand color"
+      ]
+    },
+    "symbol": {
+      "name": "X",
+      "roles": [
+        "brand icon",
+        "AI marker",
+        "favicon",
+        "PWA/app icon",
+        "loader",
+        "watermark",
+        "active-system motif"
+      ],
+      "gradient": [
+        "#B92B00",
+        "#FF4B0A",
+        "#FF641A",
+        "#FF8A35"
+      ]
+    },
+    "messaging": {
+      "master_tagline": "FIND YOUR X.",
+      "core_promise": "Treino inteligente. Evolução real.",
+      "ai_descriptor": "Your Personal AI Trainer",
+      "approved_campaign_language": [
+        "PLAN. TRAIN. EVOLVE.",
+        "TRAIN. EVOLVE. REPEAT.",
+        "Mais disciplina. Mais evolução.",
+        "O teu próximo nível começa aqui.",
+        "Mais um treino. Mais perto do teu X.",
+        "O plano adapta-se. O objetivo mantém-se."
+      ],
+      "rule": "Communicate AI through user benefit rather than technical novelty."
+    }
+  },
+  "colors": {
+    "foundation": {
+      "black_core": "#050607",
+      "obsidian": "#090B0E",
+      "surface_01": "#0E1216",
+      "surface_02": "#14191F",
+      "surface_elevated": "#1B2128",
+      "border": "#29313A"
+    },
+    "text": {
+      "primary": "#F7F8F8",
+      "secondary": "#CBD0D4",
+      "muted": "#929CA5",
+      "disabled": "#626D76"
+    },
+    "brand": {
+      "orange_primary": "#FF4B0A",
+      "orange_action": "#FF641A",
+      "orange_highlight": "#FF8A35",
+      "orange_deep": "#B92B00"
+    },
+    "semantic": {
+      "success": "#37D67A",
+      "info": "#4C9BFF",
+      "warning": "#FFB020",
+      "error": "#EA4B4B",
+      "master_gold": "#E6D36B"
+    },
+    "usage": {
+      "orange_target_percentage": "8-12%",
+      "orange_for": [
+        "X",
+        "primary CTA",
+        "active state",
+        "primary progression",
+        "important highlight"
+      ],
+      "rule": "Orange is an accent/identity signal, not the dominant page background."
+    }
+  },
+  "typography": {
+    "display": {
+      "family": "Barlow Condensed",
+      "fallback": "Barlow Semi Condensed",
+      "weights": [
+        600,
+        700,
+        800,
+        900
+      ]
+    },
+    "ui": {
+      "family": "Inter",
+      "weights": [
+        400,
+        500,
+        600,
+        700,
+        800
+      ]
+    },
+    "micro": {
+      "family": "Space Mono",
+      "weights": [
+        400,
+        700
+      ],
+      "rule": "Use sparingly for telemetry/status labels."
+    }
+  },
+  "visual_language": {
+    "keywords": [
+      "cinematic",
+      "premium",
+      "athletic",
+      "technological",
+      "human",
+      "performance-focused",
+      "data-aware",
+      "high contrast",
+      "disciplined",
+      "confident"
+    ],
+    "avoid": [
+      "generic SaaS",
+      "cheap neon overload",
+      "gaming aesthetic",
+      "generic gym website",
+      "bodybuilding-only identity",
+      "military parent-brand treatment",
+      "excessive soft cards",
+      "cartoon fitness graphics"
+    ],
+    "surface_style": {
+      "background": "dark graphite and black",
+      "borders": "thin neutral graphite",
+      "glow": "restrained warm orange",
+      "texture": "subtle matte/metal/carbon/photographic grain",
+      "glass": "restrained; AI/data overlays only"
+    }
+  },
+  "photography": {
+    "style": "Cinematic realistic premium fitness photography",
+    "lighting": [
+      "low key",
+      "warm orange practical lights",
+      "rim light",
+      "deep blacks",
+      "controlled highlights"
+    ],
+    "qualities": [
+      "realistic skin",
+      "realistic sweat",
+      "realistic anatomy",
+      "physical effort",
+      "motion",
+      "depth",
+      "negative space for copy"
+    ],
+    "subjects": [
+      "women",
+      "men",
+      "strength",
+      "functional",
+      "cardio",
+      "running",
+      "mobility",
+      "recovery",
+      "different fitness levels"
+    ],
+    "avoid": [
+      "fake stock smiles",
+      "athletes looking identical",
+      "AI-looking faces",
+      "impossible anatomy",
+      "only hyper-muscular physiques"
+    ]
+  },
+  "sara": {
+    "type": "real_person",
+    "role": "Concierge & Community",
+    "reception_whatsapp": "+55 (62) 99409-1930",
+    "brand_function": [
+      "onboarding",
+      "welcome",
+      "support",
+      "customer relationship",
+      "community",
+      "orientation",
+      "human handoff"
+    ],
+    "must_not_be": [
+      "Coach X",
+      "primary AI persona",
+      "main landing hero",
+      "generic generated model"
+    ],
+    "identity_preservation": {
+      "strict": true,
+      "preserve": [
+        "face geometry",
+        "eyes",
+        "eyebrows",
+        "nose",
+        "mouth",
+        "jawline",
+        "skin tone",
+        "apparent age",
+        "hair",
+        "realistic body proportions",
+        "visible tattoos"
+      ],
+      "avoid": [
+        "body idealization",
+        "oversized arms",
+        "bodybuilder proportions",
+        "face redesign",
+        "excessive beautification",
+        "identity drift"
+      ]
+    },
+    "preferred_copy": {
+      "name": "SARA",
+      "title": "CONCIERGE & COMMUNITY",
+      "quote": "Precisas de ajuda? Estou por aqui.",
+      "cta": "FALAR COM A SARA"
+    }
+  },
+  "landing": {
+    "goal": "Explain MyTrainX, show the real digital product, build desire, and drive registration/program exploration.",
+    "page_feeling": "Marketing storytelling around a real digital fitness operating system.",
+    "sections": [
+      "Header — Coach X / Programas / Progresso / Comunidade / Master + Entrar + Começar agora",
+      "Hero — FIND YOUR X. / Treino inteligente. Evolução real. / X ONLINE / product UI overlay",
+      "Ecosystem strip — AI Trainer / Programas / Performance / Community",
+      "Coach X — conversational UI + contextual action cards, not generic chatbot",
+      "Command Center preview — Today's Training / Streak / Consistency / Active Program / Progress / Coach Recommendation",
+      "Programs — WKT Militar primary; HIIT Pro/Core 30/Calisthenics future",
+      "Progress — DATA -> INTERPRETATION -> ACTION",
+      "Human layer — Sara / Concierge & Community / support/onboarding/community",
+      "Community — groups/challenges/events/rankings/interactions",
+      "MyTrainX Master — graphite + restrained gold",
+      "Final CTA — PRONTO PARA ENCONTRAR O TEU X?",
+      "Footer — FIND YOUR X. / TRAIN · EVOLVE · BELONG"
+    ],
+    "rules": [
+      "Digital product + fitness must be immediate",
+      "Sara must not dominate hero",
+      "Do not hardcode demo metrics as factual claims",
+      "Military language restricted to WKT"
+    ]
+  },
+  "app": {
+    "design_concept": "Premium fitness command center",
+    "structural_reference": "Original green Command Center mockup; structure only",
+    "visual_conversion": {
+      "green_cta": "orange",
+      "green_active_border": "orange",
+      "green_x": "orange",
+      "green_glow": "restrained warm orange",
+      "green_background_tint": "neutral graphite",
+      "success": "semantic green",
+      "master": "gold"
+    },
+    "desktop_hierarchy": [
+      "Coach X hero",
+      "Progress",
+      "Today's Training",
+      "My Programs",
+      "MyTrainX Master",
+      "Library & Resources",
+      "Community / Events"
+    ],
+    "mobile_priority": [
+      "Coach X",
+      "Today's Training",
+      "Progress",
+      "Programs",
+      "Community",
+      "Master",
+      "Library"
+    ],
+    "mobile_navigation": [
+      "Home",
+      "Treino",
+      "Coach X",
+      "Progresso",
+      "Perfil"
+    ]
+  },
+  "ui_system": {
+    "spacing": [
+      4,
+      8,
+      12,
+      16,
+      24,
+      32,
+      48,
+      64
+    ],
+    "radius": {
+      "product_xs": 4,
+      "product_sm": 6,
+      "product_md": 8,
+      "marketing_md": 10,
+      "marketing_lg": 14,
+      "pill": 999
+    },
+    "components": [
+      "Button",
+      "IconButton",
+      "Input",
+      "Search",
+      "Card",
+      "MetricCard",
+      "WorkoutCard",
+      "ProgramCard",
+      "ProgressRing",
+      "Chart",
+      "Tabs",
+      "Sidebar",
+      "BottomNav",
+      "Avatar",
+      "Badge",
+      "CoachMessage",
+      "CoachActionCard",
+      "Modal",
+      "Drawer",
+      "BottomSheet",
+      "Toast",
+      "Skeleton",
+      "EmptyState"
+    ]
+  },
+  "motion": {
+    "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+    "duration_ms": {
+      "fast": 160,
+      "standard": 240,
+      "slow": 420
+    },
+    "recommended": [
+      "X reveal",
+      "progress fill",
+      "chart draw",
+      "number count-up",
+      "subtle CTA glow",
+      "card elevation",
+      "exercise completion"
+    ],
+    "avoid": [
+      "constant pulsing",
+      "excessive particles",
+      "gaming effects",
+      "large workout parallax",
+      "slow blocking transitions"
+    ]
+  },
+  "data_integrity": {
+    "never_present_demo_data_as_real": true,
+    "prohibited_unless_verified": [
+      "member counts",
+      "completed workout totals",
+      "star ratings",
+      "testimonial claims",
+      "performance improvement claims",
+      "physical MyTrainX locations"
+    ]
+  },
+  "implementation": {
+    "workflow": [
+      "read governance",
+      "fetch current main",
+      "check concurrent work",
+      "use feature branch",
+      "implement tokens",
+      "implement shared components",
+      "update landing",
+      "update app theme",
+      "validate responsive",
+      "run typecheck",
+      "run build",
+      "validate login",
+      "validate WKT playback",
+      "validate checkout if touched",
+      "open/maintain PR",
+      "preview before merge"
+    ],
+    "do_not": [
+      "substantial work on main",
+      "change architecture just to match mockup",
+      "hardcode unsupported claims",
+      "change Atendimento.Center ownership",
+      "break WKT/auth/payments",
+      "commit secrets"
+    ]
+  },
+  "acceptance_criteria": [
+    "Landing reads as digital MyTrainX product, not a gym",
+    "Coach X is central",
+    "Landing visually connects to app",
+    "Orange controlled at 8-12%",
+    "Proprietary X consistent",
+    "Sara clearly human support",
+    "WKT remains a program",
+    "Military language does not leak",
+    "Command Center hierarchy preserved",
+    "Demo metrics never presented as factual claims",
+    "Desktop/mobile coherent",
+    "Premium athletic technological human feeling"
+  ]
+}
