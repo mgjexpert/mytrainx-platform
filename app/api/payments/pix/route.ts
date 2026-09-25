@@ -28,8 +28,6 @@ export async function POST(request: Request) {
 
   const reference =
     `MTX-WKT-${Date.now()}-${randomUUID().slice(0, 8).toUpperCase()}`;
-  const mode = process.env.XPAYMENTS_MODE || "mock";
-
   if (!process.env.SUPABASE_SECRET_KEY) {
     return NextResponse.json(
       { error: "Checkout indisponível: backend de pedidos não configurado." },
