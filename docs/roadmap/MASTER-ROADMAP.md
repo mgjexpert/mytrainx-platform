@@ -1,7 +1,7 @@
 # MyTrainX Master Development Roadmap
 
-**Roadmap version:** 1.0  
-**Reviewed:** 2026-09-24
+**Roadmap version:** 1.1  
+**Reviewed:** 2026-09-25
 
 ## Track A — MyTrainX Product/Data
 
@@ -75,7 +75,7 @@ Status: CONTINUOUS
 ## Track E — Content & Knowledge
 
 ### E1 — Content Registry & Drive Inventory
-Status: PLANNED
+Status: IN PROGRESS
 Deliver:
 - canonical content registry
 - Drive/source inventory
@@ -102,6 +102,36 @@ Deliver:
 - educational resource catalogue
 - user-facing library integration
 - AI retrieval with source/access rules
+
+### E4 — Library Product Surface
+Status: PLANNED
+Deliver:
+- public /biblioteca
+- authenticated /app/biblioteca
+- collection pages
+- continue/saved/owned state
+- entitlement-aware search
+- exercise encyclopedia surface
+- MyTrainX Kitchen surface
+
+### E5 — Original Content Factory
+Status: PLANNED
+Deliver:
+- MyTrainX Start
+- Core 21
+- Home 30
+- HIIT pathways
+- Calisthenics Foundations
+- Nutrition Fundamentals
+- MyTrainX Kitchen launch set
+- Habits 360
+- repeatable editorial/review/production workflow
+
+Canonical V2 product architecture:
+`docs/product/MYTRAINX-LIBRARY-SYSTEM-V2.md`
+
+Data operations:
+`mgjexpert/mytrainx-data` -> `docs/LIBRARY-OPERATING-MODEL-V2.md`
 
 ## Track D — Creative / Go-to-market
 
