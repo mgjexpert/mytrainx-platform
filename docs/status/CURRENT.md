@@ -69,6 +69,14 @@ Live Supabase foundation now includes:
 
 Data manifests and ingestion tooling are developed separately in `mgjexpert/mytrainx-data` on `feat/library-registry-v1`.
 
+Library V2 is now the canonical product direction:
+- product architecture: `docs/product/MYTRAINX-LIBRARY-SYSTEM-V2.md`;
+- data operating model: `mytrainx-data/docs/LIBRARY-OPERATING-MODEL-V2.md`;
+- master acquisition plan: `mytrainx-data/manifests/library/library-master-plan.v1.json`;
+- taxonomy: `mytrainx-data/taxonomy/library-taxonomy.v2.json`.
+
+The library target now explicitly includes public/member surfaces, Exercise Encyclopedia, MyTrainX Kitchen, learning paths, individually sold digital products, Master collections, program resources and entitlement-aware Coach X retrieval.
+
 ### Track D — Creative / Product UI
 **APPROVED DIRECTION / IMPLEMENTATION START**
 
@@ -110,7 +118,11 @@ Do not continue building placeholder UX ahead of domain/tool foundations.
 4. define content registry and source inventory;
 5. implement A2 Internal Agent API contracts;
 6. implement Atendimento.Center B1 Agent Core;
-7. deliver C1 Coach X vertical slice.
+7. deliver C1 Coach X vertical slice;
+8. recursively inventory priority Drive content and PLR packages;
+9. validate package-level rights before any commercial reuse;
+10. seed canonical exercise and nutrition datasets from compatible open sources;
+11. prepare the first owned MyTrainX production set (Start, Kitchen, Nutrition Fundamentals).
 
 ## Immediate visual milestone
 
