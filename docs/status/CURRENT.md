@@ -69,6 +69,31 @@ GPT Work must begin with the repository audit defined in:
 
 Reusable foundations and the public landing are now implemented on the orange branch. Command Center/shared public/member chrome has also been converted to the orange system. PR #10 remains Draft pending final preview review and connected-environment regression checks.
 
+## Architecture realignment — V2
+
+Canonical realignment document:
+`docs/architecture/MYTRAINX-REALIGNMENT-V2.md`
+
+The project is now explicitly centered on:
+- conversational AI with layered memory;
+- structured programs such as WKT;
+- Library & Knowledge (ebooks, recipes, manuals, videos and other didactic materials);
+- entitlement-aware AI retrieval;
+- Supabase as domain source of truth;
+- Atendimento.Center as reusable Agent Runtime / conversation / operational-memory platform.
+
+Do not continue building placeholder UX ahead of domain/tool foundations.
+
+## Immediate P0 architecture milestone
+
+1. validate MyTrainX Supabase project access — project `oitfnnsfgaxcxqvizorw` is now connected and empty;
+2. implement A1 schema/RLS on `oitfnnsfgaxcxqvizorw`;
+3. migrate WKT catalogue into domain data;
+4. define content registry and source inventory;
+5. implement A2 Internal Agent API contracts;
+6. implement Atendimento.Center B1 Agent Core;
+7. deliver C1 Coach X vertical slice.
+
 ## Immediate visual milestone
 
 On `feat/orange-visual-system-v1`, GPT Work must:

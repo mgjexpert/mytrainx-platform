@@ -4,11 +4,11 @@
 
 Project ref:
 
-`ltfecmiipwkvvrnzpbsg`
+`oitfnnsfgaxcxqvizorw`
 
 Public URL:
 
-`https://ltfecmiipwkvvrnzpbsg.supabase.co`
+`https://oitfnnsfgaxcxqvizorw.supabase.co`
 
 Use the new publishable/secret key model.
 
@@ -94,3 +94,21 @@ Use `SUPABASE_SECRET_KEY` only in server-only code for:
 - admin workflows
 
 Never import the admin client into a Client Component.
+
+
+## Current Vercel environment — 2026-09-25
+
+Configured:
+- `NEXT_PUBLIC_SUPABASE_URL=https://oitfnnsfgaxcxqvizorw.supabase.co`
+- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+- `SUPABASE_SECRET_KEY`
+- `NEXT_PUBLIC_APP_URL=https://mytrainx.fit`
+- `WKT_PRICE_CENTS=6700` (temporary compatibility; product pricing should move to the products table)
+- `XPAYMENTS_MODE=mock`
+
+Intentionally not active yet:
+- `XPAYMENTS_API_KEY`
+- `XPAYMENTS_CHARGE_URL`
+- `XPAYMENTS_WEBHOOK_SECRET`
+
+`OPENAI_API_KEY` should not be required by the MyTrainX web application once Coach X runtime is delegated to Atendimento.Center. Keep model/provider credentials inside Atendimento.Center, not in the product frontend/backend, unless a narrow MyTrainX-owned server process explicitly needs them.

@@ -40,3 +40,10 @@ docs/
 - **SUPERSEDED** — replaced by a newer decision/version
 
 Never describe a feature as complete unless it is marked VALIDATED with evidence.
+
+
+## Architecture realignment V2
+
+Read `docs/architecture/MYTRAINX-REALIGNMENT-V2.md` before starting new product, AI, memory, content/library or Atendimento.Center integration work.
+
+The V2 realignment makes Content & Knowledge a first-class product/domain track and defines layered memory ownership between MyTrainX and Atendimento.Center.

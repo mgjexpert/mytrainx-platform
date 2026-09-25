@@ -72,6 +72,37 @@ Status: FUTURE / HIGH EXTERNAL RISK
 ### C8 — Scale & Observability
 Status: CONTINUOUS
 
+## Track E — Content & Knowledge
+
+### E1 — Content Registry & Drive Inventory
+Status: PLANNED
+Deliver:
+- canonical content registry
+- Drive/source inventory
+- access policy
+- AI index policy
+- WKT supporting materials inventory
+- ebook/manual/recipe inventory
+
+### E2 — Ingestion / Transcription / RAG
+Status: PLANNED
+Deliver:
+- PDF/text extraction
+- video transcription metadata
+- chunk/index pipeline
+- entitlement-aware retrieval
+- search_library
+- search_recipes
+- get_program_materials
+
+### E3 — Recipes & Educational Library
+Status: PLANNED
+Deliver:
+- structured recipe records
+- educational resource catalogue
+- user-facing library integration
+- AI retrieval with source/access rules
+
 ## Track D — Creative / Go-to-market
 
 Runs in parallel and does not block foundational backend work.
