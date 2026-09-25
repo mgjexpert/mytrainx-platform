@@ -86,8 +86,8 @@ Do not continue building placeholder UX ahead of domain/tool foundations.
 
 ## Immediate P0 architecture milestone
 
-1. validate MyTrainX Supabase project access;
-2. implement A1 schema/RLS;
+1. validate MyTrainX Supabase project access — project `oitfnnsfgaxcxqvizorw` is now connected and empty;
+2. implement A1 schema/RLS on `oitfnnsfgaxcxqvizorw`;
 3. migrate WKT catalogue into domain data;
 4. define content registry and source inventory;
 5. implement A2 Internal Agent API contracts;
