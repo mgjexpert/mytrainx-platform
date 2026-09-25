@@ -217,3 +217,98 @@ Before integration, publish:
 8. memory storage/write policy;
 9. observability/run trace structure;
 10. local/staging test instructions.
+
+
+## Implemented MyTrainX Internal API contract — V1
+
+The MyTrainX side now implements read-only internal endpoints:
+
+```
+GET /api/internal/agent/profile
+GET /api/internal/agent/entitlements
+GET /api/internal/agent/current-program
+GET /api/internal/agent/today-workout
+GET /api/internal/agent/progress-summary
+```
+
+Required scopes respectively:
+
+```
+profile:read
+entitlements:read
+program:read
+workout:read
+progress:read
+```
+
+### Signed request headers
+
+Atendimento.Center must send:
+
+```
+x-mtx-service: atendimento-center
+x-mtx-user-id: <Supabase auth user UUID>
+x-mtx-timestamp: <unix seconds>
+x-mtx-scope: <space/comma separated scopes>
+x-mtx-request-id: <unique request id>
+x-mtx-signature: <hex HMAC-SHA256>
+```
+
+Both systems share a server-only secret:
+
+```
+MYTRAINX_AGENT_SHARED_SECRET
+```
+
+The secret must exist in Vercel/MyTrainX server environment and in the Atendimento.Center server environment. Never expose it to the browser or model.
+
+### Canonical signature string
+
+Sort scopes lexically and join them with a single space, then sign:
+
+```
+<METHOD>
+<PATHNAME>
+<SERVICE>
+<USER_ID>
+<TIMESTAMP>
+<SORTED_SCOPES>
+<REQUEST_ID>
+```
+
+Example conceptual canonical value:
+
+```
+GET
+/api/internal/agent/today-workout
+atendimento-center
+550e8400-e29b-41d4-a716-446655440000
+178...
+entitlements:read workout:read
+req_...
+```
+
+Signature:
+
+```
+hex(HMAC-SHA256(MYTRAINX_AGENT_SHARED_SECRET, canonical_string))
+```
+
+MyTrainX rejects:
+- malformed headers;
+- services other than the configured service;
+- timestamp drift greater than 90 seconds;
+- missing required scope;
+- invalid signatures.
+
+V1 endpoints are read-only. Before adding mutation tools, introduce stronger replay/idempotency handling for request IDs.
+
+### today-workout behavior
+
+The WKT schedule is not yet persisted in `program_days`, so `today-workout` currently returns an explicit mode:
+
+- `no_active_program`
+- `next_available`
+- `program_complete`
+
+It must not pretend there is a calendar-derived “today” workout until the schedule model is populated.
