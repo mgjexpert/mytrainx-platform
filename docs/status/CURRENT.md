@@ -1,7 +1,7 @@
 # Current Project State
 
 **Project version:** 0.3.0-orange-v1-kickoff  
-**State date:** 2026-09-24  
+**State date:** 2026-09-25  
 **Overall status:** IN PROGRESS
 
 ## Product
@@ -50,6 +50,24 @@ Atendimento.Center Agent Core contract and runtime foundation.
 ### Track C — Integration
 Next objective:
 MyTrainX Internal API contract + first Trainer X vertical slice.
+
+### Track E — Content & Knowledge
+**IN PROGRESS**
+
+Implementation branch:
+`feat/content-knowledge-foundation-v1`
+
+Live Supabase foundation now includes:
+- canonical source registry and rights/review governance;
+- content collections and taxonomy;
+- per-user library state;
+- canonical exercises and progression relations;
+- food/nutrient entities and normalized recipe ingredients;
+- versioned knowledge documents/chunks for later entitlement-aware RAG;
+- initial inventory of the two supplied Google Drive roots;
+- quarantine/reference-only states so third-party or clinical material is not silently published.
+
+Data manifests and ingestion tooling are developed separately in `mgjexpert/mytrainx-data` on `feat/library-registry-v1`.
 
 ### Track D — Creative / Product UI
 **APPROVED DIRECTION / IMPLEMENTATION START**
