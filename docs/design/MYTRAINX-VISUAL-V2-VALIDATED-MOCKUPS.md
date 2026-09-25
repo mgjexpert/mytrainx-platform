@@ -278,3 +278,12 @@ Visual V2 is not complete until:
 This branch is stacked on `feat/domain-foundation-v1` so Visual V2 can proceed without waiting for the Atendimento.Center work.
 
 After PR #14 is merged, retarget the Visual V2 PR to `main`.
+
+
+## Google Drive creative source
+
+The validated creative/reference folder is indexed in:
+
+`docs/design/VISUAL-V2-DRIVE-ASSET-MAP.md`
+
+This Drive source is sufficient for design analysis and implementation planning. Production UI should use stable repository/CDN paths before merge.
