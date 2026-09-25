@@ -1,4 +1,5 @@
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
+import type { Database } from "@/lib/supabase/database.types";
 
 export function createAdminClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -8,7 +9,7 @@ export function createAdminClient() {
     throw new Error("Supabase server credentials are not configured.");
   }
 
-  return createSupabaseClient(url, secret, {
+  return createSupabaseClient<Database>(url, secret, {
     auth: {
       autoRefreshToken: false,
       persistSession: false,
