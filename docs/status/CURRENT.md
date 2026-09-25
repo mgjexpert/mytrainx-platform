@@ -126,3 +126,23 @@ X must:
 7. persist the agent conversation.
 
 This is the first full-system integration milestone.
+
+
+## Domain foundation update — 2026-09-25
+
+Supabase project `oitfnnsfgaxcxqvizorw` now contains the V1 MyTrainX domain schema with RLS and the validated WKT seed.
+
+Current foundation branch:
+`feat/domain-foundation-v1`
+
+Implemented in this branch:
+- domain schema + advisor fixes
+- WKT product/program/21-workout seed
+- generated TypeScript types
+- identity/purchase linking on auth callback
+- entitlement gating for WKT member routes
+- product price authority moved to Supabase
+- initial signed Internal Agent API
+- Atendimento.Center GPT implementation handoff
+
+Security advisor currently reports 0 findings.
