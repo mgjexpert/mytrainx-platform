@@ -1,39 +1,63 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { CheckoutForm } from "./CheckoutForm";
+import { formatPrice, getActiveProduct } from "@/lib/domain/products";
 
-export default function CheckoutPage() {
+export default async function CheckoutPage() {
+  const product = await getActiveProduct("wkt-militar");
+  if (!product?.price_cents) notFound();
+
+  const priceLabel = formatPrice(product.price_cents, product.currency);
+  const live =
+    process.env.XPAYMENTS_MODE === "live" &&
+    Boolean(process.env.XPAYMENTS_API_KEY);
+
   return (
     <main className="checkoutPage">
       <header className="checkoutHeader">
-        <Link className="brand brandStack" href="/"><span>OPERAÇÃO</span><b>WKT</b></Link>
+        <Link className="brand brandStack" href="/">
+          <span>MYTRAINX</span><b>WKT MILITAR</b>
+        </Link>
         <Link className="loginLink" href="/login">Já sou aluno</Link>
       </header>
+
       <div className="checkoutStepper" aria-label="Etapas da compra">
-        <span className="active"><b>1</b> Pagamento</span><i/><span><b>2</b> Acesso</span><i/><span><b>3</b> Comece hoje</span>
+        <span className="active"><b>1</b> Pagamento</span>
+        <i/>
+        <span><b>2</b> Acesso</span>
+        <i/>
+        <span><b>3</b> Primeiro treino</span>
       </div>
+
       <div className="checkoutWrap">
         <section className="checkoutOffer">
-          <span className="eyebrow">ESCOLHA SEU ACESSO</span>
-          <h1>Escolha sua missão.</h1>
+          <span className="eyebrow">WKT MILITAR</span>
+          <h1>21 treinos guiados.</h1>
           <div className="planGrid">
             <article className="planCard activePlan">
-              <span className="planBadge">Mais popular</span><small>OPERAÇÃO 21</small><h2>21 treinos guiados</h2>
-              <div className="planPrice">R$ <b>67</b><sup>,00</sup></div>
-              <ul><li>✓ 21 treinos em vídeo</li><li>✓ Acesso imediato</li><li>✓ Área do aluno</li><li>✓ Progresso por missão</li></ul>
+              <span className="planBadge">ACESSO ATUAL</span>
+              <small>WKT MILITAR</small>
+              <h2>21 sessões follow-along</h2>
+              <div className="planPrice">{priceLabel}</div>
+              <ul>
+                <li>✓ 21 treinos em vídeo</li>
+                <li>✓ Área autenticada MyTrainX</li>
+                <li>✓ Catálogo organizado por missões</li>
+                <li>✓ Acesso pelo navegador/PWA</li>
+              </ul>
               <span className="planSelected">SELECIONADO</span>
             </article>
-            <article className="planCard futurePlan">
-              <span className="planBadge mutedBadge">Em breve</span><small>OPERAÇÃO 12 SEMANAS</small><h2>Jornada completa</h2>
-              <div className="planPrice faded">R$ <b>97</b><sup>,00</sup></div>
-              <ul><li>✓ Agenda de 12 semanas</li><li>✓ Check-ins de progresso</li><li>✓ Conquistas e desafios</li><li>✓ Bônus exclusivos</li></ul>
-              <span className="planDisabled">EM BREVE</span>
-            </article>
           </div>
-          <div className="secureNote">✓ Ambiente seguro • PIX processado via XPayments</div>
+          <div className="secureNote">
+            {live
+              ? "PIX criado pelo backend MyTrainX via XPayments"
+              : "PIX automático ainda em ativação — atendimento assistido disponível"}
+          </div>
         </section>
+
         <section className="checkoutPayment">
           <div className="paymentTitle"><span>FORMA DE PAGAMENTO</span><b>PIX</b></div>
-          <CheckoutForm />
+          <CheckoutForm priceLabel={priceLabel} live={live} />
         </section>
       </div>
     </main>
