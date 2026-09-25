@@ -9,6 +9,7 @@ export function PublicHeader() {
       <nav>
         <Link href="/trainer">Trainer</Link>
         <Link href="/programas">Programs</Link>
+        <Link href="/library">Library</Link>
         <Link href="/master">Master</Link>
         <Link href="/community">Community</Link>
         <Link href="/login">Login</Link>
