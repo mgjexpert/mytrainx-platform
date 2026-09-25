@@ -1,8 +1,10 @@
 # Database Model & RLS
 
-This is the target schema design for the dedicated MyTrainX Supabase project.
+This document reflects the current domain schema for the dedicated MyTrainX Supabase project.
 
-**Do not apply DDL blindly.** When Supabase MCP access to project `ltfecmiipwkvvrnzpbsg` is available, inspect the real database first, then apply the schema incrementally and run security/performance advisors.
+**Project:** `oitfnnsfgaxcxqvizorw`
+
+The V1 domain foundation was applied on 2026-09-25 after confirming the project had no public domain tables. Canonical migrations live under `supabase/migrations/`.
 
 ## Core tables
 
@@ -155,36 +157,19 @@ RLS:
 RLS:
 - user owns progress row through user_id = auth.uid()
 
-## AI tables
+## Agent / conversation data
 
-### ai_conversations
+Agent conversations, runs, prompts and operational memory do **not** live in the MyTrainX Supabase domain by default.
 
-- id uuid PK
-- user_id uuid
-- channel text: web | whatsapp
-- title text nullable
-- created_at
-- updated_at
+They belong to Atendimento.Center.
 
-### ai_messages
-
-- id uuid PK
-- conversation_id uuid
-- user_id uuid
-- role text
-- content text
-- metadata jsonb
-- created_at
-
-RLS:
-- user_id must equal auth.uid()
-- no cross-user reads
+MyTrainX stores only authoritative product/domain context consumed through approved tools.
 
 Do not store sensitive medical diagnoses by default.
 
 ## Library & community
 
-### library_items
+### content_items
 
 - id uuid PK
 - slug unique
@@ -231,3 +216,37 @@ Fix:
 - overly broad policies
 - insecure functions/views
 - missing indexes on ownership/filter columns
+
+
+## Additional V1 tables
+
+### program_enrollments
+
+Links authenticated members to active programs after entitlement resolution.
+
+### user_preferences
+
+Structured, user-owned preferences suitable for authoritative product context. This is not a free-form LLM memory table.
+
+### content_sources
+
+Server-only source metadata, URLs, extraction/transcription status and optional transcript text. No client Data API access is granted.
+
+### content_product_access
+
+Maps premium content to products for entitlement-aware retrieval.
+
+### recipes
+
+Structured recipe payload linked 1:1 to `content_items`.
+
+## Applied validation — 2026-09-25
+
+- 16 public domain tables created
+- RLS enabled on every table
+- security advisor: **0 findings**
+- WKT product seeded at **6700 BRL cents**
+- WKT program seeded
+- 21 verified WKT workout records seeded
+- generated TypeScript types committed
+- performance advisor only reports expected unused indexes on the newly created empty/low-traffic schema plus the project-level Auth connection strategy notice
