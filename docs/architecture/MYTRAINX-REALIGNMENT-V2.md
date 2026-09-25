@@ -361,3 +361,28 @@ A Notion workspace has been created as the strategic/operational project OS, inc
 - persona registry;
 - architecture decision log;
 - media asset registry.
+
+
+## 14. Backend deployment decision
+
+A separate general-purpose MyTrainX backend on the VPS is **not required for the MVP**.
+
+Use:
+- Vercel / Next.js Route Handlers for MyTrainX synchronous Internal API endpoints;
+- Supabase for auth, relational domain state, RLS and entitlements;
+- Atendimento.Center on VPS for long-running Agent Runtime, conversations, memory, channel connections and human handoff;
+- an optional worker service on the Atendimento.Center VPS for asynchronous ingestion/transcription/indexing jobs when E2 starts.
+
+Do not move MyTrainX domain authorization into the VPS. The VPS services call the MyTrainX Internal API through signed service context.
+
+### mytrainx-data repository
+
+`mgjexpert/mytrainx-data` is reserved for:
+- content manifests and source inventories;
+- structured recipe/content seed datasets;
+- ingestion scripts and schemas;
+- knowledge chunk/index configuration;
+- import/export tooling;
+- non-secret dataset documentation.
+
+Canonical database DDL/migrations stay in `mytrainx-platform/supabase/migrations` so schema and application contracts cannot drift.
