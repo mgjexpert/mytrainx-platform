@@ -12,14 +12,6 @@ const requestSchema = z.object({
   source: z.record(z.string(), z.string()).optional(),
 });
 
-function priceCents() {
-  const value = Number.parseInt(process.env.WKT_PRICE_CENTS || "6700", 10);
-  if (!Number.isSafeInteger(value) || value <= 0) {
-    throw new Error("Invalid WKT_PRICE_CENTS.");
-  }
-  return value;
-}
-
 export async function POST(request: Request) {
   const parsed = requestSchema.safeParse(await request.json().catch(() => null));
   if (!parsed.success) {
@@ -36,34 +28,47 @@ export async function POST(request: Request) {
 
   const reference =
     `MTX-WKT-${Date.now()}-${randomUUID().slice(0, 8).toUpperCase()}`;
-  const amountCents = priceCents();
   const mode = process.env.XPAYMENTS_MODE || "mock";
 
-  let admin: ReturnType<typeof createAdminClient> | null = null;
-
-  if (process.env.SUPABASE_SECRET_KEY) {
-    admin = createAdminClient();
-  } else if (mode === "live") {
+  if (!process.env.SUPABASE_SECRET_KEY) {
     return NextResponse.json(
       { error: "Checkout indisponível: backend de pedidos não configurado." },
       { status: 503 }
     );
   }
 
+  const admin = createAdminClient();
+
   try {
-    if (admin) {
-      const { error } = await admin.from("orders").insert({
-        external_id: reference,
-        user_email: parsed.data.email.toLowerCase(),
-        provider: "xpayments",
-        product_slug: "wkt-militar",
-        amount_cents: amountCents,
-        currency: "BRL",
-        status: "creating",
-        source: parsed.data.source || {},
-      });
-      if (error) throw error;
+    const { data: product, error: productError } = await admin
+      .from("products")
+      .select("id, slug, name, price_cents, currency, active")
+      .eq("slug", "wkt-militar")
+      .eq("active", true)
+      .maybeSingle();
+
+    if (productError) throw productError;
+    if (!product?.price_cents) {
+      return NextResponse.json(
+        { error: "Produto indisponível para compra." },
+        { status: 503 }
+      );
     }
+
+    const amountCents = product.price_cents;
+
+    const { error: orderError } = await admin.from("orders").insert({
+      external_id: reference,
+      user_email: parsed.data.email.toLowerCase(),
+      provider: "xpayments",
+      product_slug: product.slug,
+      product_id: product.id,
+      amount_cents: amountCents,
+      currency: product.currency,
+      status: "creating",
+      source: parsed.data.source || {},
+    });
+    if (orderError) throw orderError;
 
     const charge = await createPixCharge({
       name: parsed.data.name,
@@ -73,7 +78,7 @@ export async function POST(request: Request) {
       reference,
     });
 
-    if (admin) {
+    {
       const { error } = await admin
         .from("orders")
         .update({
@@ -95,15 +100,13 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("pix_create_error", error);
 
-    if (admin) {
-      try {
+    try {
         await admin
           .from("orders")
           .update({ status: "create_failed" })
           .eq("external_id", reference);
-      } catch (updateError) {
-        console.error("pix_create_status_update_failed", updateError);
-      }
+    } catch (updateError) {
+      console.error("pix_create_status_update_failed", updateError);
     }
 
     return NextResponse.json(
