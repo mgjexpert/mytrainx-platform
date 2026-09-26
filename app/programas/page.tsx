@@ -22,7 +22,7 @@ export default function ProgramsPage(){
       </section>
       <section className={styles.grid}>
         <article className={styles.card}><span>DISPONÍVEL</span><h2>WKT Militar</h2><p>21 sessões guiadas e treino follow-along. Acesso dependente do entitlement.</p><Link href="/programas/wkt-militar">VER PROGRAMA →</Link></article>
-        <article className={styles.card}><span>EM VALIDAÇÃO</span><h2>MyTrainX Start</h2><p>12 sessões · 4 semanas · programa introdutório já estruturado no backend.</p></article>
+        <article className={styles.card}><span>DISPONÍVEL · CONTA MYTRAINX</span><h2>MyTrainX Start</h2><p>12 sessões · 4 semanas · programa introdutório para adultos saudáveis que estão a começar ou regressar ao treino estruturado.</p><Link href="/login">ENTRAR E COMEÇAR →</Link></article>
         <article className={styles.card}><span>ROADMAP</span><h2>Core 21</h2><p>Core, estabilidade e progressão organizada a partir da Enciclopédia.</p></article>
         <article className={styles.card}><span>ROADMAP</span><h2>Calisthenics</h2><p>Fundamentos, força relativa e progressões de skills.</p></article>
         <article className={styles.card}><span>ROADMAP</span><h2>Home 30</h2><p>Treino em casa com versões por equipamento disponível.</p></article>
