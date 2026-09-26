@@ -25,10 +25,18 @@ function currentWeekStart() {
 
 function qualityForMethod(method: string) {
   if (method === "smart_scale_bia") return "consumer_estimate";
-  if (["bia_professional", "dexa", "bodpod", "skinfold", "3d_scan"].includes(method)) {
+  if (["bia_professional", "skinfold", "3d_scan"].includes(method)) {
     return "professional_estimate";
   }
+  if (["dexa", "bodpod"].includes(method)) return "reference_method";
   return "unverified";
+}
+
+function optionalMeasuredAt(formData: FormData) {
+  const date = optionalText(formData, "measured_on", 10);
+  if (!date) return undefined;
+  const parsed = new Date(`${date}T12:00:00Z`);
+  return Number.isNaN(parsed.getTime()) ? undefined : parsed.toISOString();
 }
 
 export async function logBodyMetric(formData: FormData) {
@@ -52,6 +60,7 @@ export async function logBodyMetric(formData: FormData) {
     user_id: session.userId,
     measurement_method: measurementMethod,
     measurement_quality: qualityForMethod(measurementMethod),
+    measured_at: optionalMeasuredAt(formData),
     device_name: optionalText(formData, "device_name", 120),
     weight_kg: optionalNumber(formData, "weight_kg"),
     body_fat_pct: optionalNumber(formData, "body_fat_pct"),
@@ -88,6 +97,8 @@ export async function logCircumference(formData: FormData) {
   const payload = {
     user_id: session.userId,
     measurement_method: "tape",
+    measured_at: optionalMeasuredAt(formData),
+    measurement_protocol: "mytrainx_standardized_self_measurement_v1",
     waist_cm: optionalNumber(formData, "waist_cm"),
     hip_cm: optionalNumber(formData, "hip_cm"),
     chest_cm: optionalNumber(formData, "chest_cm"),
