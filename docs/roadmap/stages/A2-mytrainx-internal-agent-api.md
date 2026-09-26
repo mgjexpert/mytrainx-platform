@@ -1,6 +1,6 @@
 # Stage A2 — MyTrainX Internal Agent API
 
-**Status:** PLANNED  
+**Status:** IN PROGRESS  
 **Owner:** MyTrainX Implementation  
 **Reviewer:** Architecture & Integration  
 **Last reviewed:** 2026-09-24
@@ -35,3 +35,26 @@ Each tool:
 - has typed response schema;
 - has predictable error model;
 - is testable independently from any LLM.
+
+
+## Implementation update — 2026-09-25
+
+Initial read-only endpoints implemented:
+
+- `GET /api/internal/agent/profile`
+- `GET /api/internal/agent/entitlements`
+- `GET /api/internal/agent/current-program`
+- `GET /api/internal/agent/today-workout`
+- `GET /api/internal/agent/progress-summary`
+
+Authentication:
+- HMAC-SHA256 signed service context
+- user UUID comes from signed server context
+- 90-second timestamp window
+- per-tool scopes
+- request ID included in signature
+
+Required server secret:
+`MYTRAINX_AGENT_SHARED_SECRET`
+
+The full Atendimento.Center client/runtime integration remains B1/C1 work.

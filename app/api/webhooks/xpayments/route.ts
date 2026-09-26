@@ -96,22 +96,75 @@ export async function POST(request: Request) {
     return NextResponse.json({ received: false }, { status: 500 });
   }
 
-  const { error: entitlementError } = await admin
+  let productId = order.product_id;
+
+  if (!productId) {
+    const { data: product, error: productError } = await admin
+      .from("products")
+      .select("id")
+      .eq("slug", order.product_slug)
+      .maybeSingle();
+
+    if (productError) {
+      console.error("xpayments_webhook_product_lookup_failed", productError);
+      return NextResponse.json({ received: false }, { status: 500 });
+    }
+
+    productId = product?.id ?? null;
+  }
+
+  const { data: entitlement, error: entitlementError } = await admin
     .from("entitlements")
     .upsert(
       {
         user_email: order.user_email,
+        user_id: order.user_id,
         product_slug: order.product_slug,
+        product_id: productId,
         status: "active",
         starts_at: paidAt,
         expires_at: null,
       },
       { onConflict: "user_email,product_slug" }
-    );
+    )
+    .select("id, product_id")
+    .single();
 
   if (entitlementError) {
     console.error("xpayments_webhook_entitlement_failed", entitlementError);
     return NextResponse.json({ received: false }, { status: 500 });
+  }
+
+  if (order.user_id && entitlement.product_id) {
+    const { data: programs, error: programError } = await admin
+      .from("programs")
+      .select("id")
+      .eq("product_id", entitlement.product_id)
+      .eq("active", true);
+
+    if (programError) {
+      console.error("xpayments_webhook_program_lookup_failed", programError);
+      return NextResponse.json({ received: false }, { status: 500 });
+    }
+
+    for (const program of programs ?? []) {
+      const { error: enrollmentError } = await admin
+        .from("program_enrollments")
+        .upsert(
+          {
+            user_id: order.user_id,
+            program_id: program.id,
+            entitlement_id: entitlement.id,
+            status: "active",
+          },
+          { onConflict: "user_id,program_id" }
+        );
+
+      if (enrollmentError) {
+        console.error("xpayments_webhook_enrollment_failed", enrollmentError);
+        return NextResponse.json({ received: false }, { status: 500 });
+      }
+    }
   }
 
   console.info("xpayments_payment_succeeded", {

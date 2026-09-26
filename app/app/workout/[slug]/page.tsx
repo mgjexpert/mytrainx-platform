@@ -1,8 +1,12 @@
 import Link from "next/link";
 import { drivePreviewUrl, getWorkout } from "@/lib/workouts";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import { getActiveEntitlement } from "@/lib/domain/access";
 
 export default async function WorkoutPage({ params }: { params: Promise<{ slug: string }> }) {
+  const entitlement = await getActiveEntitlement("wkt-militar");
+  if (!entitlement) redirect("/programas/wkt-militar/oferta?reason=access");
+
   const { slug } = await params;
   const workout = getWorkout(slug);
   if (!workout) notFound();
