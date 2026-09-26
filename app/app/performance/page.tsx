@@ -34,8 +34,8 @@ export default async function PerformancePage() {
         </div>
 
         <section className={styles.hero}>
-          <span className={styles.eyebrow}>PROGRESS, NOT NOISE</span>
-          <h1>Acompanhe o que realmente está mudando.</h1>
+          <div className={styles.heroSignal}><span className={styles.eyebrow}>PROGRESS, NOT NOISE</span><b>PRIVATE · CONFIGURÁVEL · CONTEXTUAL</b></div>
+          <h1>Acompanhe o que realmente <em>está mudando.</em></h1>
           <p>
             Peso, medidas, composição corporal estimada, consistência, check-ins e fotos
             privadas num único histórico. O MyTrainX prioriza tendências e contexto,
@@ -46,6 +46,9 @@ export default async function PerformancePage() {
             <Link className={styles.ghost} href="/app/performance/check-in">CHECK-IN SEMANAL</Link>
             <Link className={styles.ghost} href="/app/performance/photos">FOTOS DE EVOLUÇÃO</Link>
             <Link className={styles.ghost} href="/app/performance/goals">MINHAS METAS</Link>
+          </div>
+          <div className={styles.heroRule}>
+            <span>DADOS</span><b>→</b><span>TENDÊNCIA</span><b>→</b><span>CONTEXTO</span><b>→</b><span>PRÓXIMA AÇÃO</span>
           </div>
         </section>
 
@@ -157,6 +160,13 @@ export default async function PerformancePage() {
             </div>
           </section>
         )}
+
+        <section className={styles.contextGrid}>
+          <Link href="/library/por-que-seu-peso-muda-de-um-dia-para-o-outro"><span>LEARN</span><b>Por que o peso muda diariamente</b><small>Entenda flutuações antes de interpretar uma leitura isolada.</small><em>LER →</em></Link>
+          <Link href="/library/como-se-pesar-de-forma-consistente"><span>METHOD</span><b>Como se pesar de forma consistente</b><small>Melhore comparações sem transformar peso numa obrigação.</small><em>LER →</em></Link>
+          <Link href="/library/bia-balanca-inteligente-o-que-pode-e-nao-pode-dizer"><span>CONTEXT</span><b>BIA e smart scales</b><small>O que estimativas de composição podem e não podem dizer.</small><em>LER →</em></Link>
+          <Link href="/library/fotos-de-evolucao-como-padronizar"><span>PRIVATE</span><b>Fotos de evolução</b><small>Padronize luz, distância e posição para comparar melhor.</small><em>LER →</em></Link>
+        </section>
 
         <section className={styles.notice}>
           <strong>COACH X DATA RULE</strong>
