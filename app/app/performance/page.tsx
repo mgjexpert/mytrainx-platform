@@ -44,6 +44,7 @@ export default async function PerformancePage() {
             <Link className={styles.button} href="/app/performance/body">REGISTRAR MEDIÇÃO</Link>
             <Link className={styles.ghost} href="/app/performance/check-in">CHECK-IN SEMANAL</Link>
             <Link className={styles.ghost} href="/app/performance/photos">FOTOS DE EVOLUÇÃO</Link>
+            <Link className={styles.ghost} href="/app/performance/goals">MINHAS METAS</Link>
           </div>
         </section>
 
@@ -124,6 +125,10 @@ export default async function PerformancePage() {
           <Link href="/app/performance/photos" className={styles.navCard}>
             <span>03 / PRIVATE</span><b>Fotos de evolução</b>
             <small>Timeline privada com front, side e back.</small><em>ABRIR →</em>
+          </Link>
+          <Link href="/app/performance/goals" className={styles.navCard}>
+            <span>04 / GOALS</span><b>Minhas metas</b>
+            <small>{progress.activeGoals} meta(s) ativa(s). Defina progresso nos seus termos.</small><em>ABRIR →</em>
           </Link>
         </section>
 
