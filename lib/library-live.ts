@@ -5,6 +5,7 @@ import {
   type LibraryItem,
   type RecipeDetails,
 } from "@/lib/library-launch";
+import { libraryExpansion2026 } from "@/lib/library-expansion-2026";
 
 type RecipeRow = {
   content_id: string;
@@ -150,7 +151,7 @@ export async function getLivePublicRecipes(): Promise<LibraryItem[]> {
 export async function getUnifiedLibraryItems(): Promise<LibraryItem[]> {
   const liveRecipes = await getLivePublicRecipes();
   const liveSlugs = new Set(liveRecipes.map((item) => item.slug));
-  const publishableStatic = libraryLaunchItems.filter(
+  const publishableStatic = [...libraryLaunchItems, ...libraryExpansion2026].filter(
     (item) =>
       item.type !== "exercise" &&
       (item.type !== "recipe" || !liveSlugs.has(item.slug))
@@ -162,6 +163,9 @@ export async function getUnifiedLibraryItem(slug: string): Promise<LibraryItem |
   const liveRecipes = await getLivePublicRecipes();
   const liveRecipe = liveRecipes.find((item) => item.slug === slug);
   if (liveRecipe) return liveRecipe;
+
+  const expansion = libraryExpansion2026.find((item) => item.slug === slug);
+  if (expansion) return expansion;
 
   const fallback = getLibraryItem(slug);
   if (!fallback || fallback.type === "exercise") return undefined;
