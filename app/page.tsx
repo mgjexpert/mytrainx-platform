@@ -54,8 +54,8 @@ export default function Home() {
             </div>
             <div className={styles.heroMeta}>
               <span><b>21</b> sessões WKT verificadas</span>
-              <span><b>12</b> receitas live</span>
-              <span><b>Progress</b> privado e configurável</span>
+              <span><b>25</b> receitas live</span>
+              <span><b>74</b> conteúdos públicos na Library</span>
             </div>
           </div>
 
