@@ -2,6 +2,7 @@ import Link from "next/link";
 import { LandingHeader } from "@/components/LandingHeader";
 import { MyTrainXLogo } from "@/components/MyTrainXLogo";
 import { CoachPreview, CommandCenterPreview } from "@/components/landing/ProductPreview";
+import { HumanTeamSection } from "@/components/landing/HumanTeamSection";
 import { Badge, ButtonLink, Card, Container, SectionHeading } from "@/components/ui/primitives";
 import { driveThumbnailUrl, workouts } from "@/lib/workouts";
 import styles from "./home.module.css";
@@ -138,43 +139,7 @@ export default function Home() {
         </Container>
       </section>
 
-      <section className={styles.humanSection}>
-        <Container>
-          <div className={styles.humanHeading}>
-            <SectionHeading eyebrow="HUMAN TEAM">TECNOLOGIA QUANDO PRECISAS. <em>PESSOAS QUANDO IMPORTA.</em></SectionHeading>
-            <p>O MyTrainX combina inteligência digital com uma equipa humana real para receção, comunidade, comunicação, loja e suporte.</p>
-          </div>
-
-          <div className={styles.humanGrid}>
-            <article className={styles.humanCard}>
-              <div className={styles.saraPhoto} role="img" aria-label="Sara, Concierge & Community da MyTrainX" />
-              <div className={styles.humanCardBody}>
-                <span>CONCIERGE & COMMUNITY</span>
-                <h3>Sara</h3>
-                <p>Receção, boas-vindas, onboarding, comunidade e relação humana com a MyTrainX.</p>
-                <a className={styles.whatsapp} href="https://wa.me/5562994091930" target="_blank" rel="noreferrer">Falar com a Sara →</a>
-              </div>
-            </article>
-
-            <article className={`${styles.humanCard} ${styles.micaelaCard}`}>
-              <div className={styles.micaelaVisual} aria-hidden="true">
-                <span>M</span>
-                <small>DIGITAL · STORE · SUPPORT</small>
-              </div>
-              <div className={styles.humanCardBody}>
-                <span>DIGITAL · STORE · COMMUNICATION & SUPPORT</span>
-                <h3>Micaela</h3>
-                <p>Área digital, loja, campanhas, comunicação e apoio nos percursos de produto e acesso.</p>
-                <div className={styles.humanTags}>
-                  <b>Digital</b><b>Store</b><b>Communication</b><b>Support</b>
-                </div>
-              </div>
-            </article>
-          </div>
-
-          <p className={styles.humanRule}>Sara acolhe. Micaela liga o digital, a loja e a comunicação. <strong>Coach X cuida do treino.</strong></p>
-        </Container>
-      </section>
+      <HumanTeamSection />
 
       <section id="comunidade" className={styles.sectionAlt}>
         <Container className={styles.communityGrid}>
