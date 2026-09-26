@@ -64,7 +64,13 @@ export default function LibraryPage() {
       <LibrarySection
         eyebrow="TRAINING KNOWLEDGE"
         title="Fundamentos do treino"
-        items={articles.filter((item) => !item.tags.includes("nutrição"))}
+        items={articles.filter((item) => !item.tags.includes("nutrição") && !item.tags.includes("progresso"))}
+      />
+
+      <LibrarySection
+        eyebrow="PROGRESS WITHOUT NOISE"
+        title="Entenda sua evolução"
+        items={articles.filter((item) => item.tags.includes("progresso"))}
       />
 
       <LibrarySection
