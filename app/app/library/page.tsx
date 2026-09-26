@@ -21,7 +21,7 @@ export default async function Page(){
       </section>
       <section className={styles.grid}>
         <article className={styles.card}><span>LIVE CATALOG</span><b>{items.length} conteúdos públicos</b><small>Catálogo real disponível nesta versão.</small><Link href="/library">ABRIR LIBRARY →</Link></article>
-        <article className={styles.card}><span>EXERCISE</span><b>{exercises} movimentos</b><small>Guias beginner publicados; movimentos intermediate continuam em revisão.</small><Link href="/library">VER ENCICLOPÉDIA →</Link></article>
+        <article className={styles.card}><span>EXERCISE</span><b>{exercises} movimentos</b><small>30 movimentos canónicos publicados e aprovados para educação geral.</small><Link href="/library">VER ENCICLOPÉDIA →</Link></article>
         <article className={styles.card}><span>KITCHEN</span><b>{recipes} receitas</b><small>Receitas originais estruturadas; nutrição numérica aguarda FDC.</small><Link href="/library">ABRIR KITCHEN →</Link></article>
         <article className={styles.card}><span>LEARN</span><b>{articles} guias</b><small>Treino, Progress, recovery, hábitos e alimentação prática.</small><Link href="/library">VER GUIAS →</Link></article>
         <article className={styles.card}><span>EBOOKS</span><b>4 knowledge cores</b><small>Treino, Nutrição, Progress e Recovery em revisão final.</small></article>
