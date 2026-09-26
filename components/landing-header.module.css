@@ -1,11 +1,6 @@
-.header{position:sticky;top:0;z-index:40;background:#050607e8;border-bottom:1px solid #ffffff12;backdrop-filter:blur(16px)}
-.inner{width:min(1280px,calc(100% - 48px));min-height:72px;margin:auto;display:grid;grid-template-columns:220px 1fr auto;gap:24px;align-items:center}
-.logo{display:inline-flex;width:max-content}
-.nav{display:flex;justify-content:center;gap:24px;color:var(--color-secondary);font:600 .76rem/1 var(--font-ui)}
-.nav a{padding:12px 2px;transition:color var(--motion-fast)}
-.nav a:hover{color:var(--color-text)}
-.actions{display:flex;align-items:center;gap:8px}
-@media(max-width:960px){.inner{grid-template-columns:1fr auto}.nav{display:none}}
-@media(max-width:620px){.inner{width:calc(100% - 28px);min-height:64px}.actions a:first-child{display:none}.actions a:last-child{min-height:40px;padding:8px 14px;font-size:.75rem}}
-.locale{display:inline-flex;align-items:center;gap:5px;color:var(--color-secondary);font-size:.68rem;font-weight:700;padding:0 6px;white-space:nowrap}
-@media(max-width:1080px){.locale{display:none}.nav{gap:18px;font-size:.7rem}}
+.header{position:sticky;top:0;z-index:50;background:#050607e8;border-bottom:1px solid #ffffff10;backdrop-filter:blur(18px)}
+.inner{width:min(1460px,calc(100% - 48px));min-height:66px;margin:auto;display:grid;grid-template-columns:235px 1fr auto;gap:24px;align-items:center}.logo{display:inline-flex;width:max-content}
+.nav{height:66px;display:flex;justify-content:center;align-items:center;gap:28px;color:#c2c8c5;font:600 .72rem/1 var(--font-ui)}.nav a{height:100%;display:flex;align-items:center;position:relative;transition:color .16s ease}.nav a:hover{color:#fff}.nav a.active{color:var(--color-orange)}.nav a.active:after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--color-orange);box-shadow:0 0 14px #ff4b0a66}
+.actions{display:flex;align-items:center;gap:8px}.locale{color:#d0d6d3;font-size:.66rem;font-weight:700;white-space:nowrap}.login{min-height:38px!important;padding:8px 15px!important;background:#090b0ecc!important}.start{min-height:40px!important;padding:8px 17px!important}
+@media(max-width:1050px){.inner{grid-template-columns:1fr auto}.nav{display:none}}
+@media(max-width:620px){.inner{width:calc(100% - 26px);min-height:60px}.locale,.login{display:none}.start{min-height:38px!important;padding-inline:13px!important;font-size:.68rem!important}}
