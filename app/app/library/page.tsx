@@ -14,8 +14,8 @@ export default async function Page(){
         <span>LIBRARY / LIVE BETA</span>
         <h1>Sua base de conhecimento</h1>
         <p>
-          A Biblioteca V2 já usa o catálogo canónico live para a MyTrainX Kitchen.
-          Exercícios entram na mesma camada após revisão; ebooks, programas adquiridos,
+          A Biblioteca V2 já combina artigos editoriais 2026, Exercise Encyclopedia aprovada
+          e MyTrainX Kitchen no catálogo live. Ebooks, programas adquiridos,
           progresso e downloads convergem para a mesma identidade de conteúdo.
         </p>
       </section>
@@ -29,7 +29,7 @@ export default async function Page(){
         <article className={styles.card}>
           <span>EXERCISES</span>
           <b>Exercise Encyclopedia</b>
-          <small>{exercises} movimentos publicados; 30 objetos canónicos já estão em revisão no backend.</small>
+          <small>{exercises} movimentos beginner publicados; 9 exercícios intermediate continuam em revisão.</small>
           <Link href="/library">VER EXERCÍCIOS →</Link>
         </article>
         <article className={styles.card}>
