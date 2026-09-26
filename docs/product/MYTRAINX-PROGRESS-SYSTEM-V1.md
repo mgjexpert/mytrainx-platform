@@ -64,7 +64,7 @@ Recommended sections:
    - asks before making a recommendation;
    - never diagnoses from photos.
 
-### /app/progress/check-in
+### /app/performance/check-in
 A fast weekly flow.
 
 Suggested questions:
@@ -78,7 +78,7 @@ Suggested questions:
 
 The check-in should take under one minute.
 
-### /app/progress/body
+### /app/performance/body
 Entry/history for:
 - weight;
 - waist;
@@ -92,7 +92,7 @@ Entry/history for:
 - muscle-mass estimate;
 - measurement method/device.
 
-### /app/progress/photos
+### /app/performance/photos
 Private photo timeline.
 
 ## Body composition rule
@@ -101,9 +101,16 @@ Body-composition values are estimates unless measured by a validated reference m
 
 Every composition record must preserve:
 - measurement method;
+- method-quality class;
 - device/source;
 - date/time;
 - optional conditions/notes.
+
+Product semantics:
+- `lean mass` and `muscle mass` are separate concepts and must not be displayed as synonyms;
+- consumer smart-scale/BIA values are estimates;
+- DXA/Bod Pod are stored in a reference-method class for comparison context, not as a promise of perfect measurement;
+- cross-method deltas should not be presented as if they were directly comparable.
 
 MyTrainX must emphasize longitudinal comparison using the same method/device under comparable conditions.
 
@@ -163,14 +170,17 @@ Rules:
 - RLS scoped to authenticated owner;
 - time-limited signed URLs for display;
 - object path begins with authenticated user ID;
+- accepted uploads are normalized client-side before storage;
+- EXIF metadata is removed during normalization;
+- current upload pipeline caps the longest image side at 1600 px and stores normalized JPEG;
 - image analysis off by default;
 - no use for model training;
 - no sharing/social surface by default;
 - deletion must remove Storage object and metadata.
 
-Suggested object path:
+Current object path:
 
-`<user_id>/<photo_set_id>/<angle>-<uuid>.webp`
+`<user_id>/<photo_set_id>/<angle>-<uuid>.jpg`
 
 ## Coach X contract
 
