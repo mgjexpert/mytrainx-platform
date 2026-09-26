@@ -165,8 +165,8 @@ export default async function Home() {
             </Link>
             {[
               ["MYTRAINX START", "12 sessões · 4 semanas", "DISPONÍVEL", "/login"],
-              ["CORE 21", "Core & estabilidade", "EM PREPARAÇÃO", null],
-              ["CALISTHENICS", "Domínio corporal", "EM PREPARAÇÃO", null],
+              ["CORE 21", "21 sessões · 7 semanas", "DISPONÍVEL", "/login"],
+              ["CALISTHENICS", "4 semanas · força relativa", "DISPONÍVEL", "/login"],
             ].map(([name, description, status, href], index) => {
               const content = <>
                 <span>0{index + 2}</span>
