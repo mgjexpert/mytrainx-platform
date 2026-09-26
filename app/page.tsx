@@ -138,19 +138,41 @@ export default function Home() {
         </Container>
       </section>
 
-      <section className={styles.saraSection}>
-        <Container className={styles.saraGrid}>
-          <div className={styles.saraPlaceholder} aria-label="Área reservada para fotografia aprovada da Sara">
-            <span>S</span>
-            <small>FOTOGRAFIA APROVADA DA SARA<br/>ASSET PENDENTE NO REPOSITÓRIO</small>
+      <section className={styles.humanSection}>
+        <Container>
+          <div className={styles.humanHeading}>
+            <SectionHeading eyebrow="HUMAN TEAM">TECNOLOGIA QUANDO PRECISAS. <em>PESSOAS QUANDO IMPORTA.</em></SectionHeading>
+            <p>O MyTrainX combina inteligência digital com uma equipa humana real para receção, comunidade, comunicação, loja e suporte.</p>
           </div>
-          <div className={styles.copy}>
-            <SectionHeading eyebrow="PESSOAS QUANDO IMPORTA">TECNOLOGIA QUANDO PRECISAS. <em>PESSOAS QUANDO IMPORTA.</em></SectionHeading>
-            <p><strong>Sara · Concierge & Community</strong></p>
-            <p>Sara é uma pessoa real e representa a camada humana do MyTrainX: receção, onboarding, planos, apoio na plataforma, comunidade e encaminhamento para o Coach X.</p>
-            <blockquote>“Precisas de ajuda? Estou por aqui.”</blockquote>
-            <a className={styles.whatsapp} href="https://wa.me/5562994091930" target="_blank" rel="noreferrer">Falar com a Sara no WhatsApp →</a>
+
+          <div className={styles.humanGrid}>
+            <article className={styles.humanCard}>
+              <div className={styles.saraPhoto} role="img" aria-label="Sara, Concierge & Community da MyTrainX" />
+              <div className={styles.humanCardBody}>
+                <span>CONCIERGE & COMMUNITY</span>
+                <h3>Sara</h3>
+                <p>Receção, boas-vindas, onboarding, comunidade e relação humana com a MyTrainX.</p>
+                <a className={styles.whatsapp} href="https://wa.me/5562994091930" target="_blank" rel="noreferrer">Falar com a Sara →</a>
+              </div>
+            </article>
+
+            <article className={`${styles.humanCard} ${styles.micaelaCard}`}>
+              <div className={styles.micaelaVisual} aria-hidden="true">
+                <span>M</span>
+                <small>DIGITAL · STORE · SUPPORT</small>
+              </div>
+              <div className={styles.humanCardBody}>
+                <span>DIGITAL · STORE · COMMUNICATION & SUPPORT</span>
+                <h3>Micaela</h3>
+                <p>Área digital, loja, campanhas, comunicação e apoio nos percursos de produto e acesso.</p>
+                <div className={styles.humanTags}>
+                  <b>Digital</b><b>Store</b><b>Communication</b><b>Support</b>
+                </div>
+              </div>
+            </article>
           </div>
+
+          <p className={styles.humanRule}>Sara acolhe. Micaela liga o digital, a loja e a comunicação. <strong>Coach X cuida do treino.</strong></p>
         </Container>
       </section>
 
