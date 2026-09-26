@@ -23,6 +23,7 @@ export default async function PerformancePage() {
   const min = values.length ? Math.min(...values) : 0;
   const max = values.length ? Math.max(...values) : 0;
   const range = Math.max(max - min, 0.5);
+  const show = (metric: string) => progress.dashboardMetrics.includes(metric);
 
   return (
     <main className={styles.page}>
@@ -49,30 +50,38 @@ export default async function PerformancePage() {
         </section>
 
         <section className={styles.summary}>
-          <article className={styles.metric}>
-            <span>PESO ATUAL</span>
-            <strong>{fmt(progress.latestWeight, " kg")}</strong>
-            <small>{deltaText(progress.weightTrendDelta, " kg")}</small>
-          </article>
-          <article className={styles.metric}>
-            <span>CINTURA</span>
-            <strong>{fmt(progress.latestWaist, " cm")}</strong>
-            <small>{deltaText(progress.waistDelta, " cm")}</small>
-          </article>
-          <article className={styles.metric}>
-            <span>TREINOS / 28 DIAS</span>
-            <strong>{progress.workouts28d}</strong>
-            <small>Sessões concluídas registradas</small>
-          </article>
-          <article className={styles.metric}>
-            <span>FOTOS</span>
-            <strong>{progress.photoSets}</strong>
-            <small>{progress.latestPhotoDate ? `Última: ${progress.latestPhotoDate}` : "Nenhum set ainda"}</small>
-          </article>
+          {show("weight") && (
+            <article className={styles.metric}>
+              <span>PESO ATUAL</span>
+              <strong>{fmt(progress.latestWeight, " kg")}</strong>
+              <small>{deltaText(progress.weightTrendDelta, " kg")}</small>
+            </article>
+          )}
+          {show("waist") && (
+            <article className={styles.metric}>
+              <span>CINTURA</span>
+              <strong>{fmt(progress.latestWaist, " cm")}</strong>
+              <small>{deltaText(progress.waistDelta, " cm")}</small>
+            </article>
+          )}
+          {show("training") && (
+            <article className={styles.metric}>
+              <span>TREINOS / 28 DIAS</span>
+              <strong>{progress.workouts28d}</strong>
+              <small>Sessões concluídas registradas</small>
+            </article>
+          )}
+          {show("photos") && (
+            <article className={styles.metric}>
+              <span>FOTOS</span>
+              <strong>{progress.photoSets}</strong>
+              <small>{progress.latestPhotoDate ? `Última: ${progress.latestPhotoDate}` : "Nenhum set ainda"}</small>
+            </article>
+          )}
         </section>
 
         <section className={styles.grid2}>
-          <article className={styles.panel}>
+          {show("weight") && <article className={styles.panel}>
             <span className={styles.label}>WEIGHT TREND</span>
             <h2>Tendência recente</h2>
             <p>
@@ -96,9 +105,9 @@ export default async function PerformancePage() {
             ) : (
               <div className={styles.empty}>Registre a primeira medição para iniciar a tendência.</div>
             )}
-          </article>
+          </article>}
 
-          <article className={styles.panel}>
+          {show("composition") && <article className={styles.panel}>
             <span className={styles.label}>BODY COMPOSITION</span>
             <h2>Estimativas corporais</h2>
             <div className={styles.dataRows}>
@@ -114,7 +123,7 @@ export default async function PerformancePage() {
               do mesmo método e, quando informado, do mesmo dispositivo. Ainda assim, não representa
               uma medição exata de ganho ou perda de músculo/gordura.
             </p>
-          </article>
+          </article>}
         </section>
 
         <section className={styles.navGrid}>
@@ -136,7 +145,7 @@ export default async function PerformancePage() {
           </Link>
         </section>
 
-        {progress.latestCheckin && (
+        {show("checkin") && progress.latestCheckin && (
           <section className={styles.panel} style={{ marginTop: 10 }}>
             <span className={styles.label}>LAST CHECK-IN / {progress.latestCheckin.weekStart}</span>
             <h2>Como a semana foi registrada</h2>
