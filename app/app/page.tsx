@@ -194,8 +194,8 @@ export default async function CommandCenter() {
               {[
                 ["WKT", "MILITAR", "DISPONÍVEL", "21 sessões guiadas", "/app/programas/wkt-militar"],
                 ["MYTRAINX", "START", "DISPONÍVEL", "12 sessões · 4 semanas", "/app/programas/mytrainx-start"],
-                ["CORE", "21", "EM PREPARAÇÃO", "Core & estabilidade", "/app/programas"],
-                ["CALISTHENICS", "", "EM PREPARAÇÃO", "Domínio corporal", "/app/programas"],
+                ["CORE", "21", "DISPONÍVEL", "21 sessões · 7 semanas", "/app/programas/core-21"],
+                ["HOME", "30", "DISPONÍVEL", "12 sessões · 30 dias", "/app/programas/home-30"],
               ].map(([a,b,status,description,href], index) => (
                 <Link
                   key={a+b}
