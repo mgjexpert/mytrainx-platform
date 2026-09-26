@@ -18,6 +18,22 @@ type RecipeRow = {
   metadata: unknown;
 };
 
+type ExerciseRow = {
+  slug: string;
+  name: string;
+  canonical_name: string | null;
+  difficulty: string;
+  equipment: string[];
+  primary_muscles: string[];
+  secondary_muscles: string[];
+  movement_patterns: string[];
+  body_regions: string[];
+  instructions: unknown;
+  coaching_cues: unknown;
+  common_mistakes: unknown;
+  safety_notes: unknown;
+};
+
 type ContentRow = {
   id: string;
   slug: string;
@@ -97,6 +113,67 @@ function dateLabel(value: string | null | undefined) {
   return value ? value.slice(0, 10) : "2026-09-26";
 }
 
+function prettyToken(value: string) {
+  return value.replaceAll("_", " ").replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
+export async function getLiveApprovedExercises(): Promise<LibraryItem[]> {
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("exercises")
+      .select("slug,name,canonical_name,difficulty,equipment,primary_muscles,secondary_muscles,movement_patterns,body_regions,instructions,coaching_cues,common_mistakes,safety_notes")
+      .eq("status", "published")
+      .eq("review_status", "approved")
+      .order("name", { ascending: true });
+
+    if (error || !data?.length) return [];
+
+    return (data as ExerciseRow[]).map((row) => {
+      const fallback = getLibraryItem(row.slug);
+      const instructions = textList(row.instructions);
+      const primary = row.primary_muscles.map(prettyToken);
+      const pattern = row.movement_patterns.map(prettyToken).join(" · ") || "Movimento";
+      return {
+        slug: row.slug,
+        type: "exercise" as const,
+        title: row.name,
+        eyebrow: "ENCICLOPÉDIA DE EXERCÍCIOS",
+        description: `${pattern}. Guia de execução, cues, erros comuns e segurança para uso educacional geral.`,
+        readTime: "4 min",
+        access: "PUBLIC" as const,
+        featured: false,
+        tags: [
+          prettyToken(row.difficulty),
+          ...row.movement_patterns.slice(0, 1).map(prettyToken),
+          ...row.body_regions.slice(0, 1).map(prettyToken),
+        ],
+        updated: "2026-09-26",
+        exercise: {
+          movementPattern: pattern,
+          difficulty: prettyToken(row.difficulty),
+          equipment: row.equipment.map(prettyToken),
+          primaryMuscles: primary,
+          secondaryMuscles: row.secondary_muscles.map(prettyToken),
+          setup: instructions.length ? [instructions[0]] : [],
+          execution: instructions.length > 1 ? instructions.slice(1) : instructions,
+          cues: textList(row.coaching_cues),
+          mistakes: textList(row.common_mistakes),
+          regressions: fallback?.exercise?.regressions || [],
+          progressions: fallback?.exercise?.progressions || [],
+          safety: textList(row.safety_notes),
+        },
+        sources: [{
+          label: "ACSM — Resistance Training Guidelines Update, 2026",
+          url: "https://acsm.org/resistance-training-guidelines-update-2026/",
+        }],
+      };
+    });
+  } catch {
+    return [];
+  }
+}
+
 export async function getLivePublicRecipes(): Promise<LibraryItem[]> {
   try {
     const supabase = await createClient();
@@ -149,20 +226,29 @@ export async function getLivePublicRecipes(): Promise<LibraryItem[]> {
 }
 
 export async function getUnifiedLibraryItems(): Promise<LibraryItem[]> {
-  const liveRecipes = await getLivePublicRecipes();
-  const liveSlugs = new Set(liveRecipes.map((item) => item.slug));
+  const [liveRecipes, liveExercises] = await Promise.all([
+    getLivePublicRecipes(),
+    getLiveApprovedExercises(),
+  ]);
+  const liveSlugs = new Set([...liveRecipes, ...liveExercises].map((item) => item.slug));
   const publishableStatic = [...libraryLaunchItems, ...libraryExpansion2026].filter(
     (item) =>
       item.type !== "exercise" &&
       (item.type !== "recipe" || !liveSlugs.has(item.slug))
   );
-  return [...publishableStatic, ...liveRecipes];
+  return [...publishableStatic, ...liveExercises, ...liveRecipes];
 }
 
 export async function getUnifiedLibraryItem(slug: string): Promise<LibraryItem | undefined> {
-  const liveRecipes = await getLivePublicRecipes();
+  const [liveRecipes, liveExercises] = await Promise.all([
+    getLivePublicRecipes(),
+    getLiveApprovedExercises(),
+  ]);
   const liveRecipe = liveRecipes.find((item) => item.slug === slug);
   if (liveRecipe) return liveRecipe;
+
+  const liveExercise = liveExercises.find((item) => item.slug === slug);
+  if (liveExercise) return liveExercise;
 
   const expansion = libraryExpansion2026.find((item) => item.slug === slug);
   if (expansion) return expansion;
