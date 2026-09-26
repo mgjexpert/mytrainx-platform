@@ -79,6 +79,26 @@ const guiaAlimentar: LibrarySource = {
   url: "https://www.gov.br/saude/pt-br/assuntos/saude-brasil/publicacoes-para-promocao-a-saude/guia_alimentar_populacao_brasileira_2ed.pdf/view",
 };
 
+const biaValidity2026: LibrarySource = {
+  label: "Systematic review — BIA vs. four-compartment model, 2026",
+  url: "https://pubmed.ncbi.nlm.nih.gov/41718193/",
+};
+
+const mobileBodyComposition2026: LibrarySource = {
+  label: "Review — Mobile apps for body composition estimation, 2026",
+  url: "https://pubmed.ncbi.nlm.nih.gov/42335590/",
+};
+
+const whoWaist: LibrarySource = {
+  label: "WHO — Waist circumference and waist–hip ratio",
+  url: "https://www.who.int/publications/i/item/9789241501491",
+};
+
+const dailyWeightVariability: LibrarySource = {
+  label: "Day-to-day variability in euvolemic body mass",
+  url: "https://pubmed.ncbi.nlm.nih.gov/37955103/",
+};
+
 export const libraryLaunchItems: LibraryItem[] = [
   {
     slug: "como-comecar-treino-de-forca-2026",
@@ -417,6 +437,244 @@ export const libraryLaunchItems: LibraryItem[] = [
       },
     ],
     sources: [guiaAlimentar],
+  },
+
+  {
+    slug: "por-que-seu-peso-muda-de-um-dia-para-o-outro",
+    type: "article",
+    title: "Por que seu peso muda de um dia para o outro",
+    eyebrow: "PROGRESS WITHOUT NOISE",
+    description:
+      "A balança mede massa corporal naquele momento — não gordura isoladamente. Água, glicogênio, conteúdo intestinal e rotina podem mover o número sem representar uma mudança real de composição corporal.",
+    readTime: "7 min",
+    access: "PUBLIC",
+    featured: true,
+    tags: ["progresso", "peso", "tendência"],
+    updated: "2026-09-26",
+    body: [
+      {
+        heading: "Um número não conta a história inteira",
+        paragraphs: [
+          "O peso corporal pode variar no curto prazo mesmo quando a quantidade de gordura corporal praticamente não mudou. Hidratação, sódio, carboidratos armazenados como glicogênio, conteúdo gastrointestinal, horário da medição e outras condições alteram a massa registrada pela balança.",
+          "Por isso, interpretar uma leitura isolada como sucesso ou fracasso costuma gerar mais ruído do que informação.",
+        ],
+      },
+      {
+        heading: "Prefira tendências comparáveis",
+        bullets: [
+          "Use a mesma balança sempre que possível.",
+          "Meça em condições semelhantes de horário, roupa e rotina.",
+          "Observe médias ou tendências ao longo de vários dias quando você mede com frequência.",
+          "Compare janelas equivalentes, não o maior e o menor número escolhidos ao acaso.",
+          "Combine peso com treino, medidas corporais e outros indicadores relevantes ao seu objetivo.",
+        ],
+      },
+      {
+        heading: "Quando pesar menos não é necessariamente melhor",
+        paragraphs: [
+          "O MyTrainX não presume que toda pessoa deva perder peso. Uma pessoa pode estar tentando ganhar massa, manter peso, melhorar força, recuperar condicionamento ou simplesmente construir uma rotina ativa.",
+          "O número ganha significado apenas quando é interpretado dentro do objetivo escolhido pelo próprio utilizador.",
+        ],
+      },
+    ],
+    sources: [dailyWeightVariability],
+  },
+  {
+    slug: "como-se-pesar-de-forma-consistente",
+    type: "article",
+    title: "Como se pesar de forma consistente",
+    eyebrow: "PROGRESS WITHOUT NOISE",
+    description:
+      "Um protocolo simples para reduzir ruído e tornar suas medições mais comparáveis ao longo das semanas.",
+    readTime: "6 min",
+    access: "PUBLIC",
+    tags: ["progresso", "peso", "protocolo"],
+    updated: "2026-09-26",
+    body: [
+      {
+        heading: "A melhor medição é a que você consegue repetir",
+        paragraphs: [
+          "Escolha um protocolo prático e mantenha-o. Para muitas pessoas, isso significa a mesma balança, em horário semelhante e com quantidade parecida de roupa.",
+          "O objetivo não é criar uma rotina rígida; é evitar que diferenças de contexto sejam confundidas com evolução corporal.",
+        ],
+      },
+      {
+        heading: "Checklist de consistência",
+        bullets: [
+          "Mesma balança e superfície estável.",
+          "Horário semelhante quando possível.",
+          "Condições semelhantes de roupa.",
+          "Não compare uma leitura excepcional depois de grande refeição, viagem ou desidratação com uma rotina normal como se fossem equivalentes.",
+          "Se medir diariamente aumentar ansiedade ou comportamento compulsivo, reduza a frequência ou deixe de usar a balança.",
+        ],
+      },
+      {
+        heading: "O MyTrainX usa tendência",
+        paragraphs: [
+          "Quando existem leituras suficientes, o painel de progresso pode comparar médias de janelas equivalentes em vez de reagir a cada ponto. Essa abordagem ajuda a separar sinal de variação diária.",
+        ],
+      },
+    ],
+    sources: [dailyWeightVariability],
+  },
+  {
+    slug: "bia-balanca-inteligente-o-que-pode-e-nao-pode-dizer",
+    type: "article",
+    title: "BIA e balança inteligente: o que podem — e não podem — dizer",
+    eyebrow: "BODY COMPOSITION",
+    description:
+      "Percentual de gordura e massa muscular exibidos por uma smart scale são estimativas. Entenda como usá-las sem transformar precisão aparente em certeza.",
+    readTime: "9 min",
+    access: "PUBLIC",
+    featured: true,
+    tags: ["progresso", "BIA", "massa muscular", "gordura corporal"],
+    updated: "2026-09-26",
+    body: [
+      {
+        heading: "A balança mede impedância; o restante é estimado",
+        paragraphs: [
+          "A bioimpedância elétrica envia uma pequena corrente e mede propriedades elétricas do corpo. Algoritmos combinam essa informação com dados como peso, altura, idade e outros fatores para estimar compartimentos corporais.",
+          "Isso significa que números como percentual de gordura, massa magra e 'massa muscular' não são medições diretas do tecido.",
+        ],
+      },
+      {
+        heading: "A precisão individual pode ser limitada",
+        paragraphs: [
+          "Uma revisão sistemática publicada em 2026 comparou dispositivos BIA com um modelo corporal de quatro compartimentos e encontrou desempenho insuficiente para tratar muitos resultados individuais como equivalentes a um método de referência.",
+          "A mensagem prática não é que a BIA seja inútil. É que um número com uma casa decimal pode parecer mais preciso do que realmente é.",
+        ],
+      },
+      {
+        heading: "Como usar melhor",
+        bullets: [
+          "Use o mesmo dispositivo ao acompanhar tendência.",
+          "Tente medir em condições semelhantes de hidratação e horário.",
+          "Guarde o método e o nome do dispositivo junto com o resultado.",
+          "Não compare diretamente resultados de equipamentos diferentes como se fossem intercambiáveis.",
+          "Não use uma estimativa isolada para tomar decisões clínicas.",
+        ],
+      },
+      {
+        heading: "E fotos com IA?",
+        paragraphs: [
+          "Aplicações que estimam composição corporal a partir de imagens estão evoluindo, mas validação metodológica e generalização entre populações variam. No MyTrainX, fotos servem primeiro para documentação visual privada.",
+          "Qualquer análise visual por IA deve ser opcional e não será apresentada como uma medição precisa de gordura ou massa muscular.",
+        ],
+      },
+    ],
+    sources: [biaValidity2026, mobileBodyComposition2026],
+  },
+  {
+    slug: "como-medir-cintura-de-forma-consistente",
+    type: "article",
+    title: "Como medir a cintura de forma consistente",
+    eyebrow: "BODY MEASUREMENTS",
+    description:
+      "Uma medida simples pode ser útil — desde que o ponto anatômico e a técnica sejam repetidos da mesma forma.",
+    readTime: "6 min",
+    access: "PUBLIC",
+    tags: ["progresso", "cintura", "medidas"],
+    updated: "2026-09-26",
+    body: [
+      {
+        heading: "Escolha um protocolo e mantenha-o",
+        paragraphs: [
+          "Protocolos diferentes podem usar pontos anatômicos diferentes. Para que a comparação ao longo do tempo faça sentido, não alterne entre métodos sem registrar essa mudança.",
+        ],
+      },
+      {
+        heading: "Referência da Organização Mundial da Saúde",
+        paragraphs: [
+          "O protocolo da OMS utiliza o ponto médio entre a última costela palpável e a parte superior da crista ilíaca. A fita deve ficar horizontal, ajustada sem comprimir a pele, e a leitura é feita ao final de uma expiração normal.",
+        ],
+      },
+      {
+        heading: "Checklist",
+        bullets: [
+          "Use uma fita não elástica.",
+          "Mantenha a fita horizontal.",
+          "Não aperte a pele.",
+          "Respire normalmente e meça ao final de uma expiração comum.",
+          "Anote o protocolo usado para repetir o mesmo ponto na próxima vez.",
+        ],
+      },
+    ],
+    sources: [whoWaist],
+  },
+  {
+    slug: "fotos-de-evolucao-como-padronizar",
+    type: "article",
+    title: "Fotos de evolução: como padronizar",
+    eyebrow: "PRIVATE PROGRESS PHOTOS",
+    description:
+      "Luz, distância, ângulo e postura podem mudar muito uma foto. Padronizar reduz ilusões e torna comparações mais honestas.",
+    readTime: "6 min",
+    access: "PUBLIC",
+    tags: ["progresso", "fotos", "privacidade"],
+    updated: "2026-09-26",
+    body: [
+      {
+        heading: "Fotos são documentação visual, não exame corporal",
+        paragraphs: [
+          "Uma fotografia pode ajudar a observar mudanças visuais ao longo do tempo, mas não mede diretamente percentual de gordura, massa muscular, saúde metabólica ou qualquer diagnóstico.",
+        ],
+      },
+      {
+        heading: "Padronize o cenário",
+        bullets: [
+          "Use o mesmo local e uma distância semelhante da câmera.",
+          "Repita frente, lado e costas quando quiser uma comparação completa.",
+          "Mantenha iluminação parecida.",
+          "Use roupa semelhante quando se sentir confortável.",
+          "Evite contrair, posar ou mudar deliberadamente a postura entre as comparações.",
+          "Compare intervalos úteis — não precisa fotografar todos os dias.",
+        ],
+      },
+      {
+        heading: "Privacidade no MyTrainX",
+        paragraphs: [
+          "Fotos de progresso devem permanecer privadas por padrão. O MyTrainX usa armazenamento privado e acesso temporário autenticado. O objetivo é que a pessoa controle quando e se uma foto poderá ser analisada por alguma funcionalidade de IA.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "progresso-nao-e-so-peso",
+    type: "article",
+    title: "Progresso não é só peso",
+    eyebrow: "MYTRAINX PROGRESS",
+    description:
+      "Força, medidas, capacidade de treino, aderência, recuperação e até o modo como uma rotina cabe na sua vida podem revelar evolução que a balança não mostra.",
+    readTime: "7 min",
+    access: "PUBLIC",
+    tags: ["progresso", "performance", "hábitos"],
+    updated: "2026-09-26",
+    body: [
+      {
+        heading: "Escolha métricas que combinem com o objetivo",
+        paragraphs: [
+          "Se o objetivo principal é força, melhorar repetições, carga e execução pode ser mais informativo do que uma alteração de peso. Se é aderência, completar a rotina por várias semanas pode ser o indicador central.",
+        ],
+      },
+      {
+        heading: "Um painel mais completo",
+        bullets: [
+          "Treinos planejados vs. concluídos.",
+          "Evolução de carga, repetições e variações de exercícios.",
+          "Peso corporal quando for relevante.",
+          "Circunferências quando fizerem sentido.",
+          "Estimativas de composição corporal com método registrado.",
+          "Fotos privadas em intervalos consistentes.",
+          "Energia, sono, stress e soreness no check-in semanal.",
+        ],
+      },
+      {
+        heading: "O valor está na combinação",
+        paragraphs: [
+          "Nenhuma métrica precisa dominar a experiência. Uma pessoa pode estar com o peso praticamente estável enquanto melhora força, cintura, execução, condicionamento e consistência. O Coach X deve interpretar o conjunto e explicar as limitações dos dados.",
+        ],
+      },
+    ],
   },
 
   // EXERCISES
