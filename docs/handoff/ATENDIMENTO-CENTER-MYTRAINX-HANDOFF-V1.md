@@ -151,16 +151,38 @@ Axel, Luna, Pulse and Vita should begin as internal skills/modes invoked by Coac
 
 Do not create separate long-term memory silos unless a later requirement justifies fully separate agents.
 
-## Sara
+## Human team
 
-Sara is a real human MyTrainX Concierge & Community person.
+### Sara
+
+Sara is a real human MyTrainX **Concierge & Community** person.
+
+Primary domains:
+- reception;
+- welcome/onboarding;
+- community;
+- relationship;
+- human handoff.
 
 Atendimento.Center may later expose an AI-assisted `sara_concierge` runtime for continuity, but logs and user-facing truthfulness must distinguish:
 - direct human Sara;
 - AI-assisted Sara;
 - deterministic automation.
 
-Chatwoot remains the human inbox/handoff surface.
+### Micaela
+
+Micaela is a second real human MyTrainX team member focused on **Digital, Store, Communication & Support**.
+
+Primary domains:
+- digital operations;
+- store/product discovery;
+- campaign communication;
+- product/access support;
+- social/digital communication.
+
+Micaela does not require a standalone AI agent for B1/C1. A future assisted runtime such as `micaela_digital` should only be introduced if operational volume justifies it and must preserve the same human-vs-automation truthfulness rule.
+
+Chatwoot remains the human inbox/handoff surface for both Sara and Micaela.
 
 ## Existing stack
 
