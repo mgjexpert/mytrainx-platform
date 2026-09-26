@@ -31,11 +31,11 @@ export default async function CommandCenter() {
 
   const coachImage = driveThumbnailUrl(workouts[14].driveFileId, 1600);
   const todayImage = driveThumbnailUrl(workouts[0].driveFileId, 1400);
-  const programImages = [
+  const programImages: Array<string | null> = [
     driveThumbnailUrl(workouts[10].driveFileId, 900),
-    driveThumbnailUrl(workouts[12].driveFileId, 900),
-    driveThumbnailUrl(workouts[17].driveFileId, 900),
-    driveThumbnailUrl(workouts[20].driveFileId, 900),
+    null,
+    null,
+    null,
   ];
 
   const metrics = [
@@ -201,7 +201,7 @@ export default async function CommandCenter() {
                   key={a+b}
                   href={href}
                   className={styles.programCard}
-                  style={{backgroundImage:`url("${programImages[index]}")`}}
+                  style={programImages[index] ? {backgroundImage:`url("${programImages[index]}")`} : undefined}
                 >
                   <div className={styles.programShade}/>
                   <i>{status}</i>
