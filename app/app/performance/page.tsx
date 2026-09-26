@@ -103,12 +103,16 @@ export default async function PerformancePage() {
             <h2>Estimativas corporais</h2>
             <div className={styles.dataRows}>
               <div className={styles.dataRow}><span>Gordura corporal</span><b>{fmt(progress.latestBodyFat, "%")}</b></div>
+              <div className={styles.dataRow}><span>Δ gordura / mesmo método</span><b>{deltaText(progress.bodyFatDeltaSameMethod, " p.p.")}</b></div>
               <div className={styles.dataRow}><span>Massa muscular</span><b>{fmt(progress.latestMuscleMass, " kg")}</b></div>
+              <div className={styles.dataRow}><span>Δ músculo / mesmo método</span><b>{deltaText(progress.muscleMassDeltaSameMethod, " kg")}</b></div>
               <div className={styles.dataRow}><span>Método</span><b>{progress.latestCompositionMethod ?? "—"}</b></div>
+              <div className={styles.dataRow}><span>Dispositivo</span><b>{progress.latestCompositionDevice ?? "—"}</b></div>
             </div>
             <p>
-              Estes valores são apresentados como estimativas e devem ser comparados,
-              de preferência, usando o mesmo método e condições semelhantes.
+              Estes valores são estimativas. O delta só é mostrado contra uma leitura anterior
+              do mesmo método e, quando informado, do mesmo dispositivo. Ainda assim, não representa
+              uma medição exata de ganho ou perda de músculo/gordura.
             </p>
           </article>
         </section>
