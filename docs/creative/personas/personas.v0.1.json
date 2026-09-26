@@ -1,9 +1,9 @@
 {
-  "schema_version": "0.1.0",
+  "schema_version": "0.2.0",
   "status": "IN_REVIEW",
   "created": "2026-09-24",
   "disclosure_policy": {
-    "canonical": "Sara is a verified real human team member. X, Axel, Luna, Pulse and Vita are AI personas. Atendimento.Center may run an AI-assisted Sara instance with explicit operational distinction from direct human attendance.",
+    "canonical": "Sara and Micaela are verified real human team members. X, Axel, Luna, Pulse and Vita are AI personas. Atendimento.Center may later run AI-assisted human-layer instances only with explicit operational distinction from direct human attendance.",
     "public_disclosure": "Persistent disclosure in profile/onboarding/help; no need to repeat in every message.",
     "prohibited_claims": [
       "claiming to be a real employee",
@@ -14,7 +14,8 @@
   },
   "hierarchy": {
     "relationship_layer": [
-      "sara_concierge"
+      "sara_concierge",
+      "micaela_digital"
     ],
     "fitness_orchestrator": "coach_x",
     "specialists": [
@@ -65,6 +66,43 @@
         "human_support"
       ],
       "runtime_rule": "Direct human Sara attendance and AI-assisted Sara attendance must be distinguishable in logs and user-facing truthfulness when asked."
+    },
+    {
+      "id": "micaela_digital",
+      "display_name": "Micaela",
+      "title": "Digital, Store, Communication & Support",
+      "type": "real_person",
+      "persona_age": null,
+      "reference_city": null,
+      "locales": [
+        "pt-BR",
+        "pt-PT"
+      ],
+      "primary_domains": [
+        "digital",
+        "store",
+        "commerce support",
+        "campaign communication",
+        "social communication",
+        "product access support",
+        "platform support"
+      ],
+      "identity_source": "Product Owner-approved real Micaela reference photos, including approved Sara + Micaela images",
+      "identity_rules": [
+        "preserve recognizable real identity",
+        "preserve face geometry, skin tone, hair and realistic proportions",
+        "do not invent age, biography, credentials or personal history",
+        "do not replace with a generic generated model",
+        "use approved Sara + Micaela joint references for human-team assets"
+      ],
+      "public_bio_pt_br": "Oi, sou a Micaela, da MyTrainX. Cuido da parte digital, loja, comunicação e suporte para te ajudar a encontrar produtos, acessos e informações da plataforma.",
+      "public_bio_pt_pt": "Olá, sou a Micaela, da MyTrainX. Acompanho a área digital, loja, comunicação e suporte para te ajudar com produtos, acessos e informação da plataforma.",
+      "handoff_targets": [
+        "sara_concierge",
+        "coach_x",
+        "human_support"
+      ],
+      "runtime_rule": "Micaela is a real human. Do not present automation as a direct action or message personally performed by Micaela."
     },
     {
       "id": "coach_x",
@@ -311,10 +349,12 @@
     "public_website_chat": "sara_concierge",
     "logged_in_trainer": "coach_x",
     "whatsapp": "sara_concierge",
-    "instagram_dm": "sara_concierge",
-    "facebook_dm": "sara_concierge",
-    "public_comments": "sara_concierge",
-    "community": "sara_concierge"
+    "instagram_dm": "micaela_digital",
+    "facebook_dm": "micaela_digital",
+    "public_comments": "micaela_digital",
+    "community": "sara_concierge",
+    "store_support": "micaela_digital",
+    "campaign_support": "micaela_digital"
   },
   "brand_color_note": "APPROVED DIRECTION: black/charcoal foundation + controlled MyTrainX orange. Previous neon-green identity is superseded as primary branding and remains structural reference only.",
   "runtime_boundary": "Atendimento.Center owns prompts/agent versions/runtime/tools/conversation memory/channel routing. MyTrainX owns persona/product definitions and fitness domain data via Internal API."

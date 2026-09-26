@@ -2,6 +2,7 @@ import Link from "next/link";
 import { LandingHeader } from "@/components/LandingHeader";
 import { MyTrainXLogo } from "@/components/MyTrainXLogo";
 import { CoachPreview, CommandCenterPreview } from "@/components/landing/ProductPreview";
+import { HumanTeamSection } from "@/components/landing/HumanTeamSection";
 import { Badge, ButtonLink, Card, Container, SectionHeading } from "@/components/ui/primitives";
 import { driveThumbnailUrl, workouts } from "@/lib/workouts";
 import styles from "./home.module.css";
@@ -138,21 +139,7 @@ export default function Home() {
         </Container>
       </section>
 
-      <section className={styles.saraSection}>
-        <Container className={styles.saraGrid}>
-          <div className={styles.saraPlaceholder} aria-label="Área reservada para fotografia aprovada da Sara">
-            <span>S</span>
-            <small>FOTOGRAFIA APROVADA DA SARA<br/>ASSET PENDENTE NO REPOSITÓRIO</small>
-          </div>
-          <div className={styles.copy}>
-            <SectionHeading eyebrow="PESSOAS QUANDO IMPORTA">TECNOLOGIA QUANDO PRECISAS. <em>PESSOAS QUANDO IMPORTA.</em></SectionHeading>
-            <p><strong>Sara · Concierge & Community</strong></p>
-            <p>Sara é uma pessoa real e representa a camada humana do MyTrainX: receção, onboarding, planos, apoio na plataforma, comunidade e encaminhamento para o Coach X.</p>
-            <blockquote>“Precisas de ajuda? Estou por aqui.”</blockquote>
-            <a className={styles.whatsapp} href="https://wa.me/5562994091930" target="_blank" rel="noreferrer">Falar com a Sara no WhatsApp →</a>
-          </div>
-        </Container>
-      </section>
+      <HumanTeamSection />
 
       <section id="comunidade" className={styles.sectionAlt}>
         <Container className={styles.communityGrid}>

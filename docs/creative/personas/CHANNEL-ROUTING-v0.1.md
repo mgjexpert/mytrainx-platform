@@ -22,10 +22,10 @@ Routing should preserve conversation continuity and avoid exposing internal agen
 | Intent | Primary persona | Secondary / handoff |
 |---|---|---|
 | New visitor / “what is MyTrainX?” | Sara | X if training-specific |
-| Plans / subscription options | Sara | human support for exceptions |
-| Checkout / payment status | Sara | authoritative payment tool / human |
-| Refund / disputed payment | Sara | human support |
-| Account access / platform help | Sara | human support if unresolved |
+| Plans / subscription options | Micaela | Sara / human support for exceptions |
+| Checkout / payment status | Micaela | authoritative payment tool / Sara / human |
+| Refund / disputed payment | Micaela | human support / Sara |
+| Account access / platform help | Micaela | Sara / human support if unresolved |
 | Onboarding | Sara | X after goals/context captured |
 | “What is my workout today?” | X | specialist when appropriate |
 | General training plan explanation | X | specialist |
@@ -33,8 +33,8 @@ Routing should preserve conversation continuity and avoid exposing internal agen
 | Weight-management support / adherence | Luna | X |
 | Cardio / running / conditioning | Pulse | X |
 | Mobility / recovery / readiness | Vita | X |
-| Community announcement | Sara | coaches for technical content |
-| Social media general reply | Sara | relevant coach |
+| Community announcement | Sara | Micaela for campaign/distribution; coaches for technical content |
+| Social media general reply | Micaela | Sara for community/reception; relevant coach for fitness |
 | Medical diagnosis / acute symptoms | none | safe boundary + appropriate health professional |
 | Legal / privacy request | Sara | human support / product owner as required |
 
@@ -55,6 +55,8 @@ Sara determines whether the conversation is:
 - training.
 
 Training intent moves to X.
+
+Digital/store/offer/access intent may route to **Micaela**.
 
 ### Logged-in app / `/app/trainer`
 
@@ -78,19 +80,29 @@ When training intent is clear and identity/context is resolved, Sara introduces 
 
 ### Facebook / Instagram DMs
 
-Default entry: **Sara**
+Default routing depends on intent:
 
-Coaches can enter when the user asks a domain-specific fitness question.
+- campaigns / store / product access / digital support → **Micaela**;
+- welcome / community / reception → **Sara**;
+- fitness/training → **X** or specialist.
+
+The public brand remains MyTrainX; do not make the user decode internal routing.
 
 ### Public comments
 
-Default author: **Sara · MyTrainX Team**
+Default brand author: **MyTrainX Team**.
+
+Operational voice:
+- Micaela for campaign/store/digital communication;
+- Sara for welcome/community/relationship;
+- coach when the post is explicitly technical.
 
 If the post is explicitly hosted by a coach, that coach may reply in-character.
 
 ### Community
 
-- moderation/welcome/announcements → Sara;
+- moderation/welcome/community care → Sara;
+- campaign/store/digital notices → Micaela;
 - general fitness thread → X;
 - specialty thread → specialist;
 - unresolved conflict/account issue → Sara/human.
@@ -154,7 +166,30 @@ The specialist should not silently replace the member’s main coach.
 
 ---
 
-## 6. Sara routing logic
+## 6. Human-layer routing logic
+
+### Sara
+
+Sara owns:
+- reception;
+- welcome;
+- onboarding;
+- community;
+- relationship and human handoff.
+
+### Micaela
+
+Micaela owns:
+- digital support;
+- store and product discovery;
+- campaign communication;
+- product/access orientation;
+- social/digital publishing workflows;
+- support related to digital purchase journeys.
+
+Both can hand off to X for training or to a human operator for exceptions.
+
+### Sara routing logic
 
 Route to X when intent includes:
 
