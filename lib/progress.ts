@@ -25,8 +25,11 @@ export type ProgressDashboard = {
   latestWaist: number | null;
   waistDelta: number | null;
   latestBodyFat: number | null;
+  bodyFatDeltaSameMethod: number | null;
   latestMuscleMass: number | null;
+  muscleMassDeltaSameMethod: number | null;
   latestCompositionMethod: string | null;
+  latestCompositionDevice: string | null;
   workouts28d: number;
   latestCheckin: {
     weekStart: string;
@@ -64,7 +67,7 @@ export async function getProgressDashboard(userId: string): Promise<ProgressDash
   ] = await Promise.all([
     supabase
       .from("body_metric_entries")
-      .select("measured_at,weight_kg,body_fat_pct,muscle_mass_kg,measurement_method")
+      .select("measured_at,weight_kg,body_fat_pct,muscle_mass_kg,measurement_method,device_name")
       .eq("user_id", userId)
       .order("measured_at", { ascending: false })
       .limit(60),
@@ -124,6 +127,22 @@ export async function getProgressDashboard(userId: string): Promise<ProgressDash
   const latestComposition = bodyRows.find(
     (row) => row.body_fat_pct !== null || row.muscle_mass_kg !== null
   );
+  const previousComparableComposition = latestComposition
+    ? bodyRows.find((row) => {
+        if (row === latestComposition) return false;
+        const sameMethod = row.measurement_method === latestComposition.measurement_method;
+        const sameDevice =
+          latestComposition.device_name
+            ? row.device_name === latestComposition.device_name
+            : true;
+        return sameMethod && sameDevice && (row.body_fat_pct !== null || row.muscle_mass_kg !== null);
+      })
+    : undefined;
+
+  const latestBodyFat = numberOrNull(latestComposition?.body_fat_pct);
+  const previousBodyFat = numberOrNull(previousComparableComposition?.body_fat_pct);
+  const latestMuscleMass = numberOrNull(latestComposition?.muscle_mass_kg);
+  const previousMuscleMass = numberOrNull(previousComparableComposition?.muscle_mass_kg);
 
   const waistRows = circumferenceResult.data ?? [];
   const latestWaist = numberOrNull(waistRows[0]?.waist_cm);
@@ -144,9 +163,18 @@ export async function getProgressDashboard(userId: string): Promise<ProgressDash
     latestWaist,
     waistDelta:
       latestWaist !== null && previousWaist !== null ? latestWaist - previousWaist : null,
-    latestBodyFat: numberOrNull(latestComposition?.body_fat_pct),
-    latestMuscleMass: numberOrNull(latestComposition?.muscle_mass_kg),
+    latestBodyFat,
+    bodyFatDeltaSameMethod:
+      latestBodyFat !== null && previousBodyFat !== null
+        ? latestBodyFat - previousBodyFat
+        : null,
+    latestMuscleMass,
+    muscleMassDeltaSameMethod:
+      latestMuscleMass !== null && previousMuscleMass !== null
+        ? latestMuscleMass - previousMuscleMass
+        : null,
     latestCompositionMethod: latestComposition?.measurement_method ?? null,
+    latestCompositionDevice: latestComposition?.device_name ?? null,
     workouts28d: workoutsResult.count ?? 0,
     latestCheckin: latestCheckinRow
       ? {
