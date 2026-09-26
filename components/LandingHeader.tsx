@@ -4,11 +4,12 @@ import { ButtonLink } from "@/components/ui/primitives";
 import styles from "./landing-header.module.css";
 
 const links = [
+  { href: "/", label: "Início" },
   { href: "#coach-x", label: "Coach X" },
   { href: "#programas", label: "Programas" },
+  { href: "/library", label: "Library" },
   { href: "#progresso", label: "Progresso" },
   { href: "#comunidade", label: "Comunidade" },
-  { href: "#master", label: "Master" },
 ];
 
 export function LandingHeader() {
@@ -24,6 +25,7 @@ export function LandingHeader() {
         </nav>
 
         <div className={styles.actions}>
+          <span className={styles.locale}>◎ PT</span>
           <ButtonLink href="/login" variant="quiet">Entrar</ButtonLink>
           <ButtonLink href="/login">Começar agora</ButtonLink>
         </div>
