@@ -164,7 +164,7 @@ export default async function Home() {
               </div>
             </Link>
             {[
-              ["MYTRAINX START", "12 sessões · 4 semanas", "EM VALIDAÇÃO"],
+              ["MYTRAINX START", "12 sessões · 4 semanas", "DISPONÍVEL"],
               ["CORE 21", "Core & estabilidade", "EM PREPARAÇÃO"],
               ["CALISTHENICS", "Domínio corporal", "EM PREPARAÇÃO"],
             ].map(([name, description, status], index) => (
