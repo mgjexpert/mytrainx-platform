@@ -19,6 +19,17 @@ export default async function BodyProgressPage() {
     supabase.from("progress_preferences").select("*").eq("user_id", session.userId).maybeSingle(),
   ]);
 
+  const dashboardMetrics = (() => {
+  const raw = prefs?.preferences;
+  const values =
+    raw && typeof raw === "object" && Array.isArray((raw as Record<string, unknown>).dashboard_metrics)
+      ? ((raw as Record<string, unknown>).dashboard_metrics as unknown[]).filter(
+          (value): value is string => typeof value === "string"
+        )
+      : [];
+  return values.length ? values : ["weight", "waist", "composition", "training", "photos", "checkin"];
+})();
+
   return (
     <main className={styles.page}>
       <div className={styles.shell}>
@@ -115,6 +126,34 @@ export default async function BodyProgressPage() {
                 <option value="biweekly">Quinzenal</option>
                 <option value="monthly">Mensal</option>
               </select>
+            </div>
+            <div className={styles.full}>
+              <span className={styles.label}>O QUE MOSTRAR NO DASHBOARD</span>
+              <p>Escolha as dimensões que fazem sentido para você. Peso, composição e fotos nunca são obrigatórios.</p>
+              <div className={styles.checkbox}>
+                <input id="dash_training" name="dashboard_metrics" value="training" type="checkbox" defaultChecked={dashboardMetrics.includes("training")} />
+                <label htmlFor="dash_training">Treinos e consistência</label>
+              </div>
+              <div className={styles.checkbox}>
+                <input id="dash_checkin" name="dashboard_metrics" value="checkin" type="checkbox" defaultChecked={dashboardMetrics.includes("checkin")} />
+                <label htmlFor="dash_checkin">Check-in semanal e recuperação</label>
+              </div>
+              <div className={styles.checkbox}>
+                <input id="dash_weight" name="dashboard_metrics" value="weight" type="checkbox" defaultChecked={dashboardMetrics.includes("weight")} />
+                <label htmlFor="dash_weight">Peso e tendência</label>
+              </div>
+              <div className={styles.checkbox}>
+                <input id="dash_waist" name="dashboard_metrics" value="waist" type="checkbox" defaultChecked={dashboardMetrics.includes("waist")} />
+                <label htmlFor="dash_waist">Cintura e medidas</label>
+              </div>
+              <div className={styles.checkbox}>
+                <input id="dash_composition" name="dashboard_metrics" value="composition" type="checkbox" defaultChecked={dashboardMetrics.includes("composition")} />
+                <label htmlFor="dash_composition">Composição corporal estimada</label>
+              </div>
+              <div className={styles.checkbox}>
+                <input id="dash_photos" name="dashboard_metrics" value="photos" type="checkbox" defaultChecked={dashboardMetrics.includes("photos")} />
+                <label htmlFor="dash_photos">Fotos de evolução</label>
+              </div>
             </div>
             <div className={styles.checkbox}>
               <input id="photo_ai_analysis_opt_in" name="photo_ai_analysis_opt_in" type="checkbox" defaultChecked={prefs?.photo_ai_analysis_opt_in ?? false} />
