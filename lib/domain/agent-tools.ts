@@ -167,3 +167,108 @@ export async function getAgentProgressSummary(userId: string) {
       : 0,
   };
 }
+
+
+export async function searchAgentKnowledge(query: string, limit = 6) {
+  const term = query.trim();
+  if (term.length < 2) return [];
+
+  const admin = createAdminClient();
+
+  const { data: approvedReviews, error: reviewError } = await admin
+    .from("content_reviews")
+    .select("content_id")
+    .eq("status", "approved")
+    .eq("review_type", "editorial");
+  if (reviewError) throw reviewError;
+
+  const approvedIds = [...new Set((approvedReviews ?? []).map((row) => row.content_id))];
+  if (!approvedIds.length) return [];
+
+  const { data: rights, error: rightsError } = await admin
+    .from("content_rights")
+    .select("content_id")
+    .in("content_id", approvedIds)
+    .eq("verification_status", "verified")
+    .eq("ai_retrieval_allowed", true);
+  if (rightsError) throw rightsError;
+
+  const rightsIds = [...new Set((rights ?? []).map((row) => row.content_id))];
+  if (!rightsIds.length) return [];
+
+  const { data: documents, error: documentsError } = await admin
+    .from("knowledge_documents")
+    .select("id,content_id")
+    .in("content_id", rightsIds)
+    .eq("status", "ready");
+  if (documentsError) throw documentsError;
+
+  const documentIds = (documents ?? []).map((row) => row.id);
+  if (!documentIds.length) return [];
+  const contentByDocument = new Map((documents ?? []).map((row) => [row.id, row.content_id]));
+
+  const { data: chunks, error: chunksError } = await admin
+    .from("knowledge_chunks")
+    .select("document_id,ordinal,heading,body,locator")
+    .in("document_id", documentIds)
+    .or(`heading.ilike.%${term.replaceAll("%", "")}%,body.ilike.%${term.replaceAll("%", "")}%`)
+    .limit(Math.min(Math.max(limit, 1), 12));
+  if (chunksError) throw chunksError;
+
+  const contentIds = [...new Set((chunks ?? []).map((row) => contentByDocument.get(row.document_id)).filter(Boolean))] as string[];
+  const { data: items, error: itemsError } = contentIds.length
+    ? await admin.from("content_items").select("id,slug,title,content_type,summary,access_policy,status").in("id", contentIds).eq("status", "published").eq("access_policy", "public")
+    : { data: [], error: null };
+  if (itemsError) throw itemsError;
+
+  const itemMap = new Map((items ?? []).map((item) => [item.id, item]));
+
+  return (chunks ?? []).flatMap((chunk) => {
+    const contentId = contentByDocument.get(chunk.document_id);
+    const item = contentId ? itemMap.get(contentId) : null;
+    if (!item) return [];
+    return [{
+      content: item,
+      heading: chunk.heading,
+      excerpt: chunk.body,
+      locator: chunk.locator,
+      ordinal: chunk.ordinal,
+    }];
+  });
+}
+
+export async function getAgentExercise(slug: string) {
+  const admin = createAdminClient();
+  const { data, error } = await admin
+    .from("exercises")
+    .select("slug,name,canonical_name,difficulty,equipment,primary_muscles,secondary_muscles,movement_patterns,body_regions,instructions,coaching_cues,common_mistakes,safety_notes,status,review_status")
+    .eq("slug", slug)
+    .eq("status", "published")
+    .eq("review_status", "approved")
+    .maybeSingle();
+  if (error) throw error;
+  return data;
+}
+
+export async function getAgentRecipe(slug: string) {
+  const admin = createAdminClient();
+  const { data: item, error: itemError } = await admin
+    .from("content_items")
+    .select("id,slug,title,summary,status,access_policy")
+    .eq("slug", slug)
+    .eq("content_type", "recipe")
+    .eq("status", "published")
+    .eq("access_policy", "public")
+    .maybeSingle();
+  if (itemError) throw itemError;
+  if (!item) return null;
+
+  const [{ data: recipe, error: recipeError }, { data: rights, error: rightsError }] = await Promise.all([
+    admin.from("recipes").select("meal_type,servings,ingredients,steps,allergens,nutrition,metadata").eq("content_id", item.id).maybeSingle(),
+    admin.from("content_rights").select("verification_status,ai_retrieval_allowed").eq("content_id", item.id).maybeSingle(),
+  ]);
+  if (recipeError) throw recipeError;
+  if (rightsError) throw rightsError;
+  if (!rights || rights.verification_status !== "verified" || !rights.ai_retrieval_allowed) return null;
+  return { content: item, recipe };
+}
