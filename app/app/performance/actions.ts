@@ -161,8 +161,31 @@ export async function saveProgressPreferences(formData: FormData) {
 
   const photoFrequency = String(formData.get("progress_photo_frequency") ?? "monthly");
   const weighInFrequency = String(formData.get("weigh_in_frequency") ?? "optional");
+  const allowedDashboardMetrics = new Set([
+    "weight",
+    "waist",
+    "composition",
+    "training",
+    "photos",
+    "checkin",
+  ]);
+  const requestedDashboardMetrics = formData
+    .getAll("dashboard_metrics")
+    .map(String)
+    .filter((value) => allowedDashboardMetrics.has(value));
 
   const supabase = await createClient();
+  const { data: currentPreferences } = await supabase
+    .from("progress_preferences")
+    .select("preferences")
+    .eq("user_id", session.userId)
+    .maybeSingle();
+
+  const existingPreferences =
+    currentPreferences?.preferences && typeof currentPreferences.preferences === "object"
+      ? (currentPreferences.preferences as Record<string, unknown>)
+      : {};
+
   const { error } = await supabase.from("progress_preferences").upsert(
     {
       user_id: session.userId,
@@ -170,6 +193,12 @@ export async function saveProgressPreferences(formData: FormData) {
       weigh_in_frequency: weighInFrequency,
       progress_photo_frequency: photoFrequency,
       photo_ai_analysis_opt_in: formData.get("photo_ai_analysis_opt_in") === "on",
+      preferences: {
+        ...existingPreferences,
+        dashboard_metrics: requestedDashboardMetrics.length
+          ? requestedDashboardMetrics
+          : ["training", "checkin"],
+      },
     },
     { onConflict: "user_id" }
   );
