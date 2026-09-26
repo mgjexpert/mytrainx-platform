@@ -6,6 +6,7 @@ import {
   type RecipeDetails,
 } from "@/lib/library-launch";
 import { libraryExpansion2026 } from "@/lib/library-expansion-2026";
+import { libraryExpansion2026B } from "@/lib/library-expansion-2026-b";
 
 type RecipeRow = {
   content_id: string;
@@ -231,7 +232,7 @@ export async function getUnifiedLibraryItems(): Promise<LibraryItem[]> {
     getLiveApprovedExercises(),
   ]);
   const liveSlugs = new Set([...liveRecipes, ...liveExercises].map((item) => item.slug));
-  const publishableStatic = [...libraryLaunchItems, ...libraryExpansion2026].filter(
+  const publishableStatic = [...libraryLaunchItems, ...libraryExpansion2026, ...libraryExpansion2026B].filter(
     (item) =>
       item.type !== "exercise" &&
       (item.type !== "recipe" || !liveSlugs.has(item.slug))
@@ -250,7 +251,7 @@ export async function getUnifiedLibraryItem(slug: string): Promise<LibraryItem |
   const liveExercise = liveExercises.find((item) => item.slug === slug);
   if (liveExercise) return liveExercise;
 
-  const expansion = libraryExpansion2026.find((item) => item.slug === slug);
+  const expansion = [...libraryExpansion2026, ...libraryExpansion2026B].find((item) => item.slug === slug);
   if (expansion) return expansion;
 
   const fallback = getLibraryItem(slug);
