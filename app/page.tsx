@@ -8,6 +8,15 @@ import { driveThumbnailUrl, workouts } from "@/lib/workouts";
 import styles from "./home.module.css";
 
 const trainingImage = driveThumbnailUrl(workouts[0].driveFileId, 1600);
+const programImage = driveThumbnailUrl(workouts[10].driveFileId, 1600);
+const goalImages = [
+  driveThumbnailUrl(workouts[12].driveFileId, 900),
+  driveThumbnailUrl(workouts[15].driveFileId, 900),
+  driveThumbnailUrl(workouts[17].driveFileId, 900),
+  driveThumbnailUrl(workouts[7].driveFileId, 900),
+  null,
+  driveThumbnailUrl(workouts[20].driveFileId, 900),
+];
 
 const pillars = [
   ["AI TRAINER", "Orientação contextual."],
@@ -65,7 +74,7 @@ export default function Home() {
               key={title}
               href={href}
               className={styles.goalCard}
-              style={{ backgroundImage: index === 4 ? undefined : `url("${trainingImage}")` }}
+              style={{ backgroundImage: goalImages[index] ? `url("${goalImages[index]}")` : undefined }}
             >
               <div className={styles.goalShade} />
               <span>0{index + 1}</span>
@@ -130,7 +139,7 @@ export default function Home() {
             <ButtonLink href="/programas" variant="quiet">Ver todos →</ButtonLink>
           </div>
           <div className={styles.programGrid}>
-            <Link href="/programas/wkt-militar" className={styles.programPrimary} style={{ backgroundImage: `url("${trainingImage}")` }}>
+            <Link href="/programas/wkt-militar" className={styles.programPrimary} style={{ backgroundImage: `url("${programImage}")` }}>
               <div className={styles.programShade} />
               <Badge tone="brand">DISPONÍVEL</Badge>
               <div className={styles.programCopy}>
