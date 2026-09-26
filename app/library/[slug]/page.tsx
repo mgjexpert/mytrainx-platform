@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PublicHeader } from "@/components/PublicHeader";
-import { getLibraryItem, libraryLaunchItems } from "@/lib/library-launch";
+import { libraryLaunchItems } from "@/lib/library-launch";
+import { getUnifiedLibraryItem } from "@/lib/library-live";
 import styles from "./page.module.css";
 
 export function generateStaticParams() {
@@ -15,7 +16,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const item = getLibraryItem(slug);
+  const item = await getUnifiedLibraryItem(slug);
   if (!item) return {};
   return {
     title: `${item.title} | MyTrainX Library`,
@@ -29,7 +30,7 @@ export default async function LibraryDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const item = getLibraryItem(slug);
+  const item = await getUnifiedLibraryItem(slug);
   if (!item) notFound();
 
   return (
