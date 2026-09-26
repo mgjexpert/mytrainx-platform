@@ -30,8 +30,8 @@ export function CommandCenterPreview() {
       </div>
       <div className={styles.commandGrid}>
         <Card className={styles.training}><small>TREINO</small><strong>O próximo passo, sempre claro.</strong><p>O treino do dia será apresentado aqui quando os dados do membro estiverem ligados.</p></Card>
-        <Card><small>PROGRESSO</small><strong>Dados com contexto.</strong><p>Métricas reais entram apenas quando a camada de progresso estiver operacional.</p></Card>
-        <Card><small>PROGRAMA ATIVO</small><strong>WKT Militar</strong><p>21 treinos guiados verificados no catálogo atual.</p></Card>
+        <Card><small>PROGRESSO</small><strong>Dados com contexto.</strong><p>Peso opcional, medidas, check-in, metas e fotos privadas já fazem parte da experiência real.</p></Card>
+        <Card><small>PROGRAMA</small><strong>WKT Militar</strong><p>21 treinos guiados verificados; o acesso real continua dependente do entitlement do membro.</p></Card>
         <Card><small>COACH X</small><strong>Recomendação contextual.</strong><p>Integração completa com Atendimento.Center é uma próxima etapa.</p></Card>
       </div>
     </div>
