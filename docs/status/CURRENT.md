@@ -1,6 +1,6 @@
 # Current Project State
 
-**Project version:** 0.4.0-visual-v3-prod  
+**Project version:** 0.5.0-visual-v3.1-product  
 **State date:** 2026-09-26  
 **Overall status:** IN PROGRESS
 
@@ -61,12 +61,12 @@ Live Supabase foundation now includes:
 - canonical source registry and rights/review governance;
 - content collections and taxonomy;
 - per-user library state;
-- **30 canonical PT-BR exercises** — 21 beginner published/approved for general educational use; 9 intermediate remain in review;
-- **25 structured MyTrainX Kitchen recipes** with owned/verified rights; numeric nutrients remain blocked pending FoodData Central mapping/review;
+- **30 canonical PT-BR exercises** — all 30 published/approved for general educational use; clinical/rehabilitation validation is not claimed;
+- **25 structured MyTrainX Kitchen recipes** with owned/verified rights; 45 canonical food items and 137 normalized ingredient rows now exist, with numeric nutrients still blocked pending reviewed FoodData Central mapping;
 - food/nutrient entities and normalized recipe ingredients;
 - **27 ready knowledge documents / 237 knowledge chunks** across the owned knowledge core;
 - owned foundation ebooks: Treino de Força sem Complicação, Nutrição sem Ruído, Progress sem Ruído and Recovery sem Ruído;
-- **MyTrainX Start — 4 Weeks** as an inactive program with 12 workouts, 12 scheduled days and gated Coach X knowledge;
+- **MyTrainX Start — 4 Weeks** active for registered members with 12 executable workouts, self-enrollment, workout completion and Progress integration;
 - initial inventory of the two supplied Google Drive roots;
 - full index of the public-domain wrkout exercise source (873 source exercises) plus a curated 114-item localization/review queue;
 - quarantine/reference-only states so third-party or clinical material is not silently published.
@@ -82,9 +82,9 @@ Library V2 is now the canonical product direction:
 The library target now explicitly includes public/member surfaces, Exercise Encyclopedia, MyTrainX Kitchen, learning paths, individually sold digital products, Master collections, program resources and entitlement-aware Coach X retrieval.
 
 Library delivery is now consolidated on production `main`:
-- public Library mixes 28 public educational articles, 21 approved beginner exercise guides and 25 live Kitchen recipes;
+- public Library mixes 28 public educational articles, 30 approved exercise guides and 25 live Kitchen recipes (**83 public content items**);
 - exercise exposure is driven by `status=published` + `review_status=approved`;
-- intermediate exercises remain hidden in review;
+- all current canonical exercises have passed the general-education publication gate;
 - recipe nutrient values remain intentionally absent until FoodData Central mapping/review.
 
 MyTrainX Progress is merged and active on production `main`, covering user-configurable body tracking, weekly check-ins, goals and private progress photos.
@@ -147,8 +147,8 @@ Do not continue building placeholder UX ahead of domain/tool foundations.
 7. deliver C1 Coach X vertical slice;
 8. recursively inventory priority Drive content and PLR packages;
 9. validate package-level rights before any commercial reuse;
-10. seed canonical exercise and nutrition datasets from compatible open sources — **IN PROGRESS: 873 exercise sources indexed, 21 beginner exercises published, 9 intermediate in review; FoodData Central mapping still pending**;
-11. prepare the first owned MyTrainX production set — **IN PROGRESS: Start executable foundation, 25 Kitchen recipes, 28 public educational articles, four owned knowledge ebooks ready for review-gated RAG**;
+10. seed canonical exercise and nutrition datasets from compatible open sources — **IN PROGRESS: 873 exercise sources indexed, 30 canonical exercises published; 45 canonical food items + 137 recipe ingredient rows normalized; FoodData Central nutrient mapping/review still pending**;
+11. prepare the first owned MyTrainX production set — **IN PROGRESS: MyTrainX Start active with 12 executable sessions, 25 Kitchen recipes, 28 public educational articles, four owned knowledge ebooks still gated for final review**;
 12. close expert review gates for exercises, nutrition and scientific content before retrieval/publication;
 13. migrate Library surfaces progressively from static launch content to the canonical live registry.
 
@@ -204,3 +204,52 @@ Implemented in this branch:
 - Atendimento.Center GPT implementation handoff
 
 Security advisor currently reports 0 findings.
+
+
+## Visual V3.1 / Product consolidation — 2026-09-26
+
+Direct-to-main product consolidation now includes:
+
+- premium public Library index and content-detail system;
+- related content and article table-of-contents;
+- Progress V3.1 hierarchy plus contextual Library education;
+- WKT mission catalog and player rebuilt with persisted `workout_progress`;
+- WKT catalog displays real completed missions and next pending mission;
+- branded magic-link login;
+- branded PIX/assisted checkout;
+- WKT offer price sourced from active Supabase product instead of hardcoded copy;
+- MyTrainX Start active for registered members with enrollment/session/completion flows;
+- Master and Events truthful roadmap surfaces;
+- legacy public WKT page replaced by Visual V3.1;
+- unrelated programs no longer reuse WKT footage as fake cover art.
+
+## Coach X internal domain tools
+
+Signed HMAC integration now exposes:
+
+1. `profile`
+2. `entitlements`
+3. `current-program`
+4. `today-workout`
+5. `progress-summary`
+6. `library-search`
+7. `exercise`
+8. `recipe`
+
+Knowledge search enforces approved editorial review, verified rights, AI retrieval permission, ready knowledge documents and public/published content.
+
+The actual conversational runtime/streaming bridge to Atendimento.Center remains the next integration boundary; the domain tools themselves are now ready for that bridge.
+
+## Nutrition normalization
+
+Current Kitchen nutrition foundation:
+
+- 25 public recipes;
+- 45 canonical `food_items` in review;
+- 137 `recipe_ingredients` rows;
+- 101 ingredient rows mapped to a canonical food;
+- 36 composite/ambiguous rows intentionally unresolved;
+- 0 public nutrient rows until FoodData Central IDs and values pass review.
+
+Canonical workflow:
+`docs/content/FOODDATA-CENTRAL-INGESTION-2026.md`.
