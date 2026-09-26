@@ -10,3 +10,6 @@
 @media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}.playerGrid{grid-template-columns:1fr}.info{min-height:auto}.nav{margin-top:16px}}
 @media(max-width:760px){.journey,.player{padding:12px 10px 84px}.heroCopy{padding:24px 20px}.heroCopy h1{font-size:3.5rem}.sectionHead{align-items:start;flex-direction:column;gap:4px}.grid{grid-template-columns:1fr 1fr}.mission{min-height:210px}.playerTop{align-items:flex-start}.missionTitle{display:none}}
 @media(max-width:480px){.grid{grid-template-columns:1fr}.hero{min-height:360px}.meta{grid-template-columns:1fr 1fr}.nav{grid-template-columns:1fr}}
+
+.missionDone{border-color:#36c87862}
+.doneBadge{position:absolute!important;right:10px;top:10px;z-index:2;padding:4px 6px;border:1px solid #36c87855;border-radius:3px;background:#07150dd9;color:#7fe1a4;font:.44rem var(--font-micro);font-style:normal;letter-spacing:.06em}
