@@ -1,28 +1,18 @@
 import Link from "next/link";
 import { LandingHeader } from "@/components/LandingHeader";
 import { MyTrainXLogo } from "@/components/MyTrainXLogo";
-import { CoachPreview, CommandCenterPreview } from "@/components/landing/ProductPreview";
+import { CoachPreview } from "@/components/landing/ProductPreview";
 import { HumanTeamSection } from "@/components/landing/HumanTeamSection";
-import { Badge, ButtonLink, Card, Container, SectionHeading } from "@/components/ui/primitives";
+import { Badge, ButtonLink, Container, SectionHeading } from "@/components/ui/primitives";
+import { getUnifiedLibraryItems } from "@/lib/library-live";
 import { driveThumbnailUrl, workouts } from "@/lib/workouts";
 import styles from "./home.module.css";
 
-const trainingImage = driveThumbnailUrl(workouts[0].driveFileId, 1600);
-const programImage = driveThumbnailUrl(workouts[10].driveFileId, 1600);
-const goalImages = [
-  driveThumbnailUrl(workouts[12].driveFileId, 900),
-  driveThumbnailUrl(workouts[15].driveFileId, 900),
-  driveThumbnailUrl(workouts[17].driveFileId, 900),
-  driveThumbnailUrl(workouts[7].driveFileId, 900),
-  null,
-  driveThumbnailUrl(workouts[20].driveFileId, 900),
-];
-
 const pillars = [
-  ["AI TRAINER", "Orientação contextual."],
-  ["PROGRAMAS", "Planos estruturados."],
-  ["PERFORMANCE", "Progresso mensurável."],
-  ["COMMUNITY", "Evoluir acompanhado."],
+  ["01", "TREINO", "Programas estruturados e sessões guiadas."],
+  ["02", "IA", "Coach X com contexto, não respostas genéricas."],
+  ["03", "EVOLUÇÃO", "Progress com tendência, medidas e check-ins."],
+  ["04", "COMUNIDADE", "Pessoas, desafios e acompanhamento."],
 ];
 
 const goals = [
@@ -34,37 +24,57 @@ const goals = [
   ["COMUNIDADE", "Evoluir acompanhado.", "#comunidade"],
 ];
 
-export default function Home() {
+export default async function Home() {
+  const library = await getUnifiedLibraryItems();
+  const counts = {
+    articles: library.filter((item) => item.type === "article").length,
+    exercises: library.filter((item) => item.type === "exercise").length,
+    recipes: library.filter((item) => item.type === "recipe").length,
+  };
+
+  const heroImage = driveThumbnailUrl(workouts[4].driveFileId, 1800);
+  const progressImage = driveThumbnailUrl(workouts[15].driveFileId, 1200);
+  const programImage = driveThumbnailUrl(workouts[10].driveFileId, 1200);
+  const goalImages = [
+    driveThumbnailUrl(workouts[12].driveFileId, 900),
+    driveThumbnailUrl(workouts[15].driveFileId, 900),
+    driveThumbnailUrl(workouts[17].driveFileId, 900),
+    driveThumbnailUrl(workouts[7].driveFileId, 900),
+    null,
+    driveThumbnailUrl(workouts[20].driveFileId, 900),
+  ];
+
   return (
     <main className={styles.page}>
       <LandingHeader />
 
       <section className={styles.hero}>
-        <Container className={styles.heroGrid}>
+        <div className={styles.heroFrame}>
           <div className={styles.heroCopy}>
             <span className={styles.heroSignal}>⚡ TREINO · IA · EVOLUÇÃO · COMUNIDADE</span>
             <h1>O TEU TREINO.<br/>A TUA EVOLUÇÃO.<br/><em>O TEU X.</em></h1>
             <p>
               Programas estruturados, acompanhamento inteligente, progresso com contexto
-              e uma comunidade construída para te ajudar a continuar.
+              e uma comunidade desenhada para te ajudar a continuar.
             </p>
             <div className={styles.actions}>
               <ButtonLink href="/login">Começar agora <span aria-hidden="true">→</span></ButtonLink>
-              <ButtonLink href="#coach-x" variant="secondary">Ver como funciona</ButtonLink>
+              <ButtonLink href="#funcionalidades" variant="secondary">Ver como funciona</ButtonLink>
             </div>
-            <div className={styles.heroMeta}>
-              <span><b>21</b> sessões WKT verificadas</span>
-              <span><b>25</b> receitas live</span>
-              <span><b>74</b> conteúdos públicos na Library</span>
+            <div className={styles.heroStats}>
+              <div><b>{library.length}</b><span>conteúdos públicos</span></div>
+              <div><b>{counts.exercises}</b><span>exercícios publicados</span></div>
+              <div><b>{counts.recipes}</b><span>receitas live</span></div>
+              <div><b>{workouts.length}</b><span>sessões WKT verificadas</span></div>
             </div>
           </div>
 
-          <div className={styles.heroVisual} style={{ backgroundImage: `url("${trainingImage}")` }}>
-            <div className={styles.heroShade} />
+          <div className={styles.heroVisual} style={{ backgroundImage: `url("${heroImage}")` }}>
+            <div className={styles.heroShade}/>
             <div className={styles.heroDiscipline}>MAIS DISCIPLINA.<br/>MAIS EVOLUÇÃO.<br/><em>O TEU X.</em></div>
             <HeroDevices />
           </div>
-        </Container>
+        </div>
       </section>
 
       <section className={styles.goalStrip} aria-label="Objetivos e áreas MyTrainX">
@@ -76,142 +86,126 @@ export default function Home() {
               className={styles.goalCard}
               style={{ backgroundImage: goalImages[index] ? `url("${goalImages[index]}")` : undefined }}
             >
-              <div className={styles.goalShade} />
+              <div className={styles.goalShade}/>
               <span>0{index + 1}</span>
-              <div>
-                <strong>{title}</strong>
-                <small>{description}</small>
-              </div>
+              <div><strong>{title}</strong><small>{description}</small></div>
               <b>→</b>
             </Link>
           ))}
         </div>
       </section>
 
+      <section id="funcionalidades" className={styles.featureSection}>
+        <div className={styles.featureFrame}>
+          <article className={styles.coachFeature}>
+            <div className={styles.featureCopy}>
+              <span>IA QUE TE CONHECE</span>
+              <h2>COACH <em>X</em></h2>
+              <p>
+                O teu Personal Trainer por IA. A experiência foi desenhada para combinar
+                treino, Progress, programas e conhecimento autorizado numa única conversa.
+              </p>
+              <div className={styles.featureSignals}>
+                <span>Treinos personalizados</span>
+                <span>Ajustes pelo contexto</span>
+                <span>Knowledge Base MyTrainX</span>
+              </div>
+              <ButtonLink href="/trainer" variant="secondary">Conhecer o Coach X →</ButtonLink>
+            </div>
+            <CoachPreview />
+          </article>
+
+          <article id="progresso" className={styles.progressFeature} style={{ backgroundImage: `url("${progressImage}")` }}>
+            <div className={styles.progressShade}/>
+            <div className={styles.progressCopy}>
+              <span>ACOMPANHA A TUA</span>
+              <h2>EVOLUÇÃO <em>REAL.</em></h2>
+              <p>
+                Peso opcional, cintura, composição estimada, check-ins, metas e fotos privadas.
+                Sempre com método, tendência e contexto.
+              </p>
+              <div className={styles.progressMetrics}>
+                <div><small>PESO</small><b>Opcional</b></div>
+                <div><small>MASSA MUSCULAR</small><b>Estimativa</b></div>
+                <div><small>FOTOS</small><b>Privadas</b></div>
+                <div><small>CHECK-IN</small><b>Semanal</b></div>
+              </div>
+              <ButtonLink href="/login" variant="secondary">Ver Progress →</ButtonLink>
+            </div>
+          </article>
+        </div>
+      </section>
+
       <section className={styles.pillars} aria-label="Ecossistema MyTrainX">
-        <Container className={styles.pillarGrid}>
-          {pillars.map(([title, description], index) => (
+        <div className={styles.pillarGrid}>
+          {pillars.map(([index,title,description]) => (
             <article key={title}>
-              <span>0{index + 1}</span>
+              <span>{index}</span>
               <div><strong>{title}</strong><small>{description}</small></div>
             </article>
           ))}
-        </Container>
+        </div>
       </section>
 
-      <section id="coach-x" className={styles.section}>
-        <Container className={styles.twoCol}>
-          <div className={styles.copy}>
-            <SectionHeading eyebrow="COACH X">A IA QUE CONHECE O TEU <em>CONTEXTO.</em></SectionHeading>
-            <p>
-              Coach X é a inteligência central do MyTrainX. A experiência combina conversa,
-              programas, treino, Progress e conhecimento autorizado — sem parecer um chatbot genérico.
-            </p>
-            <div className={styles.featureList}>
-              <span>Treino e programa em contexto</span>
-              <span>Ajuste ao tempo disponível</span>
-              <span>Progresso explicado, não só exibido</span>
-              <span>Knowledge Base com gates de revisão</span>
-            </div>
-            <ButtonLink href="/trainer" variant="secondary">Conhecer o Coach X →</ButtonLink>
-          </div>
-          <CoachPreview />
-        </Container>
-      </section>
-
-      <section className={styles.sectionAlt}>
-        <Container>
-          <div className={styles.sectionIntro}>
-            <SectionHeading eyebrow="COMMAND CENTER">O TEU DIA NO <em>MYTRAINX.</em></SectionHeading>
-            <p>
-              Treino, programa, Progress, Library e Coach X convergem numa experiência única.
-              Quando existe dado real do membro, ele aparece; quando não existe, mostramos um estado vazio honesto.
-            </p>
-          </div>
-          <CommandCenterPreview />
-        </Container>
-      </section>
-
-      <section id="programas" className={styles.section}>
-        <Container>
+      <section id="programas" className={styles.programSection}>
+        <Container className={styles.wide}>
           <div className={styles.sectionTop}>
-            <SectionHeading eyebrow="PROGRAMAS">PROGRAMAS PARA <em>EVOLUIR.</em></SectionHeading>
+            <SectionHeading eyebrow="PROGRAMAS">CAMINHOS PARA <em>EVOLUIR.</em></SectionHeading>
             <ButtonLink href="/programas" variant="quiet">Ver todos →</ButtonLink>
           </div>
           <div className={styles.programGrid}>
             <Link href="/programas/wkt-militar" className={styles.programPrimary} style={{ backgroundImage: `url("${programImage}")` }}>
-              <div className={styles.programShade} />
+              <div className={styles.programShade}/>
               <Badge tone="brand">DISPONÍVEL</Badge>
-              <div className={styles.programCopy}>
+              <div>
                 <small>{workouts.length} TREINOS GUIADOS</small>
                 <strong>WKT <em>MILITAR</em></strong>
                 <p>Força, resistência e consistência dentro do ecossistema MyTrainX.</p>
               </div>
             </Link>
             {[
-              ["MYTRAINX START", "12 sessões · revisão final em curso.", "EM VALIDAÇÃO"],
-              ["HIIT PRO", "Performance e intensidade.", "EM PREPARAÇÃO"],
-              ["CALISTHENICS", "Movimento e domínio corporal.", "EM PREPARAÇÃO"],
-            ].map(([name, description, status]) => (
-              <Card key={name} className={styles.programFuture}>
+              ["MYTRAINX START", "12 sessões · 4 semanas", "EM VALIDAÇÃO"],
+              ["CORE 21", "Core & estabilidade", "EM PREPARAÇÃO"],
+              ["CALISTHENICS", "Domínio corporal", "EM PREPARAÇÃO"],
+            ].map(([name, description, status], index) => (
+              <article key={name} className={styles.programFuture}>
+                <span>0{index + 2}</span>
                 <Badge tone="neutral">{status}</Badge>
                 <strong>{name}</strong>
                 <p>{description}</p>
-              </Card>
+                <small>PRÓXIMO CAPÍTULO →</small>
+              </article>
             ))}
-          </div>
-        </Container>
-      </section>
-
-      <section id="progresso" className={styles.progressSection}>
-        <Container className={styles.progressGrid}>
-          <div className={styles.copy}>
-            <SectionHeading eyebrow="PROGRESS">A TUA EVOLUÇÃO. <em>COM CONTEXTO.</em></SectionHeading>
-            <p>
-              Peso opcional, medidas, composição estimada, metas, check-in e fotos privadas.
-              O princípio é <strong>dado → interpretação → ação</strong>, sem transformar uma medição isolada em diagnóstico.
-            </p>
-            <ButtonLink href="/login" variant="secondary">Abrir o teu Progress →</ButtonLink>
-          </div>
-          <div className={styles.progressVisual} aria-label="Fluxo de progresso MyTrainX">
-            <div><small>01 · DADO</small><strong>Regista</strong><span>O que escolheste acompanhar</span></div>
-            <i>→</i>
-            <div><small>02 · TENDÊNCIA</small><strong>Compara</strong><span>Método e contexto consistentes</span></div>
-            <i>→</i>
-            <div><small>03 · AÇÃO</small><strong>Ajusta</strong><span>O menor próximo passo útil</span></div>
           </div>
         </Container>
       </section>
 
       <HumanTeamSection />
 
-      <section id="comunidade" className={styles.sectionAlt}>
-        <Container className={styles.communityGrid}>
-          <div className={styles.copy}>
-            <SectionHeading eyebrow="COMMUNITY">MAIS QUE TREINOS. <em>UMA COMUNIDADE.</em></SectionHeading>
+      <section id="comunidade" className={styles.communitySection}>
+        <div className={styles.communityVisual}>
+          <div className={styles.communityShade}/>
+          <div className={styles.communityCopy}>
+            <span>MAIS DO QUE TREINOS.</span>
+            <h2>UMA COMUNIDADE <em>REAL.</em></h2>
             <p>
-              Grupos, desafios, eventos e interação entre membros fazem parte da visão MyTrainX.
-              A experiência cresce sem usar números de membros ou resultados não verificados.
+              Desafios, grupos, eventos e apoio contínuo. Sem números inventados:
+              a comunidade cresce com utilização e participação reais.
             </p>
-            <ButtonLink href="/community" variant="secondary">Explorar a comunidade →</ButtonLink>
+            <div className={styles.communityFeatures}>
+              <span>◇ Desafios</span><span>◇ Grupos temáticos</span><span>◇ Eventos</span><span>◇ Partilha</span>
+            </div>
+            <ButtonLink href="/community">Explorar comunidade →</ButtonLink>
           </div>
-          <div className={styles.communityCards}>
-            <Card><span>01</span><strong>DESAFIOS</strong><p>Objetivos partilhados e acompanhamento.</p></Card>
-            <Card><span>02</span><strong>EVENTOS</strong><p>Experiências e ativações MyTrainX.</p></Card>
-            <Card><span>03</span><strong>PERTENÇA</strong><p>Evoluir com outras pessoas.</p></Card>
-          </div>
-        </Container>
+        </div>
       </section>
 
       <section id="master" className={styles.masterSection}>
         <Container className={styles.masterInner}>
           <div>
-            <span className={styles.masterEyebrow}>MYTRAINX MASTER</span>
+            <span>♛ MYTRAINX MASTER</span>
             <h2>PARA QUEM QUER IR MAIS LONGE.</h2>
-            <p>
-              O espaço premium do ecossistema para conteúdos, programas avançados, eventos,
-              desafios e benefícios. Só entra em oferta final aquilo que estiver efetivamente validado.
-            </p>
+            <p>Conteúdos, programas, desafios, eventos e benefícios premium — apenas quando estiverem realmente validados.</p>
           </div>
           <div className={styles.masterActions}>
             <Badge tone="master">EM PREPARAÇÃO</Badge>
@@ -222,7 +216,7 @@ export default function Home() {
 
       <section className={styles.finalCta}>
         <Container className={styles.finalInner}>
-          <span className={styles.eyebrow}>FIND YOUR X.</span>
+          <span>FIND YOUR X.</span>
           <h2>O PRÓXIMO PASSO É <em>TEU.</em></h2>
           <p>Treino inteligente. Acompanhamento real. Conhecimento para entender a tua evolução.</p>
           <div className={styles.actions}>
@@ -235,12 +229,9 @@ export default function Home() {
       <footer className={styles.footer}>
         <Container className={styles.footerInner}>
           <div><MyTrainXLogo /><small>FIND YOUR X.</small></div>
-          <nav aria-label="Rodapé">
-            <Link href="/programas">Programas</Link>
-            <Link href="/trainer">Coach X</Link>
-            <Link href="/library">Library</Link>
-            <Link href="/community">Comunidade</Link>
-            <Link href="/master">Master</Link>
+          <nav>
+            <Link href="/programas">Programas</Link><Link href="/trainer">Coach X</Link>
+            <Link href="/library">Library</Link><Link href="/community">Comunidade</Link><Link href="/master">Master</Link>
           </nav>
           <span>TRAIN · EVOLVE · BELONG</span>
         </Container>
@@ -253,30 +244,15 @@ function HeroDevices() {
   return (
     <div className={styles.deviceStage} aria-label="Prévia visual do produto MyTrainX">
       <div className={styles.phonePrimary}>
-        <div className={styles.phoneBar}><b>MyTrain<span>X</span></b><small>PREVIEW</small></div>
-        <div className={styles.phoneWelcome}><small>OLÁ, MEMBER</small><strong>O que fazemos hoje?</strong></div>
-        <div className={styles.phonePlan}>
-          <span>PROGRAMA</span>
-          <b>WKT Militar</b>
-          <small>Próxima sessão disponível no teu plano.</small>
-        </div>
+        <div className={styles.phoneBar}><b>MyTrain<span>X</span></b><small>LIVE</small></div>
+        <div className={styles.phoneWelcome}><small>COMMAND CENTER</small><strong>O que fazemos hoje?</strong></div>
+        <div className={styles.phonePlan}><span>PROGRAMA</span><b>WKT Militar</b><small>Próxima sessão disponível no teu plano.</small></div>
         <Link href="/login">VER TREINO DE HOJE →</Link>
-        <div className={styles.phoneMiniGrid}>
-          <div><b>Progress</b><small>Tendências reais</small></div>
-          <div><b>Library</b><small>Conteúdo 2026</small></div>
-        </div>
+        <div className={styles.phoneMiniGrid}><div><b>Progress</b><small>Dados privados</small></div><div><b>Library</b><small>Conteúdo 2026</small></div></div>
       </div>
-
       <div className={styles.phoneSecondary}>
-        <div className={styles.phoneMedia}>
-          <span>PREVIEW</span>
-          <strong>TREINO<br/>DE HOJE</strong>
-        </div>
-        <div className={styles.phoneChecklist}>
-          <span>✓ Aquecimento</span>
-          <span>○ Treino principal</span>
-          <span>○ Finalização</span>
-        </div>
+        <div className={styles.phoneMedia}><span>TREINO DE HOJE</span><strong>FORÇA<br/>+ FOCO</strong></div>
+        <div className={styles.phoneChecklist}><span>✓ Aquecimento</span><span>○ Treino principal</span><span>○ Finalização</span></div>
         <Link href="/login">INICIAR →</Link>
       </div>
     </div>
