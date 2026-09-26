@@ -183,3 +183,8 @@ Before C1 integration, provide:
 
 Read the canonical MyTrainX handoff:
 `docs/handoff/ATENDIMENTO-CENTER-MYTRAINX-HANDOFF-V1.md`
+
+
+## Human team update — Micaela
+
+Micaela is a verified real human MyTrainX team member focused on Digital, Store, Communication & Support. Do not add a separate Micaela AI agent in B1/C1. Use human handoff/Chatwoot for her operational domain until an assisted runtime is explicitly approved.
