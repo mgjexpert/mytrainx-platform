@@ -150,13 +150,20 @@ export async function getLivePublicRecipes(): Promise<LibraryItem[]> {
 export async function getUnifiedLibraryItems(): Promise<LibraryItem[]> {
   const liveRecipes = await getLivePublicRecipes();
   const liveSlugs = new Set(liveRecipes.map((item) => item.slug));
-  const staticWithoutLiveRecipes = libraryLaunchItems.filter(
-    (item) => item.type !== "recipe" || !liveSlugs.has(item.slug)
+  const publishableStatic = libraryLaunchItems.filter(
+    (item) =>
+      item.type !== "exercise" &&
+      (item.type !== "recipe" || !liveSlugs.has(item.slug))
   );
-  return [...staticWithoutLiveRecipes, ...liveRecipes];
+  return [...publishableStatic, ...liveRecipes];
 }
 
 export async function getUnifiedLibraryItem(slug: string): Promise<LibraryItem | undefined> {
   const liveRecipes = await getLivePublicRecipes();
-  return liveRecipes.find((item) => item.slug === slug) || getLibraryItem(slug);
+  const liveRecipe = liveRecipes.find((item) => item.slug === slug);
+  if (liveRecipe) return liveRecipe;
+
+  const fallback = getLibraryItem(slug);
+  if (!fallback || fallback.type === "exercise") return undefined;
+  return fallback;
 }
