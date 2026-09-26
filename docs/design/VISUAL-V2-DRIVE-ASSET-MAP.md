@@ -51,3 +51,48 @@ Do not depend indefinitely on Google Drive share URLs as critical website assets
 The Visual V2 branch may proceed using these files as visual references immediately.
 
 Before production merge, required assets used by the UI must have a stable production path.
+
+
+## Micaela / Human Team update — 2026-09-26
+
+The approved Drive structure now includes dedicated folders for:
+
+- `01_PRODUCTION_ASSETS/MICAELA/`
+  - PORTRAIT
+  - PROFILE
+  - DIGITAL
+  - STORE
+  - COMMUNICATION
+  - SUPPORT
+- `01_PRODUCTION_ASSETS/HUMAN_TEAM/`
+  - SARA_MICAELA
+  - TEAM_BANNERS
+  - SUPPORT_DUO
+  - COMMUNICATION_DUO
+- `02_SOCIAL_CREATIVE/MICAELA/`
+  - POSTS
+  - STORIES
+  - CAMPAIGNS
+  - STORE
+  - SUPPORT
+- `02_SOCIAL_CREATIVE/SARA_MICAELA/`
+
+Micaela is a verified real human team member. Her approved raw/reference images and the approved Sara + Micaela joint images are the identity source for future production exports.
+
+Do not invent biography from image content.
+
+### GitHub production target
+
+```
+public/media/v2/
+  micaela/
+    portrait/
+    digital/
+    store/
+    communication/
+    support/
+  human-team/
+    sara-micaela/
+```
+
+Only stable approved exports should be copied into the application repository. Raw/reference photography remains governed in Drive.
