@@ -7,6 +7,33 @@ import styles from "@/app/app/performance/performance.module.css";
 
 const allowedTypes = new Set(["image/jpeg", "image/png", "image/webp"]);
 
+async function normalizeImage(file: File) {
+  const bitmap = await createImageBitmap(file);
+  const maxSide = 1600;
+  const scale = Math.min(1, maxSide / Math.max(bitmap.width, bitmap.height));
+  const width = Math.max(1, Math.round(bitmap.width * scale));
+  const height = Math.max(1, Math.round(bitmap.height * scale));
+
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  const context = canvas.getContext("2d");
+  if (!context) throw new Error("Não foi possível preparar a imagem.");
+
+  context.drawImage(bitmap, 0, 0, width, height);
+  bitmap.close();
+
+  const blob = await new Promise<Blob>((resolve, reject) => {
+    canvas.toBlob(
+      (result) => result ? resolve(result) : reject(new Error("Falha ao processar a imagem.")),
+      "image/jpeg",
+      0.86
+    );
+  });
+
+  return { blob, width, height };
+}
+
 export function ProgressPhotoUploader({ userId }: { userId: string }) {
   const [file, setFile] = useState<File | null>(null);
   const [angle, setAngle] = useState("front");
@@ -29,11 +56,14 @@ export function ProgressPhotoUploader({ userId }: { userId: string }) {
     }
 
     setUploading(true);
-    setStatus("Preparando set privado…");
+    setStatus("Removendo metadados e preparando imagem…");
     const supabase = createClient();
     const today = new Date().toISOString().slice(0, 10);
+    let uploadedPath: string | null = null;
 
     try {
+      const normalized = await normalizeImage(file);
+
       let { data: set } = await supabase
         .from("progress_photo_sets")
         .select("id")
@@ -46,20 +76,30 @@ export function ProgressPhotoUploader({ userId }: { userId: string }) {
       if (!set) {
         const created = await supabase
           .from("progress_photo_sets")
-          .insert({ user_id: userId, captured_on: today, label: "Check-in visual" })
+          .insert({
+            user_id: userId,
+            captured_on: today,
+            label: "Check-in visual",
+            ai_analysis_allowed: false,
+            metadata: { upload_version: 2, exif_stripped: true },
+          })
           .select("id")
           .single();
         if (created.error) throw created.error;
         set = created.data;
       }
 
-      const ext = file.type === "image/png" ? "png" : file.type === "image/webp" ? "webp" : "jpg";
-      const objectPath = `${userId}/${set.id}/${angle}-${crypto.randomUUID()}.${ext}`;
+      const objectPath = `${userId}/${set.id}/${angle}-${crypto.randomUUID()}.jpg`;
+      uploadedPath = objectPath;
 
       setStatus("Enviando de forma privada…");
       const uploadResult = await supabase.storage
         .from("progress-photos")
-        .upload(objectPath, file, { contentType: file.type, upsert: false });
+        .upload(objectPath, normalized.blob, {
+          contentType: "image/jpeg",
+          cacheControl: "300",
+          upsert: false,
+        });
 
       if (uploadResult.error) throw uploadResult.error;
 
@@ -68,6 +108,13 @@ export function ProgressPhotoUploader({ userId }: { userId: string }) {
         user_id: userId,
         angle,
         object_path: objectPath,
+        width_px: normalized.width,
+        height_px: normalized.height,
+        metadata: {
+          exif_stripped: true,
+          normalized_format: "jpeg",
+          upload_version: 2,
+        },
       });
 
       if (metadataResult.error) {
@@ -76,9 +123,12 @@ export function ProgressPhotoUploader({ userId }: { userId: string }) {
       }
 
       setFile(null);
-      setStatus("Foto salva. Apenas sua conta pode acessá-la.");
+      setStatus("Foto salva em área privada. Metadados EXIF removidos.");
       router.refresh();
     } catch (error) {
+      if (uploadedPath) {
+        await supabase.storage.from("progress-photos").remove([uploadedPath]);
+      }
       setStatus(error instanceof Error ? error.message : "Não foi possível enviar a foto.");
     } finally {
       setUploading(false);
@@ -112,7 +162,9 @@ export function ProgressPhotoUploader({ userId }: { userId: string }) {
           {uploading ? "ENVIANDO…" : "SALVAR FOTO"}
         </button>
       </div>
-      <div className={styles.status}>{status || "Bucket privado • RLS por utilizador • URLs temporárias"}</div>
+      <div className={styles.status}>
+        {status || "Privado • RLS por utilizador • URL temporária • EXIF removido no upload"}
+      </div>
     </div>
   );
 }
