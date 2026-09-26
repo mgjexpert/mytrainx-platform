@@ -164,18 +164,21 @@ export default async function Home() {
               </div>
             </Link>
             {[
-              ["MYTRAINX START", "12 sessões · 4 semanas", "DISPONÍVEL"],
-              ["CORE 21", "Core & estabilidade", "EM PREPARAÇÃO"],
-              ["CALISTHENICS", "Domínio corporal", "EM PREPARAÇÃO"],
-            ].map(([name, description, status], index) => (
-              <article key={name} className={styles.programFuture}>
+              ["MYTRAINX START", "12 sessões · 4 semanas", "DISPONÍVEL", "/login"],
+              ["CORE 21", "Core & estabilidade", "EM PREPARAÇÃO", null],
+              ["CALISTHENICS", "Domínio corporal", "EM PREPARAÇÃO", null],
+            ].map(([name, description, status, href], index) => {
+              const content = <>
                 <span>0{index + 2}</span>
                 <Badge tone="neutral">{status}</Badge>
                 <strong>{name}</strong>
                 <p>{description}</p>
-                <small>PRÓXIMO CAPÍTULO →</small>
-              </article>
-            ))}
+                <small>{href ? "ENTRAR E COMEÇAR →" : "PRÓXIMO CAPÍTULO →"}</small>
+              </>;
+              return href
+                ? <Link key={name} href={href} className={styles.programFuture}>{content}</Link>
+                : <article key={name} className={styles.programFuture}>{content}</article>;
+            })}
           </div>
         </Container>
       </section>
