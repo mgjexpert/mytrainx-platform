@@ -107,7 +107,9 @@ export async function getLibraryItem(slug: string) {
 export async function listLibraryCollections(limit = 24) {
   const supabase = await createClient();
 
-  const { data, error } = await supabase
+  // The runtime schema already includes content_collections; this branch predates
+  // the regenerated Supabase type snapshot that lands with the consolidated release.
+  const { data, error } = await (supabase as any)
     .from("content_collections")
     .select("id,slug,title,description,collection_type,access_policy,cover_url,sort_priority,metadata")
     .eq("status", "published")
