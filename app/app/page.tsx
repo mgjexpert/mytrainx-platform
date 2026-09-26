@@ -193,7 +193,7 @@ export default async function CommandCenter() {
             <div className={styles.programCards}>
               {[
                 ["WKT", "MILITAR", "DISPONÍVEL", "21 sessões guiadas", "/app/programas/wkt-militar"],
-                ["MYTRAINX", "START", "EM VALIDAÇÃO", "12 sessões · 4 semanas", "/app/programas"],
+                ["MYTRAINX", "START", "DISPONÍVEL", "12 sessões · 4 semanas", "/app/programas/mytrainx-start"],
                 ["CORE", "21", "EM PREPARAÇÃO", "Core & estabilidade", "/app/programas"],
                 ["CALISTHENICS", "", "EM PREPARAÇÃO", "Domínio corporal", "/app/programas"],
               ].map(([a,b,status,description,href], index) => (
