@@ -2,17 +2,22 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { driveThumbnailUrl, workouts } from "@/lib/workouts";
 import { OfferCta } from "./OfferCta";
+import { formatPrice, getActiveProduct } from "@/lib/domain/products";
 import styles from "./oferta.module.css";
 
-export const metadata: Metadata = {
-  title: "WKT Militar | 21 treinos guiados por R$ 67",
-  description: "Um programa follow-along com 21 treinos guiados. Abra a missão, dê play e treine junto. Acesso digital pelo MyTrainX.",
-  openGraph: {
-    title: "WKT Militar — 21 treinos guiados",
-    description: "Menos tempo escolhendo exercícios. Mais tempo treinando. Conheça a Operação WKT dentro do MyTrainX.",
-    type: "website",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const product = await getActiveProduct("wkt-militar");
+  const price = product?.price_cents ? formatPrice(product.price_cents, product.currency) : null;
+  return {
+    title: price ? `WKT Militar | 21 treinos guiados · ${price}` : "WKT Militar | 21 treinos guiados",
+    description: "Um programa follow-along com 21 treinos guiados. Abra a missão, dê play e treine junto. Acesso digital pelo MyTrainX.",
+    openGraph: {
+      title: "WKT Militar — 21 treinos guiados",
+      description: "Menos tempo escolhendo exercícios. Mais tempo treinando. Conheça a Operação WKT dentro do MyTrainX.",
+      type: "website",
+    },
+  };
+}
 
 const heroImage = driveThumbnailUrl(workouts[0].driveFileId, 1600);
 const demoImage = driveThumbnailUrl(workouts[6].driveFileId, 1400);
@@ -35,7 +40,9 @@ const objections = [
   ["“Treinar sozinho me desanima.”", "O formato follow-along cria a sensação de estar acompanhando a sessão junto."],
 ];
 
-export default function OfertaPage() {
+export default async function OfertaPage() {
+  const product = await getActiveProduct("wkt-militar");
+  const priceLabel = product?.price_cents ? formatPrice(product.price_cents, product.currency) : "VER PREÇO";
   return (
     <main className={styles.page}>
       <header className={styles.header}>
@@ -53,7 +60,7 @@ export default function OfertaPage() {
             <span>21 sessões guiadas</span><span>Área do aluno MyTrainX</span><span>Celular, tablet ou computador</span>
           </div>
 
-          <OfferCta className={styles.primaryCta}>QUERO COMEÇAR POR R$ 67 <span>→</span></OfferCta>
+          <OfferCta className={styles.primaryCta}>QUERO COMEÇAR POR {priceLabel} <span>→</span></OfferCta>
           <small className={styles.micro}>Compra única do acesso atual · PIX no checkout · resultados variam conforme execução, rotina e condições individuais</small>
         </div>
 
@@ -145,7 +152,7 @@ export default function OfertaPage() {
         </div>
         <div className={styles.offerCard}>
           <div className={styles.offerName}><small>MYTRAINX · WKT MILITAR</small><b>ACESSO 21</b></div>
-          <div className={styles.offerPrice}><small>POR</small><span>R$</span><b>67</b><sup>,00</sup></div>
+          <div className={styles.offerPrice}><small>VALOR ATUAL</small><b>{priceLabel}</b></div>
           <ul>
             <li>✓ 21 treinos completos em vídeo</li><li>✓ Área autenticada do aluno</li><li>✓ Acesso via navegador/PWA</li><li>✓ Catálogo organizado por missões</li>
           </ul>
@@ -162,7 +169,7 @@ export default function OfertaPage() {
       <section className={styles.finalCta}>
         <span>WKT MILITAR · MYTRAINX</span>
         <h2>Se a missão está clara,<br/><em>começar fica mais simples.</em></h2>
-        <OfferCta className={styles.primaryCta}>QUERO COMEÇAR POR R$ 67 →</OfferCta>
+        <OfferCta className={styles.primaryCta}>QUERO COMEÇAR POR {priceLabel} →</OfferCta>
         <Link href="/login">Já tem acesso? Entrar na área do aluno</Link>
       </section>
 
@@ -173,7 +180,7 @@ export default function OfertaPage() {
       </footer>
 
       <div className={styles.mobileBar}>
-        <div><small>WKT · 21 TREINOS</small><b>R$ 67</b></div>
+        <div><small>WKT · 21 TREINOS</small><b>{priceLabel}</b></div>
         <OfferCta className={styles.mobileCta}>COMEÇAR →</OfferCta>
       </div>
     </main>
