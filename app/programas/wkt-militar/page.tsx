@@ -1,85 +1,21 @@
 import Link from "next/link";
+import { PublicHeader } from "@/components/PublicHeader";
 import { driveThumbnailUrl, workouts } from "@/lib/workouts";
+import styles from "./wkt-public.module.css";
 
-const heroImage = driveThumbnailUrl(workouts[0].driveFileId, 1600);
+const hero=driveThumbnailUrl(workouts[0].driveFileId,1800);
 
-export default function Home() {
-  return (
-    <main className="landing">
-      <header className="siteHeader">
-        <div className="shell siteHeaderInner">
-          <Link className="brand brandStack" href="/">
-            <span>OPERAÇÃO</span><b>WKT</b>
-          </Link>
-          <nav className="siteNav" aria-label="Navegação principal">
-            <a href="#metodo">O método</a>
-            <a href="#como-funciona">Como funciona</a>
-            <a href="#programa">Programa</a>
-          </nav>
-          <div className="siteActions">
-            <Link className="loginLink" href="/login">Entrar</Link>
-            <Link className="button headerCta" href="/checkout">Quero começar</Link>
-          </div>
-        </div>
-      </header>
-
-      <section className="landingHero">
-        <div className="shell heroStage">
-          <div className="heroCopy">
-            <span className="eyebrow">TREINO GUIADO • 12 SEMANAS • 21 MISSÕES</span>
-            <h1>Você não precisa<br/>de mais motivação.<br/><em>Precisa de uma missão.</em></h1>
-            <p>Treinos guiados para acompanhar do início ao fim. Dê play, acompanhe o instrutor e transforme rotina em disciplina.</p>
-            <div className="actions">
-              <Link className="button heroCta" href="/checkout">Começar minha missão <span>→</span></Link>
-              <Link className="button ghost heroLogin" href="/login">Já sou aluno</Link>
-            </div>
-          </div>
-          <div className="heroMedia" style={{ backgroundImage: `url("${heroImage}")` }} aria-label="Prévia do treino">
-            <div className="heroMediaShade"/>
-            <div className="heroMediaTop"><span>MISSÃO 01</span><b>ALPHA</b></div>
-            <div className="heroMediaBottom"><span>PEITO • TRÍCEPS • PERNAS</span><strong>DISCIPLINA HOJE.<br/>RESULTADOS SEMPRE.</strong></div>
-          </div>
-        </div>
-        <div className="shell heroFeatureStrip" id="como-funciona">
-          <article><span className="featureIcon">▶</span><div><b>Treinos em vídeo</b><small>Acompanhe e faça junto</small></div></article>
-          <article><span className="featureIcon">▣</span><div><b>Em qualquer lugar</b><small>Celular, tablet ou TV</small></div></article>
-          <article><span className="featureIcon">↗</span><div><b>Progresso visível</b><small>Missões e evolução</small></div></article>
-        </div>
-      </section>
-
-      <section className="landingProof" id="metodo">
-        <div className="shell proofGrid">
-          <div className="proofCopy">
-            <span className="eyebrow darkEyebrow">O MÉTODO</span>
-            <h2>Um programa.<br/>Uma rotina que você consegue seguir.</h2>
-            <p>Sem biblioteca infinita e sem decidir o que fazer. A plataforma mostra a missão do dia e o treino acontece junto com o vídeo.</p>
-            <div className="proofMiniStats">
-              <span><b>21</b><small>treinos guiados</small></span>
-              <span><b>12</b><small>semanas de jornada</small></span>
-              <span><b>5x</b><small>por semana</small></span>
-            </div>
-          </div>
-          <div className="proofVisual" id="programa">
-            <div className="phoneMock phoneLeft"><span>SEMANA 3 • DIA 4</span><b>MISSÃO 14<br/>CHARLIE</b><small>Costas • 29 min</small><i>INICIAR MISSÃO ▶</i></div>
-            <div className="phoneMock phoneRight"><span>SEU PROGRESSO</span><b>68%</b><small>9 dias consecutivos</small><div className="miniBars"><i/><i/><i/><i/><i/></div></div>
-          </div>
-        </div>
-      </section>
-
-      <section className="landingDarkSection">
-        <div className="shell darkSplit">
-          <div><span className="eyebrow">FEITO PARA ACOMPANHAR</span><h2>Não é um curso para assistir.<br/><em>É um treino para fazer.</em></h2></div>
-          <div className="copy"><p>Alpha, Bravo, Charlie, Delta e Echo dão identidade a cada sessão. Você abre a missão, coloca o vídeo em tela cheia e acompanha o treino em tempo real.</p><Link className="textLink" href="/checkout">Ver acesso ao programa →</Link></div>
-        </div>
-      </section>
-
-      <footer className="landingFooter">
-        <div className="shell footerInner">
-          <Link className="brand brandStack" href="/"><span>OPERAÇÃO</span><b>WKT</b></Link>
-          <div className="footerLinks"><Link href="/login">Login do aluno</Link><Link href="/checkout">Começar agora</Link></div>
-          <small>Operação WKT • MVP 2026</small>
-        </div>
-      </footer>
-    </main>
-  );
+export default function WktProgramPage(){
+  return <main className={styles.page}>
+    <PublicHeader/>
+    <section className={styles.hero}>
+      <div className={styles.copy}><span>WKT MILITAR · 21 FOLLOW-ALONG SESSIONS</span><h1>ABRE A MISSÃO.<br/>DÁ PLAY.<br/><em>FAZ JUNTO.</em></h1><p>Um programa de treino guiado dentro do MyTrainX para reduzir a fricção entre decidir treinar e realmente começar. Cada missão tem vídeo próprio e o teu progresso fica associado à conta quando tens acesso.</p><div className={styles.actions}><Link className={styles.primary} href="/programas/wkt-militar/oferta">VER ACESSO →</Link><Link className={styles.secondary} href="/login">JÁ SOU MEMBRO</Link></div><div className={styles.facts}><div><b>{workouts.length}</b><small>sessões guiadas</small></div><div><b>5</b><small>famílias de missão</small></div><div><b>REAL</b><small>tracking na conta</small></div></div></div>
+      <div className={styles.visual} style={{backgroundImage:`url("${hero}")`}}><div className={styles.shade}/><div className={styles.mission}><span>MISSÃO 01</span><b>ALPHA</b></div><div className={styles.quote}>DISCIPLINA HOJE.<em>RESULTADOS SEMPRE.</em></div></div>
+    </section>
+    <section className={styles.strip}><article><span>▶</span><div><b>Treino em vídeo</b><small>Acompanha a sessão do início ao fim.</small></div></article><article><span>▣</span><div><b>Área MyTrainX</b><small>Catálogo e player na mesma conta.</small></div></article><article><span>✓</span><div><b>Conclusão real</b><small>Missões concluídas gravadas no Progress.</small></div></article><article><span>✦</span><div><b>Contexto Coach X</b><small>O estado pode alimentar a próxima sessão.</small></div></article></section>
+    <section className={styles.method}><div><span>O MÉTODO</span><h2>MENOS DECISÃO.<br/><em>MAIS EXECUÇÃO.</em></h2><p>O WKT não é uma pasta infinita de vídeos. É uma sequência fechada de sessões. O utilizador entra, escolhe ou continua a missão pendente e executa.</p></div><div className={styles.flow}>{[["01","ENTRA","Acede com a conta e entitlement WKT."],["02","ABRE","Escolhe ou continua a próxima missão."],["03","TREINA","Segue o vídeo dentro do player."],["04","GRAVA","Conclui e atualiza o teu estado real."]].map(([n,t,d])=><div key={n}><span>{n}</span><b>{t}</b><small>{d}</small></div>)}</div></section>
+    <section className={styles.catalog}><div className={styles.sectionHead}><div><span>MISSION CATALOG</span><h2>21 sessões reais.</h2></div><p>Estas são as mesmas sessões usadas na área autenticada — sem cards fictícios ou resultados inventados.</p></div><div className={styles.grid}>{workouts.slice(0,10).map(w=><article className={styles.card} style={{backgroundImage:`url("${driveThumbnailUrl(w.driveFileId,800)}")`}} key={w.id}><div className={styles.cardShade}/><span>MISSÃO {String(w.id).padStart(2,"0")}</span><b>{w.code}</b><small>{w.focus}</small><em>WKT MILITAR</em></article>)}</div></section>
+    <section className={styles.families}>{[["ALPHA","Base","Entrada e variação de grupos musculares."],["BRAVO","Ritmo","Combinações e continuidade."],["CHARLIE","Controle","Execução e consistência."],["DELTA","Força","Sessões com foco de força."],["ECHO","Variedade","Mais combinações no catálogo."]].map(([a,b,p])=><article key={a}><span>{a}</span><b>{b}</b><p>{p}</p></article>)}</section>
+    <section className={styles.cta}><div><span>WKT MILITAR · MYTRAINX</span><h2>PRONTO PARA A PRIMEIRA MISSÃO?</h2><p>Consulta a oferta atual e o checkout MyTrainX. O preço e a disponibilidade comercial são controlados pelo produto ativo.</p></div><Link href="/programas/wkt-militar/oferta">VER OFERTA ATUAL →</Link></section>
+  </main>;
 }
