@@ -6,38 +6,26 @@ export default async function Page(){
   const items = await getUnifiedLibraryItems();
   const exercises = items.filter((item) => item.type === "exercise").length;
   const recipes = items.filter((item) => item.type === "recipe").length;
+  const articles = items.filter((item) => item.type === "article").length;
 
   return (
     <main className={styles.page}>
       <Link className={styles.back} href="/app">← COMMAND CENTER</Link>
       <section className={styles.head}>
-        <span>LIBRARY / LIVE BETA</span>
-        <h1>Sua base de conhecimento</h1>
+        <span>LIBRARY · LIVE KNOWLEDGE SYSTEM</span>
+        <h1>Conhecimento que vira ação.</h1>
         <p>
-          A Biblioteca V2 já combina artigos editoriais 2026, Exercise Encyclopedia aprovada
-          e MyTrainX Kitchen no catálogo live. Ebooks, programas adquiridos,
-          progresso e downloads convergem para a mesma identidade de conteúdo.
+          A Library já combina artigos 2026, Exercise Encyclopedia e MyTrainX Kitchen no catálogo live.
+          Os ebooks e programas avançam pela mesma cadeia de direitos, revisão e proveniência.
         </p>
       </section>
       <section className={styles.grid}>
-        <article className={styles.card}>
-          <span>LIVE CATALOG</span>
-          <b>Biblioteca MyTrainX</b>
-          <small>{items.length} conteúdos visíveis nesta versão.</small>
-          <Link href="/library">ABRIR BIBLIOTECA →</Link>
-        </article>
-        <article className={styles.card}>
-          <span>EXERCISES</span>
-          <b>Exercise Encyclopedia</b>
-          <small>{exercises} movimentos beginner publicados; 9 exercícios intermediate continuam em revisão.</small>
-          <Link href="/library">VER EXERCÍCIOS →</Link>
-        </article>
-        <article className={styles.card}>
-          <span>KITCHEN / LIVE</span>
-          <b>MyTrainX Kitchen</b>
-          <small>{recipes} receitas originais lidas diretamente do catálogo estruturado.</small>
-          <Link href="/library">ABRIR KITCHEN →</Link>
-        </article>
+        <article className={styles.card}><span>LIVE CATALOG</span><b>{items.length} conteúdos públicos</b><small>Catálogo real disponível nesta versão.</small><Link href="/library">ABRIR LIBRARY →</Link></article>
+        <article className={styles.card}><span>EXERCISE</span><b>{exercises} movimentos</b><small>Guias beginner publicados; movimentos intermediate continuam em revisão.</small><Link href="/library">VER ENCICLOPÉDIA →</Link></article>
+        <article className={styles.card}><span>KITCHEN</span><b>{recipes} receitas</b><small>Receitas originais estruturadas; nutrição numérica aguarda FDC.</small><Link href="/library">ABRIR KITCHEN →</Link></article>
+        <article className={styles.card}><span>LEARN</span><b>{articles} guias</b><small>Treino, Progress, recovery, hábitos e alimentação prática.</small><Link href="/library">VER GUIAS →</Link></article>
+        <article className={styles.card}><span>EBOOKS</span><b>4 knowledge cores</b><small>Treino, Nutrição, Progress e Recovery em revisão final.</small></article>
+        <article className={styles.card}><span>COACH X</span><b>Knowledge-ready</b><small>Conteúdo aprovado será reutilizado pelo retrieval autorizado.</small></article>
       </section>
     </main>
   );
