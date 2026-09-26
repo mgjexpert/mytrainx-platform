@@ -13,7 +13,8 @@ This folder is the source of truth for the visible MyTrainX personas and their o
 
 | Persona | Public role | Internal role | Primary surfaces |
 |---|---|---|---|
-| **Sara** | Concierge & Community | Real human reception, support, onboarding, community and communication, with an AI-assisted instance in Atendimento.Center | WhatsApp, Web, App, Facebook, Instagram, communities |
+| **Sara** | Concierge & Community | Real human reception, onboarding, community and relationship layer, with an optional AI-assisted instance in Atendimento.Center | WhatsApp, Web, App, Facebook, Instagram, communities |
+| **Micaela** | Digital, Store, Communication & Support | Real human digital/commerce communication layer for store, campaigns, product access and digital support | Web, Store, support, social, campaigns, App |
 | **X / Coach X** | Your Personal AI Trainer | Main fitness orchestration persona | App, WebChat, member area |
 | **Axel** | Strength Coach | Strength, hypertrophy, gym progression | App, community, social content |
 | **Luna** | Transformation Coach | Consistency, lifestyle, general weight-management support | App, community, social content |
@@ -28,15 +29,17 @@ This folder is the source of truth for the visible MyTrainX personas and their o
 
 ## Fundamental rule
 
-**Sara is a real person and verified human team member.** X, Axel, Luna, Pulse and Vita are AI personas. The Atendimento.Center may also run an AI-assisted Sara instance for reception continuity, but the system must distinguish automated Sara responses from direct human attendance in logs and operational state.
+**Sara and Micaela are real people and verified human team members.** X, Axel, Luna, Pulse and Vita are AI personas. The Atendimento.Center may also run an AI-assisted Sara instance for reception continuity, but the system must distinguish automated Sara responses from direct human attendance in logs and operational state.
 
-AI persona biographies, ages, cities and curiosities are narrative design devices used for consistency. Sara's real biography must never be invented: only verified information supplied by the Product Owner may be published. AI personas must not fabricate real-world actions, credentials or physical presence.
+AI persona biographies, ages, cities and curiosities are narrative design devices used for consistency. Sara's and Micaela's real biographies must never be invented: only verified information supplied by the Product Owner may be published. AI personas must not fabricate real-world actions, credentials or physical presence.
 
 ## Product hierarchy
 
 ```
 MyTrainX
-├── Sara — real human relationship / concierge / communication
+├── Human layer
+│   ├── Sara — reception / concierge / onboarding / community
+│   └── Micaela — digital / store / communication / support
 └── X — personal fitness intelligence
     ├── Axel — strength
     ├── Luna — transformation & consistency
@@ -46,7 +49,7 @@ MyTrainX
 
 **Simple operating principle:**
 
-> Sara cuida da relação. X cuida do treino. Os especialistas aprofundam cada disciplina.
+> Sara acolhe. Micaela liga o digital, a loja e a comunicação. X cuida do treino. Os especialistas aprofundam cada disciplina.
 
 ## Implementation boundary
 
