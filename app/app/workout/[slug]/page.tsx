@@ -2,6 +2,9 @@ import Link from "next/link";
 import { drivePreviewUrl, getWorkout, workouts } from "@/lib/workouts";
 import { notFound, redirect } from "next/navigation";
 import { getActiveEntitlement } from "@/lib/domain/access";
+import { getSession } from "@/lib/session";
+import { createClient } from "@/lib/supabase/server";
+import { markWorkoutComplete } from "../actions";
 import styles from "@/components/wkt-member.module.css";
 
 export default async function WorkoutPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -14,6 +17,12 @@ export default async function WorkoutPage({ params }: { params: Promise<{ slug: 
   const index = workouts.findIndex((item) => item.slug === slug);
   const previous = index > 0 ? workouts[index - 1] : null;
   const next = index >= 0 && index < workouts.length - 1 ? workouts[index + 1] : null;
+  const session = await getSession();
+  const supabase = await createClient();
+  const { data: dbWorkout } = await supabase.from("workouts").select("id").eq("slug", slug).maybeSingle();
+  const { data: progress } = dbWorkout && session?.userId
+    ? await supabase.from("workout_progress").select("completed_at").eq("user_id", session.userId).eq("workout_id", dbWorkout.id).maybeSingle()
+    : { data: null };
 
   return (
     <main className={styles.player}>
@@ -37,7 +46,12 @@ export default async function WorkoutPage({ params }: { params: Promise<{ slug: 
               <div className={styles.step}><span>02</span><div><b>Treino guiado</b><small>Acompanhe a sessão e preserve técnica.</small></div></div>
               <div className={styles.step}><span>03</span><div><b>Finalização</b><small>Recupere e registe contexto útil quando necessário.</small></div></div>
             </div>
-            <div className={styles.note}>O botão de conclusão legado foi removido desta versão porque ainda não existia persistência de conclusão ligada ao Progress. A interface não deve fingir que gravou um estado.</div>
+            <form action={markWorkoutComplete.bind(null, slug, next?.slug ?? null)} className={styles.completeForm}>
+              <button type="submit" className={progress?.completed_at ? styles.completed : styles.complete}>
+                {progress?.completed_at ? "MISSÃO CONCLUÍDA ✓ · GUARDAR NOVAMENTE" : next ? "CONCLUIR E IR PARA A PRÓXIMA →" : "CONCLUIR PROGRAMA →"}
+              </button>
+            </form>
+            <div className={styles.note}>A conclusão é agora persistida no `workout_progress` da tua conta e alimenta Progress e as tools internas do Coach X.</div>
             <nav className={styles.nav}>
               {previous ? <Link href={`/app/workout/${previous.slug}`}>← MISSÃO {String(previous.id).padStart(2,"0")}</Link> : <Link href="/app/programas/wkt-militar">CATÁLOGO</Link>}
               {next ? <Link href={`/app/workout/${next.slug}`}>MISSÃO {String(next.id).padStart(2,"0")} →</Link> : <Link href="/app/performance/check-in">CHECK-IN →</Link>}
