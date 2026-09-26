@@ -168,3 +168,49 @@ export async function saveProgressPreferences(formData: FormData) {
   revalidatePath("/app/performance/body");
   revalidatePath("/app/performance/photos");
 }
+
+
+export async function saveProgressGoal(formData: FormData) {
+  const session = await getSession();
+  if (!session?.userId) throw new Error("Authentication required.");
+
+  const goalType = String(formData.get("goal_type") ?? "custom");
+  const allowedGoalTypes = new Set([
+    "consistency",
+    "weight",
+    "waist",
+    "body_fat_estimate",
+    "muscle_mass_estimate",
+    "strength",
+    "mobility",
+    "endurance",
+    "custom",
+  ]);
+  if (!allowedGoalTypes.has(goalType)) throw new Error("Invalid goal type.");
+
+  const direction = String(formData.get("target_direction") ?? "custom");
+  const allowedDirections = new Set(["increase", "decrease", "maintain", "at_least", "at_most", "custom"]);
+  if (!allowedDirections.has(direction)) throw new Error("Invalid goal direction.");
+
+  const title = optionalText(formData, "title", 160);
+  if (!title) throw new Error("Goal title is required.");
+
+  const targetDate = optionalText(formData, "target_date", 10);
+  const supabase = await createClient();
+  const { error } = await supabase.from("progress_goals").insert({
+    user_id: session.userId,
+    goal_type: goalType,
+    title,
+    target_direction: direction,
+    start_value: optionalNumber(formData, "start_value"),
+    target_value: optionalNumber(formData, "target_value"),
+    unit: optionalText(formData, "unit", 30),
+    target_date: targetDate,
+    notes: optionalText(formData, "notes", 1000),
+  });
+
+  if (error) throw error;
+
+  revalidatePath("/app/performance");
+  revalidatePath("/app/performance/goals");
+}
