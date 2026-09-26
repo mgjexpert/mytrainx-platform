@@ -41,6 +41,7 @@ export default async function BodyProgressPage() {
             <h2>Nova medição</h2>
             <p>Campos de composição são opcionais e tratados como estimativas.</p>
             <form action={logBodyMetric}>
+              <Field label="Data da medição" name="measured_on" type="date" />
               <Field label="Peso (kg)" name="weight_kg" type="number" step="0.1" />
               <div className={styles.field}>
                 <label htmlFor="measurement_method">Método</label>
@@ -74,6 +75,7 @@ export default async function BodyProgressPage() {
             <h2>Medidas corporais</h2>
             <p>Use a mesma posição anatômica e técnica de fita a cada comparação.</p>
             <form action={logCircumference}>
+              <Field label="Data da medição" name="measured_on" type="date" />
               <Field label="Cintura (cm)" name="waist_cm" type="number" step="0.1" />
               <Field label="Quadril (cm)" name="hip_cm" type="number" step="0.1" />
               <Field label="Peito (cm)" name="chest_cm" type="number" step="0.1" />
@@ -168,6 +170,8 @@ export default async function BodyProgressPage() {
           <p>
             BIA, smart scales e outros métodos estimam composição corporal e podem variar com
             hidratação, horário, dispositivo e algoritmo. Use-os como tendência, não como diagnóstico.
+            Massa magra e massa muscular não são sinónimos: mantenha o mesmo método e dispositivo
+            quando quiser comparar estimativas ao longo do tempo.
           </p>
         </section>
       </div>
