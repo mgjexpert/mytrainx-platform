@@ -1,6 +1,6 @@
 # Current Project State
 
-**Project version:** 0.3.0-orange-v1-kickoff  
+**Project version:** 0.4.0-visual-v3-prod  
 **State date:** 2026-09-26  
 **Overall status:** IN PROGRESS
 
@@ -90,22 +90,36 @@ Library delivery is now consolidated on production `main`:
 MyTrainX Progress is merged and active on production `main`, covering user-configurable body tracking, weekly check-ins, goals and private progress photos.
 
 ### Track D — Creative / Product UI
-**APPROVED DIRECTION / IMPLEMENTATION START**
+**VISUAL V3 IN PRODUCTION**
 
 Current primary visual direction:
 - BLACK PERFORMANCE SYSTEM + MYTRAINX ORANGE
-- previous neon-green system is structural reference only
-- Coach X remains the central product
-- Sara is the verified real human Concierge & Community layer
-- specialist coaches remain AI personas
+- validated Drive maquettes are the visual reference baseline;
+- previous neon-green system is structural reference only;
+- Coach X remains the central product;
+- Sara is the verified real human Concierge & Community layer;
+- specialist coaches remain AI personas.
 
-Implementation branch:
-`feat/orange-visual-system-v1`
+Production baseline:
+- merge commit `f54c5ee6f9d1be9ceda796e298af45bf3585654a`;
+- PR #27 — Visual V3 / maquette fidelity;
+- Vercel production deployment `dpl_3oHaMipNaqa2henpbjXGJRxmJhSs`;
+- aliases `mytrainx.fit` and `www.mytrainx.fit`;
+- deployment READY with no alias error and no runtime errors detected post-release.
 
-GPT Work must begin with the repository audit defined in:
-`docs/handoff/MYTRAINX_GPT_WORK_VISUAL_DIRECTION_V1.md`
+Visual V3 includes:
+- dense cinematic public landing aligned to the validated home maquette;
+- real Library / Exercise / Kitchen / WKT metrics instead of fabricated social proof;
+- persistent member sidebar + topbar across all `/app/*` routes;
+- responsive mobile member navigation;
+- Command Center rebuilt around Coach X, real Progress data, WKT, programs, Library and Master;
+- validated team and community media used as production surfaces;
+- public Trainer, Programs and Community upgraded to the same design language;
+- member Trainer, Programs and Library upgraded from the old MVP card layout;
+- truthful product-status language preserved for content still in validation.
 
-Reusable foundations and the public landing are now implemented on the orange branch. Command Center/shared public/member chrome has also been converted to the orange system. PR #10 remains Draft pending final preview review and connected-environment regression checks.
+Canonical audit:
+`docs/design/VISUAL-V3-MAQUETTE-AUDIT-2026-09-26.md`.
 
 ## Architecture realignment — V2
 
@@ -140,15 +154,15 @@ Do not continue building placeholder UX ahead of domain/tool foundations.
 
 ## Immediate visual milestone
 
-On `feat/orange-visual-system-v1`, GPT Work must:
+Visual V3 is now the production baseline.
 
-1. audit the current route/component tree;
-2. document exact landing/app files and current constraints;
-3. implement orange design tokens and reusable shared components;
-4. evolve the real landing without breaking validated behavior;
-5. validate desktop/mobile;
-6. run typecheck/build and regression checks;
-7. keep a dated implementation changelog.
+Next visual-quality work:
+1. create/approve bespoke production media for Coach X, Programs, Progress, Nutrition and specialist personas so WKT footage is no longer reused as a generic media pool;
+2. add content-specific imagery to Library cards and detail pages;
+3. produce dedicated covers for MyTrainX Start, Core 21, Calisthenics, Home 30 and HIIT Pathway;
+4. perform route-by-route responsive screenshot QA at desktop, tablet and mobile sizes;
+5. continue tightening spacing, type scale and crop positions against the validated references;
+6. retain real-data-only presentation — never copy fake ratings, member counts or transformation percentages from mockups.
 
 ## Immediate integration milestone
 
