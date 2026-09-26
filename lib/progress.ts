@@ -44,6 +44,7 @@ export type ProgressDashboard = {
   activeGoals: number;
   photoSets: number;
   latestPhotoDate: string | null;
+  dashboardMetrics: string[];
 };
 
 export async function getProgressDashboard(userId: string): Promise<ProgressDashboard> {
@@ -64,6 +65,7 @@ export async function getProgressDashboard(userId: string): Promise<ProgressDash
     goalsResult,
     photosResult,
     workoutsResult,
+    preferencesResult,
   ] = await Promise.all([
     supabase
       .from("body_metric_entries")
@@ -104,6 +106,11 @@ export async function getProgressDashboard(userId: string): Promise<ProgressDash
       .eq("user_id", userId)
       .not("completed_at", "is", null)
       .gte("completed_at", start28.toISOString()),
+    supabase
+      .from("progress_preferences")
+      .select("preferences")
+      .eq("user_id", userId)
+      .maybeSingle(),
   ]);
 
   const bodyRows = bodyResult.data ?? [];
@@ -150,6 +157,16 @@ export async function getProgressDashboard(userId: string): Promise<ProgressDash
 
   const latestCheckinRow = checkinResult.data;
   const photoRows = photosResult.data ?? [];
+  const preferenceObject =
+    preferencesResult.data?.preferences && typeof preferencesResult.data.preferences === "object"
+      ? (preferencesResult.data.preferences as Record<string, unknown>)
+      : {};
+  const configuredDashboardMetrics = Array.isArray(preferenceObject.dashboard_metrics)
+    ? preferenceObject.dashboard_metrics.filter((value): value is string => typeof value === "string")
+    : [];
+  const dashboardMetrics = configuredDashboardMetrics.length
+    ? configuredDashboardMetrics
+    : ["weight", "waist", "composition", "training", "photos", "checkin"];
 
   return {
     latestWeight: weightRows[0]?.value ?? null,
@@ -191,6 +208,7 @@ export async function getProgressDashboard(userId: string): Promise<ProgressDash
     activeGoals: goalsResult.count ?? 0,
     photoSets: photoRows.length,
     latestPhotoDate: photoRows[0]?.captured_on ? String(photoRows[0].captured_on) : null,
+    dashboardMetrics,
   };
 }
 
