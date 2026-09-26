@@ -6,34 +6,20 @@ export function CoachPreview() {
     <Card className={styles.coachCard}>
       <div className={styles.previewTop}>
         <div><span className={styles.xMark}>X</span><strong>Coach X</strong></div>
-        <Badge tone="brand">PRÉVIA · EM DESENVOLVIMENTO</Badge>
+        <Badge tone="brand">AI TRAINER</Badge>
       </div>
       <div className={styles.thread}>
         <p className={styles.user}>Tenho apenas 30 minutos hoje.</p>
         <div className={styles.reply}>
-          <span>Treino recomendado</span>
-          <strong>28 min · Upper Body</strong>
-          <small>6 exercícios · intensidade ajustada</small>
-          <div className={styles.fakeActions}><b>Começar treino</b><span>Ajustar</span><span>Ver porquê</span></div>
+          <span>CONTEXTO ATUAL</span>
+          <strong>Treino compacto · 28 min</strong>
+          <small>Prioridade: manter o programa e reduzir volume, não reinventar a sessão.</small>
+          <div className={styles.fakeActions}><b>Ver plano</b><span>Ajustar</span><span>Porquê?</span></div>
         </div>
       </div>
+      <div className={styles.contextStrip}>
+        <span>PROGRAMAS</span><span>PROGRESS</span><span>LIBRARY</span><span>MEMÓRIA</span>
+      </div>
     </Card>
-  );
-}
-
-export function CommandCenterPreview() {
-  return (
-    <div className={styles.command}>
-      <div className={styles.commandHead}>
-        <div><small>MYTRAINX</small><strong>O TEU DIA.</strong></div>
-        <Badge tone="neutral">DEMONSTRAÇÃO DE INTERFACE</Badge>
-      </div>
-      <div className={styles.commandGrid}>
-        <Card className={styles.training}><small>TREINO</small><strong>O próximo passo, sempre claro.</strong><p>O treino do dia será apresentado aqui quando os dados do membro estiverem ligados.</p></Card>
-        <Card><small>PROGRESSO</small><strong>Dados com contexto.</strong><p>Peso opcional, medidas, check-in, metas e fotos privadas já fazem parte da experiência real.</p></Card>
-        <Card><small>PROGRAMA</small><strong>WKT Militar</strong><p>21 treinos guiados verificados; o acesso real continua dependente do entitlement do membro.</p></Card>
-        <Card><small>COACH X</small><strong>Recomendação contextual.</strong><p>Integração completa com Atendimento.Center é uma próxima etapa.</p></Card>
-      </div>
-    </div>
   );
 }
