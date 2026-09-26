@@ -12,6 +12,8 @@
 | Orange MyTrainX wordmark (`mytrainx-logo-orange-transparent.png`) | APPROVED DIRECTION | v1.0 | 2026-09-24 | header/brand/social | Final vector/SVG production still required |
 | Orange X favicon concept (`Logo_Favicon.png`) | APPROVED DIRECTION | v1.0 | 2026-09-24 | favicon/PWA/app | Optimize for small-size legibility before APPROVED PRODUCTION |
 | Sara approved identity/reference set | APPROVED DIRECTION | v1.0 | 2026-09-24 | Team/support/community | Sara is a real person; preserve identity, proportions and tattoos |
+| Micaela approved identity/reference set | APPROVED DIRECTION | v0.1 | 2026-09-26 | Digital/Store/Communication/Support/Team | Micaela is a real person; use only approved references |
+| Sara + Micaela joint reference set | APPROVED DIRECTION | v0.1 | 2026-09-26 | Human Team / support / communication | Canonical human-team pairing for appropriate surfaces |
 | Previous neon-green Command Center | SUPERSEDED — STRUCTURE REFERENCE | v0.x | 2026-09-24 | /app structure | Keep hierarchy/density only; do not retain green as primary brand |
 | Previous green brand board | SUPERSEDED — STRUCTURE REFERENCE | v0.x | 2026-09-24 | history | Retained for design evolution history |
 
