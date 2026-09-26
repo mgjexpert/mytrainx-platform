@@ -49,7 +49,12 @@ Primary reference:
 
 Use its information density, spatial hierarchy, image-led modules and compact premium dashboard treatment.
 
-### Sara
+### Human team — Sara + Micaela
+
+MyTrainX now has two verified real human team members:
+
+- **Sara — Concierge & Community**
+- **Micaela — Digital, Store, Communication & Support**
 
 Use the validated Sara set for:
 - onboarding;
@@ -60,6 +65,18 @@ Use the validated Sara set for:
 - Team page.
 
 Sara is **not** the primary Coach X product hero.
+
+Use approved Micaela references for:
+- Store/product discovery;
+- digital support;
+- campaign communication;
+- communication/social surfaces;
+- Team;
+- human-layer support modules.
+
+Use approved **Sara + Micaela** joint references for Team/contact/onboarding/support communication where the human team should be visible together.
+
+Neither human teammate replaces Coach X as the central training product.
 
 ### Team
 
@@ -203,12 +220,14 @@ Target:
 
 WKT keeps a stronger military/performance tone but remains visually inside MyTrainX.
 
-### P1 — Sara / Support
+### P1 — Human Team / Support
 
-- welcome/onboarding;
-- support/contact;
-- Team;
-- concierge module.
+- Sara welcome/onboarding;
+- Sara concierge/community;
+- Micaela digital/store/support;
+- Sara + Micaela Team/contact modules;
+- Team page;
+- support and campaign modules.
 
 ## Responsive strategy
 
@@ -241,6 +260,14 @@ public/media/v2/
     portrait/
     support/
     onboarding/
+  micaela/
+    portrait/
+    digital/
+    store/
+    communication/
+    support/
+  human-team/
+    sara-micaela/
   coach-x/
     hero/
     cards/
