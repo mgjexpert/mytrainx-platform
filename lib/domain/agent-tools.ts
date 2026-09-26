@@ -170,7 +170,11 @@ export async function getAgentProgressSummary(userId: string) {
 
 
 export async function searchAgentKnowledge(query: string, limit = 6) {
-  const term = query.trim();
+  const term = query
+    .trim()
+    .replace(/[%,().]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
   if (term.length < 2) return [];
 
   const admin = createAdminClient();
@@ -207,15 +211,37 @@ export async function searchAgentKnowledge(query: string, limit = 6) {
   if (!documentIds.length) return [];
   const contentByDocument = new Map((documents ?? []).map((row) => [row.id, row.content_id]));
 
-  const { data: chunks, error: chunksError } = await admin
-    .from("knowledge_chunks")
-    .select("document_id,ordinal,heading,body,locator")
-    .in("document_id", documentIds)
-    .or(`heading.ilike.%${term.replaceAll("%", "")}%,body.ilike.%${term.replaceAll("%", "")}%`)
-    .limit(Math.min(Math.max(limit, 1), 12));
-  if (chunksError) throw chunksError;
+  const capped = Math.min(Math.max(limit, 1), 12);
+  const baseSelect = "document_id,ordinal,heading,body,locator";
+  const [{ data: headingMatches, error: headingError }, { data: bodyMatches, error: bodyError }] =
+    await Promise.all([
+      admin
+        .from("knowledge_chunks")
+        .select(baseSelect)
+        .in("document_id", documentIds)
+        .ilike("heading", `%${term}%`)
+        .limit(capped),
+      admin
+        .from("knowledge_chunks")
+        .select(baseSelect)
+        .in("document_id", documentIds)
+        .ilike("body", `%${term}%`)
+        .limit(capped),
+    ]);
+  if (headingError) throw headingError;
+  if (bodyError) throw bodyError;
 
-  const contentIds = [...new Set((chunks ?? []).map((row) => contentByDocument.get(row.document_id)).filter(Boolean))] as string[];
+  const seen = new Set<string>();
+  const chunks = [...(headingMatches ?? []), ...(bodyMatches ?? [])]
+    .filter((chunk) => {
+      const key = `${chunk.document_id}:${chunk.ordinal}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .slice(0, capped);
+
+  const contentIds = [...new Set(chunks.map((row) => contentByDocument.get(row.document_id)).filter(Boolean))] as string[];
   const { data: items, error: itemsError } = contentIds.length
     ? await admin.from("content_items").select("id,slug,title,content_type,summary,access_policy,status").in("id", contentIds).eq("status", "published").eq("access_policy", "public")
     : { data: [], error: null };
@@ -223,7 +249,7 @@ export async function searchAgentKnowledge(query: string, limit = 6) {
 
   const itemMap = new Map((items ?? []).map((item) => [item.id, item]));
 
-  return (chunks ?? []).flatMap((chunk) => {
+  return chunks.flatMap((chunk) => {
     const contentId = contentByDocument.get(chunk.document_id);
     const item = contentId ? itemMap.get(contentId) : null;
     if (!item) return [];
