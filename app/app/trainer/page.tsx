@@ -6,6 +6,7 @@ import {
   getAgentProgressSummary,
 } from "@/lib/domain/agent-tools";
 import { getAtendimentoGatewayStatus } from "@/lib/agent/atendimento-gateway";
+import { CoachXComposer } from "@/components/coach/CoachXComposer";
 import styles from "./trainer.module.css";
 
 function label(value: unknown, fallback = "—") {
@@ -98,13 +99,7 @@ export default async function Trainer(){
           </div>
         </div>
 
-        <div className={styles.composer}>
-          <div>
-            <span>ASK COACH X</span>
-            <b>{gateway.configured ? "Atendimento.Center configurado para conversa/streaming." : "Streaming e memória entram pelo Atendimento.Center."}</b>
-          </div>
-          <button type="button" disabled>{gateway.configured ? "GATEWAY READY" : "GATEWAY PENDENTE"}</button>
-        </div>
+        <CoachXComposer configured={gateway.configured} />
       </section>
 
       <section className={styles.architecture}>
