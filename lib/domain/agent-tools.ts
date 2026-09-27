@@ -293,10 +293,22 @@ export async function searchAgentKnowledge(query: string, limit = 6) {
   const approvedIds = [...new Set((approvedReviews ?? []).map((row) => row.content_id))];
   if (!approvedIds.length) return [];
 
+  const { data: blockingReviews, error: blockingReviewError } = await admin
+    .from("content_reviews")
+    .select("content_id,review_type,status")
+    .in("content_id", approvedIds)
+    .in("review_type", ["scientific", "safety", "nutrition", "exercise"])
+    .neq("status", "approved");
+  if (blockingReviewError) throw blockingReviewError;
+
+  const blockedIds = new Set((blockingReviews ?? []).map((row) => row.content_id));
+  const reviewClearedIds = approvedIds.filter((id) => !blockedIds.has(id));
+  if (!reviewClearedIds.length) return [];
+
   const { data: rights, error: rightsError } = await admin
     .from("content_rights")
     .select("content_id")
-    .in("content_id", approvedIds)
+    .in("content_id", reviewClearedIds)
     .eq("verification_status", "verified")
     .eq("ai_retrieval_allowed", true);
   if (rightsError) throw rightsError;
@@ -306,14 +318,22 @@ export async function searchAgentKnowledge(query: string, limit = 6) {
 
   const { data: documents, error: documentsError } = await admin
     .from("knowledge_documents")
-    .select("id,content_id")
+    .select("id,content_id,metadata")
     .in("content_id", rightsIds)
     .eq("status", "ready");
   if (documentsError) throw documentsError;
 
-  const documentIds = (documents ?? []).map((row) => row.id);
+  const retrievableDocuments = (documents ?? []).filter((row) => {
+    const metadata =
+      row.metadata && typeof row.metadata === "object" && !Array.isArray(row.metadata)
+        ? (row.metadata as Record<string, unknown>)
+        : {};
+    return metadata.retrieval_blocked !== true;
+  });
+
+  const documentIds = retrievableDocuments.map((row) => row.id);
   if (!documentIds.length) return [];
-  const contentByDocument = new Map((documents ?? []).map((row) => [row.id, row.content_id]));
+  const contentByDocument = new Map(retrievableDocuments.map((row) => [row.id, row.content_id]));
 
   const capped = Math.min(Math.max(limit, 1), 12);
   const baseSelect = "document_id,ordinal,heading,body,locator";
