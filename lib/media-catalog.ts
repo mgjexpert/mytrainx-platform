@@ -42,6 +42,17 @@ export function libraryMedia(type: "article" | "exercise" | "recipe", index: num
   return driveThumbnailUrl(workouts[slot].driveFileId, size);
 }
 
+export function programMedia(slug: string, size = 1200) {
+  const bySlug: Record<string, MediaRole> = {
+    "wkt-militar": "programWkt",
+    "mytrainx-start-4-weeks": "programStart",
+    "core-21": "programCore",
+    "calisthenics-foundations": "programCalisthenics",
+    "home-30": "goalWellbeing",
+  };
+  return mediaFor(bySlug[slug] ?? "programWkt", size);
+}
+
 export function slugMedia(slug: string, size = 1400) {
   const index = Math.abs(slug.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0)) % workouts.length;
   return driveThumbnailUrl(workouts[index].driveFileId, size);
