@@ -2,7 +2,8 @@ import Link from "next/link";
 import { getSession } from "@/lib/session";
 import { getProgressDashboard } from "@/lib/progress";
 import { getUnifiedLibraryItems } from "@/lib/library-live";
-import { driveThumbnailUrl, workouts } from "@/lib/workouts";
+import { workouts } from "@/lib/workouts";
+import { mediaFor } from "@/lib/media-catalog";
 import styles from "./command.module.css";
 
 function number(value: number | null, suffix = "") {
@@ -29,10 +30,10 @@ export default async function CommandCenter() {
     recipes: library.filter((item) => item.type === "recipe").length,
   };
 
-  const coachImage = driveThumbnailUrl(workouts[14].driveFileId, 1600);
-  const todayImage = driveThumbnailUrl(workouts[0].driveFileId, 1400);
+  const coachImage = mediaFor("coachX", 1600);
+  const todayImage = mediaFor("programWkt", 1400);
   const programImages: Array<string | null> = [
-    driveThumbnailUrl(workouts[10].driveFileId, 900),
+    mediaFor("programWkt", 900),
     null,
     null,
     null,
