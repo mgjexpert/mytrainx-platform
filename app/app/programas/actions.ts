@@ -13,7 +13,14 @@ async function getRegisteredProgram(slug: string) {
     .eq("active", true)
     .maybeSingle();
   if (error) throw error;
-  if (!program || program.metadata?.member_access !== "registered") return null;
+  if (!program) return null;
+
+  const metadata =
+    program.metadata && typeof program.metadata === "object" && !Array.isArray(program.metadata)
+      ? (program.metadata as Record<string, unknown>)
+      : null;
+
+  if (metadata?.member_access !== "registered") return null;
   return { admin, program };
 }
 
