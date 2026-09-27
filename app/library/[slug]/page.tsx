@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { PublicHeader } from "@/components/PublicHeader";
 import { libraryLaunchItems } from "@/lib/library-launch";
 import { getUnifiedLibraryItem, getUnifiedLibraryItems } from "@/lib/library-live";
-import { driveThumbnailUrl, workouts } from "@/lib/workouts";
+import { slugMedia } from "@/lib/media-catalog";
 import styles from "./page.module.css";
 
 export function generateStaticParams() {
@@ -23,8 +23,7 @@ export default async function LibraryDetailPage({ params }: { params: Promise<{ 
   const [item, items] = await Promise.all([getUnifiedLibraryItem(slug), getUnifiedLibraryItems()]);
   if (!item) notFound();
 
-  const visualIndex = Math.abs(item.slug.split("").reduce((sum,ch)=>sum + ch.charCodeAt(0),0)) % workouts.length;
-  const heroVisual = driveThumbnailUrl(workouts[visualIndex].driveFileId, 1400);
+  const heroVisual = slugMedia(item.slug, 1400);
 
   const related = items
     .filter((candidate) => candidate.slug !== item.slug)
