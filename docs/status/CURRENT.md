@@ -82,7 +82,7 @@ Library V2 is now the canonical product direction:
 The library target now explicitly includes public/member surfaces, Exercise Encyclopedia, MyTrainX Kitchen, learning paths, individually sold digital products, Master collections, program resources and entitlement-aware Coach X retrieval.
 
 Library delivery is now consolidated on production `main`:
-- public Library now exposes **40 educational articles + 100 approved exercise guides + 60 live Kitchen recipes = 200 public content items**;
+- public Library now exposes **50 educational articles + 100 approved exercise guides + 60 live Kitchen recipes = 210 public content items**;
 - exercise exposure is driven by `status=published` + `review_status=approved`;
 - all current canonical exercises have passed the general-education publication gate;
 - recipe nutrient values remain intentionally absent until FoodData Central mapping/review.
@@ -273,12 +273,12 @@ Current `main` work now includes:
 
 ### Current canonical production-domain counts
 
-- 40 public articles;
+- 50 public articles;
 - 100 published/approved exercises;
 - 60 public Kitchen recipes;
-- 200 public Library items across those three primary content types;
-- 45 ready Knowledge documents;
-- 323 Knowledge chunks (6 retrieval-blocked pending scientific review);
+- 210 public Library items across those three primary content types;
+- 55 ready Knowledge documents;
+- 363 Knowledge chunks (6 retrieval-blocked pending scientific review);
 - 5 active programs: WKT Militar, MyTrainX Start, Core 21, Home 30, Calisthenics Foundations;
 - HIIT Pathway remains inactive / AMBER after its 2026 safety redesign.
 
@@ -315,9 +315,10 @@ Direct-to-main expansion completed:
 
 - Exercise Encyclopedia: **100** published/approved canonical movements;
 - Kitchen: **60** public original recipes;
-- Library primary catalog: **200** public items;
+- educational guides: **50** public articles;
+- Library primary catalog: **210** public items;
 - canonical foods: **55** in FoodData Central review workflow;
-- Knowledge: **45 ready documents / 323 chunks**;
+- Knowledge: **55 ready documents / 363 chunks**;
 - six Progress knowledge documents are ready but blocked from agent retrieval until scientific approval;
 - specialist review gates are now enforced inside `searchAgentKnowledge`;
 - HIIT Pathway remains correctly inactive/AMBER with a finalized specialist safety-review pack;
