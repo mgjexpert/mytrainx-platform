@@ -13,7 +13,12 @@ export default async function RegisteredProgramPage({params}:{params:Promise<{sl
   const session=await getSession(); if(!session?.userId)return null;
   const supabase=await createClient();
   const {data:program}=await supabase.from("programs").select("id,slug,name,description,metadata").eq("slug",slug).eq("active",true).maybeSingle();
-  if(!program || program.metadata?.member_access!=="registered") notFound();
+  if(!program) notFound();
+  const programMeta =
+    program.metadata && typeof program.metadata === "object" && !Array.isArray(program.metadata)
+      ? (program.metadata as Record<string, unknown>)
+      : {};
+  if(programMeta.member_access!=="registered") notFound();
 
   const [{data:workouts},{data:enrollment}]=await Promise.all([
     supabase.from("workouts").select("id,number,slug,title,focus,metadata").eq("program_id",program.id).eq("active",true).order("number"),
@@ -24,7 +29,7 @@ export default async function RegisteredProgramPage({params}:{params:Promise<{sl
   const {data:progress}=ids.length?await supabase.from("workout_progress").select("workout_id,completed_at").eq("user_id",session.userId).in("workout_id",ids):{data:[]};
   const completed=new Set((progress??[]).filter(p=>p.completed_at).map(p=>p.workout_id));
   const done=completed.size; const pct=rows.length?Math.round(done/rows.length*100):0;
-  const weeks=Number(program.metadata?.duration_weeks??Math.ceil(rows.length/3));
+  const weeks=Number(programMeta.duration_weeks??Math.ceil(rows.length/3));
   const firstPending=rows.find(w=>!completed.has(w.id))??rows[0];
 
   return <main className={styles.page}><div className={styles.shell}>
