@@ -12,7 +12,12 @@ export default async function RegisteredSessionPage({params}:{params:Promise<{sl
   const session=await getSession(); if(!session?.userId)redirect("/login");
   const supabase=await createClient();
   const {data:program}=await supabase.from("programs").select("id,name,metadata").eq("slug",slug).eq("active",true).maybeSingle();
-  if(!program || program.metadata?.member_access!=="registered")notFound();
+  if(!program)notFound();
+  const programMeta =
+    program.metadata && typeof program.metadata === "object" && !Array.isArray(program.metadata)
+      ? (program.metadata as Record<string, unknown>)
+      : {};
+  if(programMeta.member_access!=="registered")notFound();
   const {data:enrollment}=await supabase.from("program_enrollments").select("id,status").eq("user_id",session.userId).eq("program_id",program.id).in("status",["active","completed"]).maybeSingle();
   if(!enrollment)redirect(`/app/programas/${slug}`);
 
