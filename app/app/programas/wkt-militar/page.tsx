@@ -40,6 +40,7 @@ export default async function WktJourney() {
             <h1>DISCIPLINA.<br/><em>MISSÃO POR MISSÃO.</em></h1>
             <p>21 sessões guiadas do produto original, preservadas dentro do ecossistema MyTrainX. Abre a missão, acompanha o vídeo e segue a sequência sem precisar decidir o treino do dia.</p>
             <div className={styles.heroStats}><div><b>{workouts.length}</b><small>sessões</small></div><div><b>{completedCount}</b><small>concluídas</small></div><div><b>{percentage}%</b><small>progresso</small></div></div>
+            <div className={styles.programProgress}><span style={{width:`${percentage}%`}}/></div>
             <Link className={styles.heroAction} href={`/app/workout/${firstPending.slug}`}>{completedCount ? "CONTINUAR PROGRAMA →" : "INICIAR MISSÃO 01 →"}</Link>
           </div>
         </section>
