@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { MyTrainXLogo } from "@/components/MyTrainXLogo";
 import { LoginForm } from "./LoginForm";
+import { driveThumbnailUrl, workouts } from "@/lib/workouts";
 import styles from "./login.module.css";
 
 export default function LoginPage() {
   return (
     <main className={styles.page}>
-      <section className={styles.visual}>
+      <section className={styles.visual} style={{ backgroundImage: `url("${driveThumbnailUrl(workouts[6].driveFileId,1600)}")` }}><div className={styles.visualShade}/>
         <div className={styles.visualTop}><Link href="/"><MyTrainXLogo /></Link><span>MEMBER ACCESS · 2026</span></div>
         <div className={styles.visualCopy}>
           <span>WELCOME BACK</span>
