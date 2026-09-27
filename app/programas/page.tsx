@@ -1,21 +1,62 @@
 import Link from "next/link";
 import { PublicHeader } from "@/components/PublicHeader";
-import { driveThumbnailUrl, workouts } from "@/lib/workouts";
+import { createClient } from "@/lib/supabase/server";
+import { programMedia } from "@/lib/media-catalog";
 import styles from "@/components/public-sections.module.css";
 
-const cover=driveThumbnailUrl(workouts[10].driveFileId,1600);
+type ProgramRow = {
+  slug: string;
+  name: string;
+  description: string | null;
+  metadata: unknown;
+};
 
-export default function ProgramsPage(){
+function metadata(value: unknown) {
+  return value && typeof value === "object" && !Array.isArray(value)
+    ? (value as Record<string, unknown>)
+    : {};
+}
+
+export default async function ProgramsPage(){
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("programs")
+    .select("slug,name,description,metadata")
+    .eq("active", true)
+    .order("name");
+
+  const programs = (data ?? []) as ProgramRow[];
+  const wkt = programs.find((program) => program.slug === "wkt-militar");
+  const registered = programs.filter((program) => program.slug !== "wkt-militar");
+
   return <main className={styles.page}>
     <PublicHeader/>
-    <section className={styles.hero}><div className={styles.heroMedia} style={{backgroundImage:`url("${cover}")`}}/><div className={styles.heroContent}><span className={styles.kicker}>STRUCTURED PROGRAMS</span><h1>ESCOLHE O TEU<br/><em>CAMINHO.</em></h1><p>Programas transformam conteúdo em jornada: sessões, progressão, recursos, check-ins e contexto para o Coach X. Os programas registered abaixo podem ser iniciados com uma conta MyTrainX.</p><Link className={styles.cta} href="/login">ENTRAR NO MYTRAINX →</Link></div></section>
+    <section className={styles.hero}>
+      <div className={styles.heroMedia} style={{backgroundImage:`url("${programMedia("wkt-militar",1600)}")`}}/>
+      <div className={styles.heroContent}>
+        <span className={styles.kicker}>STRUCTURED PROGRAMS · {programs.length} ACTIVE</span>
+        <h1>ESCOLHE O TEU<br/><em>CAMINHO.</em></h1>
+        <p>Programas transformam conteúdo em jornada: sessões, progressão, recursos, check-ins e contexto para o Coach X. O catálogo abaixo vem do domínio ativo MyTrainX.</p>
+        <Link className={styles.cta} href="/login">ENTRAR NO MYTRAINX →</Link>
+      </div>
+    </section>
     <section className={styles.grid}>
-      <article className={styles.card}><span>DISPONÍVEL · PAGO</span><h2>WKT Militar</h2><p>21 sessões follow-along em vídeo. O acesso depende do entitlement WKT.</p><Link href="/programas/wkt-militar">VER PROGRAMA →</Link></article>
-      <article className={styles.card}><span>DISPONÍVEL · REGISTERED</span><h2>MyTrainX Start</h2><p>12 sessões · 4 semanas para começar ou regressar ao treino estruturado.</p><Link href="/login">ENTRAR E COMEÇAR →</Link></article>
-      <article className={styles.card}><span>DISPONÍVEL · REGISTERED</span><h2>Core 21</h2><p>21 sessões · 7 semanas de core, estabilidade, anti-rotação e carries.</p><Link href="/login">ENTRAR E COMEÇAR →</Link></article>
-      <article className={styles.card}><span>DISPONÍVEL · REGISTERED</span><h2>Home 30</h2><p>12 sessões em 30 dias para treino em casa com equipamento mínimo.</p><Link href="/login">ENTRAR E COMEÇAR →</Link></article>
-      <article className={styles.card}><span>DISPONÍVEL · REGISTERED</span><h2>Calisthenics Foundations</h2><p>4 semanas de força relativa, push/pull, pernas e controle corporal.</p><Link href="/login">ENTRAR E COMEÇAR →</Link></article>
-      <article className={styles.card}><span>AMBER · SAFETY REVIEW</span><h2>HIIT Pathway</h2><p>12 sessões estruturadas, ainda inativas enquanto work-rest e intensidade passam pelo gate de segurança.</p></article>
+      {wkt ? <article className={styles.card} style={{backgroundImage:`linear-gradient(#090d10b8,#090d10f2),url("${programMedia(wkt.slug,900)}")`,backgroundSize:"cover"}}>
+        <span>DISPONÍVEL · ENTITLEMENT</span><h2>{wkt.name}</h2><p>{wkt.description}</p><Link href="/programas/wkt-militar">VER PROGRAMA →</Link>
+      </article> : null}
+      {registered.map((program) => {
+        const meta = metadata(program.metadata);
+        const weeks = typeof meta.duration_weeks === "number" ? `${meta.duration_weeks} semanas` : null;
+        const sessions = typeof meta.sessions === "number" ? `${meta.sessions} sessões` : typeof meta.sessions_planned === "number" ? `${meta.sessions_planned} sessões` : null;
+        return <article className={styles.card} key={program.slug} style={{backgroundImage:`linear-gradient(#090d10cb,#090d10f4),url("${programMedia(program.slug,900)}")`,backgroundSize:"cover"}}>
+          <span>DISPONÍVEL · REGISTERED</span>
+          <h2>{program.name}</h2>
+          <p>{program.description}</p>
+          <small>{[sessions,weeks].filter(Boolean).join(" · ")}</small>
+          <Link href="/login">ENTRAR E COMEÇAR →</Link>
+        </article>;
+      })}
+      <article className={styles.card}><span>AMBER · SAFETY REVIEW</span><h2>HIIT Pathway</h2><p>Estrutura preparada, mas intensidade e work-rest continuam bloqueados pelo gate de segurança.</p></article>
     </section>
   </main>;
 }
