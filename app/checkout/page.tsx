@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { MyTrainXLogo } from "@/components/MyTrainXLogo";
 import { CheckoutForm } from "./CheckoutForm";
 import { formatPrice, getActiveProduct } from "@/lib/domain/products";
+import { driveThumbnailUrl, workouts } from "@/lib/workouts";
 import styles from "./checkout.module.css";
 
 export default async function CheckoutPage() {
@@ -16,7 +17,7 @@ export default async function CheckoutPage() {
       <header className={styles.header}><Link href="/"><MyTrainXLogo /></Link><Link href="/login">JÁ SOU MEMBRO →</Link></header>
       <div className={styles.stepper} aria-label="Etapas da compra"><span className={styles.active}><b>1</b>Pagamento</span><i/><span><b>2</b>Acesso</span><i/><span><b>3</b>Primeiro treino</span></div>
       <div className={styles.wrap}>
-        <section className={styles.offer}>
+        <section className={styles.offer} style={{ backgroundImage: `linear-gradient(90deg,#090d10f4 0,#090d10e8 48%,#090d10bd), url("${driveThumbnailUrl(workouts[10].driveFileId,1400)}")` }}>
           <span>WKT MILITAR · ACCESS</span>
           <h1>21 missões.<br/>Um próximo passo.</h1>
           <article className={styles.plan}>
