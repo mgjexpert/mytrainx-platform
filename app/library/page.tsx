@@ -2,16 +2,14 @@ import Link from "next/link";
 import { PublicHeader } from "@/components/PublicHeader";
 import { getUnifiedLibraryItems } from "@/lib/library-live";
 import type { LibraryItem } from "@/lib/library-launch";
-import { driveThumbnailUrl, workouts } from "@/lib/workouts";
+import { libraryMedia } from "@/lib/media-catalog";
 import styles from "./library.module.css";
 
 const typeLabel = { article: "LEARN", exercise: "EXERCISE", recipe: "KITCHEN" } as const;
 const typeIcon = { article: "▤", exercise: "↗", recipe: "◌" } as const;
 
 function visualFor(item: LibraryItem, index: number) {
-  const offsets = { article: 3, exercise: 8, recipe: 15 } as const;
-  const slot = (offsets[item.type] + index * 3) % workouts.length;
-  return driveThumbnailUrl(workouts[slot].driveFileId, 1000);
+  return libraryMedia(item.type, index, 1000);
 }
 
 export default async function LibraryPage() {
