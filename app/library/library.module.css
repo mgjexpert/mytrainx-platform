@@ -9,3 +9,13 @@
 @media(max-width:1180px){.hero{grid-template-columns:1fr}.heroCopy{padding-right:0}.heroBoard{min-height:auto}.featuredGrid,.cardGrid{grid-template-columns:1fr 1fr}.system{grid-template-columns:1fr}.system>a{justify-self:start}}
 @media(max-width:760px){.hero{width:calc(100% - 24px);padding-top:35px}.hero h1{font-size:4.1rem}.categoryBar{grid-template-columns:1fr 1fr;width:calc(100% - 20px)}.categoryBar a:nth-child(5){grid-column:1/-1}.featured,.section,.system{width:calc(100% - 24px);padding-top:48px}.sectionHeading{align-items:start;flex-direction:column;gap:10px}.sectionHeading>p{max-width:none}.featuredGrid,.cardGrid{grid-template-columns:1fr 1fr}.system{margin-top:48px;padding:25px}.systemFlow{grid-template-columns:1fr 1fr}}
 @media(max-width:520px){.hero h1{font-size:3.45rem}.heroBoard{padding:12px}.boardGrid{grid-template-columns:1fr 1fr}.featuredGrid,.cardGrid{grid-template-columns:1fr}.featureCard{min-height:270px}.card{min-height:235px}.categoryBar a{font-size:.57rem}.systemFlow{grid-template-columns:1fr}.boardFooter{display:none}}
+
+/* Visual V3.1 — media-rich Library */
+.featureCard,.card{background-size:cover;background-position:center;isolation:isolate}
+.featureShade,.cardShade{position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,#060809fa 6%,#060809d7 48%,#06080976 76%,#06080935 100%),linear-gradient(90deg,#0608097c,transparent 60%)}
+.featureCard{min-height:360px;justify-content:flex-end}.featureCard .featureTop{position:absolute;top:18px;left:18px;right:18px}.featureCard .featureIcon{margin-top:auto;margin-bottom:12px;background:#080b0dd9;backdrop-filter:blur(10px)}
+.featureCard h3{font-size:1.55rem;max-width:92%}.featureCard p{color:#b1bbb6;max-width:90%}
+.card{min-height:320px;justify-content:flex-end}.card .cardTop{position:absolute;top:15px;left:15px;right:15px}.card .cardIcon{margin-top:auto;margin-bottom:10px;background:#080b0dd9;backdrop-filter:blur(8px)}
+.card h3{font-size:1.22rem}.card p{color:#aeb8b3}.tags span{background:#07090acc;backdrop-filter:blur(6px);border-color:#ffffff1d}
+.cardMeta{width:100%}
+@media(max-width:520px){.featureCard{min-height:315px}.card{min-height:285px}}
