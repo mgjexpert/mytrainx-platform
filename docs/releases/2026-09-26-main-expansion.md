@@ -7,10 +7,10 @@
 
 ### Library
 
-- 40 public educational articles
+- 50 public educational articles
 - 100 published/approved Exercise Encyclopedia entries
 - 60 public MyTrainX Kitchen recipes
-- **200 primary public Library items**
+- **210 primary public Library items**
 
 ### Exercise Encyclopedia
 
@@ -53,8 +53,8 @@ Numeric nutrition remains unavailable until reviewed FoodData Central mapping/ca
 
 ## Knowledge
 
-- 45 ready knowledge documents
-- 323 knowledge chunks
+- 55 ready knowledge documents
+- 363 knowledge chunks
 - 6 Progress documents are ready but explicitly retrieval-blocked pending scientific review
 
 The six blocked Progress documents cover:
@@ -132,3 +132,21 @@ Release is considered live only after:
 2. Vercel deployment for the latest main SHA = READY;
 3. `mytrainx.fit` / `www.mytrainx.fit` aliases attach without error;
 4. runtime error scan is clean.
+
+
+## GREEN expansion D
+
+A final 10-guide general-education batch was added to the live Library and canonical Knowledge system:
+
+- machines vs. free weights;
+- exercise substitutions;
+- strength-training frequency;
+- controlled range of motion;
+- breathing/bracing;
+- progression without adding load;
+- rep ranges;
+- active recovery/rest days;
+- choosing home-training equipment;
+- interrupted-workout recovery.
+
+The batch is MyTrainX-owned, editorial-approved, non-clinical, rights-verified and eligible for retrieval under the strengthened review-gate logic.
