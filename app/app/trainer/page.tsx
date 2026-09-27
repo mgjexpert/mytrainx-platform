@@ -5,6 +5,7 @@ import {
   getAgentTodayWorkout,
   getAgentProgressSummary,
 } from "@/lib/domain/agent-tools";
+import { getAtendimentoGatewayStatus } from "@/lib/agent/atendimento-gateway";
 import styles from "./trainer.module.css";
 
 function label(value: unknown, fallback = "—") {
@@ -14,6 +15,8 @@ function label(value: unknown, fallback = "—") {
 export default async function Trainer(){
   const session = await getSession();
   if (!session?.userId) return null;
+
+  const gateway = getAtendimentoGatewayStatus();
 
   const [current, today, progress] = await Promise.all([
     getAgentCurrentProgram(session.userId),
@@ -73,7 +76,7 @@ export default async function Trainer(){
       <section className={styles.chatShell}>
         <div className={styles.chatTop}>
           <div><span className={styles.avatar}>X</span><div><b>Coach X</b><small>Atendimento.Center conversation layer</small></div></div>
-          <span className={styles.state}>DOMAIN TOOLS · READY</span>
+          <span className={styles.state}>{gateway.configured ? "GATEWAY + DOMAIN TOOLS · READY" : "DOMAIN TOOLS · READY"}</span>
         </div>
 
         <div className={styles.messages}>
@@ -96,8 +99,11 @@ export default async function Trainer(){
         </div>
 
         <div className={styles.composer}>
-          <div><span>ASK COACH X</span><b>Streaming e memória entram pelo Atendimento.Center.</b></div>
-          <button type="button" disabled>GATEWAY PENDENTE</button>
+          <div>
+            <span>ASK COACH X</span>
+            <b>{gateway.configured ? "Atendimento.Center configurado para conversa/streaming." : "Streaming e memória entram pelo Atendimento.Center."}</b>
+          </div>
+          <button type="button" disabled>{gateway.configured ? "GATEWAY READY" : "GATEWAY PENDENTE"}</button>
         </div>
       </section>
 
