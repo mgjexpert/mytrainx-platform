@@ -2,10 +2,17 @@ import Link from "next/link";
 import { PublicHeader } from "@/components/PublicHeader";
 import { getUnifiedLibraryItems } from "@/lib/library-live";
 import type { LibraryItem } from "@/lib/library-launch";
+import { driveThumbnailUrl, workouts } from "@/lib/workouts";
 import styles from "./library.module.css";
 
 const typeLabel = { article: "LEARN", exercise: "EXERCISE", recipe: "KITCHEN" } as const;
 const typeIcon = { article: "▤", exercise: "↗", recipe: "◌" } as const;
+
+function visualFor(item: LibraryItem, index: number) {
+  const offsets = { article: 3, exercise: 8, recipe: 15 } as const;
+  const slot = (offsets[item.type] + index * 3) % workouts.length;
+  return driveThumbnailUrl(workouts[slot].driveFileId, 1000);
+}
 
 export default async function LibraryPage() {
   const items = await getUnifiedLibraryItems();
@@ -69,7 +76,8 @@ export default async function LibraryPage() {
         </div>
         <div className={styles.featuredGrid}>
           {featured.map((item, index) => (
-            <Link href={`/library/${item.slug}`} className={styles.featureCard} key={item.slug}>
+            <Link href={`/library/${item.slug}`} className={styles.featureCard} key={item.slug} style={{ backgroundImage: `url("${visualFor(item,index)}")` }}>
+              <div className={styles.featureShade}/>
               <div className={styles.featureGlow}/>
               <div className={styles.featureTop}><span>0{index + 1}</span><small>{typeLabel[item.type]}</small></div>
               <div className={styles.featureIcon}>{typeIcon[item.type]}</div>
@@ -115,8 +123,9 @@ function LibrarySection({ id, eyebrow, title, intro, items }: { id: string; eyeb
         <p>{intro}</p>
       </div>
       <div className={styles.cardGrid}>
-        {items.map((item) => (
-          <Link href={`/library/${item.slug}`} className={styles.card} key={item.slug}>
+        {items.map((item,index) => (
+          <Link href={`/library/${item.slug}`} className={styles.card} key={item.slug} style={{ backgroundImage: `url("${visualFor(item,index)}")` }}>
+            <div className={styles.cardShade}/>
             <div className={styles.cardTop}><span>{typeLabel[item.type]}</span><small>{item.access}</small></div>
             <div className={styles.cardIcon}>{typeIcon[item.type]}</div>
             <h3>{item.title}</h3>
