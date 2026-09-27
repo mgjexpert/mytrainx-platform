@@ -3,10 +3,10 @@ import { createClient } from "@supabase/supabase-js";
 
 const FDC_API_KEY = process.env.FDC_API_KEY;
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
-const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const SERVICE_KEY = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 if (!FDC_API_KEY) throw new Error("FDC_API_KEY is required. Do not commit API keys.");
-if (!SUPABASE_URL || !SERVICE_KEY) throw new Error("SUPABASE URL and SUPABASE_SERVICE_ROLE_KEY are required.");
+if (!SUPABASE_URL || !SERVICE_KEY) throw new Error("SUPABASE URL and SUPABASE_SECRET_KEY (or legacy SUPABASE_SERVICE_ROLE_KEY) are required.");
 
 const supabase = createClient(SUPABASE_URL, SERVICE_KEY, { auth: { persistSession: false } });
 const args = new Set(process.argv.slice(2));
