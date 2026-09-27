@@ -120,9 +120,115 @@ export async function getAgentTodayWorkout(userId: string) {
 }
 
 export async function getAgentProgressSummary(userId: string) {
+  const admin = createAdminClient();
   const current = await getAgentCurrentProgram(userId);
+
+  const now = new Date();
+  const start28 = new Date(now);
+  start28.setDate(start28.getDate() - 28);
+
+  const [
+    workouts28Result,
+    checkinResult,
+    preferencesResult,
+    latestBodyResult,
+    latestWaistResult,
+  ] = await Promise.all([
+    admin
+      .from("workout_progress")
+      .select("id", { count: "exact", head: true })
+      .eq("user_id", userId)
+      .not("completed_at", "is", null)
+      .gte("completed_at", start28.toISOString()),
+    admin
+      .from("weekly_checkins")
+      .select("week_start,energy_score,sleep_quality_score,soreness_score,stress_score,motivation_score,training_sessions_planned,training_sessions_completed")
+      .eq("user_id", userId)
+      .order("week_start", { ascending: false })
+      .limit(1)
+      .maybeSingle(),
+    admin
+      .from("progress_preferences")
+      .select("preferences")
+      .eq("user_id", userId)
+      .maybeSingle(),
+    admin
+      .from("body_metric_entries")
+      .select("measured_at,weight_kg,body_fat_pct,muscle_mass_kg,measurement_method,device_name")
+      .eq("user_id", userId)
+      .order("measured_at", { ascending: false })
+      .limit(1)
+      .maybeSingle(),
+    admin
+      .from("body_circumference_entries")
+      .select("measured_at,waist_cm")
+      .eq("user_id", userId)
+      .not("waist_cm", "is", null)
+      .order("measured_at", { ascending: false })
+      .limit(1)
+      .maybeSingle(),
+  ]);
+
+  const pref =
+    preferencesResult.data?.preferences &&
+    typeof preferencesResult.data.preferences === "object" &&
+    !Array.isArray(preferencesResult.data.preferences)
+      ? (preferencesResult.data.preferences as Record<string, unknown>)
+      : {};
+  const configured = Array.isArray(pref.dashboard_metrics)
+    ? pref.dashboard_metrics.filter((value): value is string => typeof value === "string")
+    : [];
+  const visibleMetrics = configured.length
+    ? configured
+    : ["training", "checkin", "weight", "waist", "composition", "photos"];
+
+  const checkin = checkinResult.data
+    ? {
+        week_start: String(checkinResult.data.week_start),
+        energy: checkinResult.data.energy_score,
+        sleep: checkinResult.data.sleep_quality_score,
+        soreness: checkinResult.data.soreness_score,
+        stress: checkinResult.data.stress_score,
+        motivation: checkinResult.data.motivation_score,
+        planned: checkinResult.data.training_sessions_planned,
+        completed: checkinResult.data.training_sessions_completed,
+      }
+    : null;
+
+  const body = latestBodyResult.data;
+  const bodyContext = body
+    ? {
+        measured_at: body.measured_at,
+        weight_kg: visibleMetrics.includes("weight") ? body.weight_kg : null,
+        body_fat_pct: visibleMetrics.includes("composition") ? body.body_fat_pct : null,
+        muscle_mass_kg: visibleMetrics.includes("composition") ? body.muscle_mass_kg : null,
+        measurement_method: visibleMetrics.includes("composition") ? body.measurement_method : null,
+        device_name: visibleMetrics.includes("composition") ? body.device_name : null,
+      }
+    : null;
+
+  const base = {
+    workouts_28d: workouts28Result.count ?? 0,
+    latest_checkin: visibleMetrics.includes("checkin") ? checkin : null,
+    latest_body: bodyContext,
+    latest_waist:
+      visibleMetrics.includes("waist") && latestWaistResult.data
+        ? {
+            measured_at: latestWaistResult.data.measured_at,
+            waist_cm: latestWaistResult.data.waist_cm,
+          }
+        : null,
+    visible_metrics: visibleMetrics,
+    safety: {
+      body_composition_is_estimate: true,
+      photo_inference_allowed: false,
+      diagnostic_use_allowed: false,
+    },
+  };
+
   if (!current) {
     return {
+      ...base,
       program: null,
       total_workouts: 0,
       started_workouts: 0,
@@ -130,8 +236,6 @@ export async function getAgentProgressSummary(userId: string) {
       completion_percentage: 0,
     };
   }
-
-  const admin = createAdminClient();
 
   const [{ data: workouts, error: workoutsError }, { data: progress, error: progressError }] =
     await Promise.all([
@@ -158,6 +262,7 @@ export async function getAgentProgressSummary(userId: string) {
 
   const total = workoutIds.size;
   return {
+    ...base,
     program: current.program,
     total_workouts: total,
     started_workouts: started.size,
@@ -167,7 +272,6 @@ export async function getAgentProgressSummary(userId: string) {
       : 0,
   };
 }
-
 
 export async function searchAgentKnowledge(query: string, limit = 6) {
   const term = query
