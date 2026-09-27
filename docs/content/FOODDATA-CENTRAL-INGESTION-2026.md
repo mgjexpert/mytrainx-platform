@@ -22,11 +22,19 @@ No search result automatically enables public calories/macros.
 
 ## Current database state
 
-The 25 Kitchen recipes have been normalized into:
+The 60 Kitchen recipes are being normalized into:
 
 - canonical `food_items`
 - positional `recipe_ingredients`
 - unresolved composite/ambiguous ingredients
+
+Current canonical nutrition layer:
+
+- 60 public Kitchen recipes;
+- 55 canonical `food_items` in review;
+- the newest 20-recipe batch contributes 100 positional ingredient rows;
+- 79 of those new rows already map to a canonical food;
+- 21 remain intentionally unresolved/composite.
 
 Canonical foods begin in `review` with:
 
