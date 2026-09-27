@@ -61,10 +61,10 @@ Live Supabase foundation now includes:
 - canonical source registry and rights/review governance;
 - content collections and taxonomy;
 - per-user library state;
-- **30 canonical PT-BR exercises** — all 30 published/approved for general educational use; clinical/rehabilitation validation is not claimed;
-- **25 structured MyTrainX Kitchen recipes** with owned/verified rights; 45 canonical food items and 137 normalized ingredient rows now exist, with numeric nutrients still blocked pending reviewed FoodData Central mapping;
+- **60 canonical PT-BR exercises**, all published/approved for general educational use; clinical/rehabilitation validation is not claimed;
+- **40 structured MyTrainX Kitchen recipes** with owned/verified rights; numeric nutrients remain blocked pending FoodData Central mapping/review; 45 canonical food items and 137 normalized ingredient rows now exist, with numeric nutrients still blocked pending reviewed FoodData Central mapping;
 - food/nutrient entities and normalized recipe ingredients;
-- **27 ready knowledge documents / 237 knowledge chunks** across the owned knowledge core;
+- **39 ready knowledge documents / 285 knowledge chunks** across the owned knowledge core;
 - owned foundation ebooks: Treino de Força sem Complicação, Nutrição sem Ruído, Progress sem Ruído and Recovery sem Ruído;
 - **MyTrainX Start — 4 Weeks** active for registered members with 12 executable workouts, self-enrollment, workout completion and Progress integration;
 - initial inventory of the two supplied Google Drive roots;
@@ -253,3 +253,57 @@ Current Kitchen nutrition foundation:
 
 Canonical workflow:
 `docs/content/FOODDATA-CENTRAL-INGESTION-2026.md`.
+
+
+## Main-first execution update — 2026-09-26/27
+
+The product owner explicitly requested that ongoing implementation advance directly on `main`.
+
+Current `main` work now includes:
+
+- Visual V3.1 Library cards/details with media-rich editorial treatment;
+- Visual V3.1 Progress, WKT/player, Login and Checkout polish;
+- canonical media registry in `lib/media-catalog.ts` so production surfaces no longer depend on scattered workout-index choices;
+- public/member Program catalogues driven by active Supabase program records;
+- Coach X member cockpit using real MyTrainX domain tools for current program, next workout and progress;
+- enriched agent progress summary with user-authorized Progress dimensions and explicit safety flags;
+- GREEN Library expansion C (+12 articles), bringing public educational articles to 40;
+- those 12 guides are canonical Supabase content with verified rights, approved editorial review and Knowledge chunks;
+- HIIT Pathway modernized from repeated intervals to a four-week relative-intensity/density progression, while remaining AMBER and inactive pending the safety gate.
+
+### Current canonical production-domain counts
+
+- 40 public articles;
+- 60 published/approved exercises;
+- 40 public Kitchen recipes;
+- 140 public Library items across those three primary content types;
+- 39 ready Knowledge documents;
+- 285 Knowledge chunks;
+- 5 active programs: WKT Militar, MyTrainX Start, Core 21, Home 30, Calisthenics Foundations;
+- HIIT Pathway remains inactive / AMBER after its 2026 safety redesign.
+
+### Build / deployment state
+
+GitHub Actions build for `main` is green after fixing an invalid metadata re-export in the WKT offer route and hardening generic-program JSON metadata typing.
+
+Vercel Git deployments are currently blocked by the account build quota with status:
+
+`Deployment rate limited — retry in 24 hours.`
+
+Therefore:
+
+- `main` is the canonical newest implementation;
+- GitHub CI is the current technical gate;
+- the public domain remains on the last Vercel deployment that reached `READY` until Vercel accepts another production build;
+- do not describe post-rate-limit commits as live in production until a newer deployment reaches `READY`.
+
+### Media status
+
+The approved Drive folders for Coach X, Specialists and APP_UI currently contain no production assets. Micaela has organizational subfolders but no files in the inspected Profile/Portrait folders.
+
+Until dedicated assets exist:
+
+- use the canonical media registry;
+- reuse WKT imagery selectively rather than globally;
+- preserve validated Team, Community and Sara assets already tracked in the repository;
+- replace each canonical media role when dedicated production media becomes available.
