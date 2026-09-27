@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { PublicHeader } from "@/components/PublicHeader";
 import { libraryLaunchItems } from "@/lib/library-launch";
 import { getUnifiedLibraryItem, getUnifiedLibraryItems } from "@/lib/library-live";
+import { driveThumbnailUrl, workouts } from "@/lib/workouts";
 import styles from "./page.module.css";
 
 export function generateStaticParams() {
@@ -22,6 +23,9 @@ export default async function LibraryDetailPage({ params }: { params: Promise<{ 
   const [item, items] = await Promise.all([getUnifiedLibraryItem(slug), getUnifiedLibraryItems()]);
   if (!item) notFound();
 
+  const visualIndex = Math.abs(item.slug.split("").reduce((sum,ch)=>sum + ch.charCodeAt(0),0)) % workouts.length;
+  const heroVisual = driveThumbnailUrl(workouts[visualIndex].driveFileId, 1400);
+
   const related = items
     .filter((candidate) => candidate.slug !== item.slug)
     .map((candidate) => ({ candidate, score: (candidate.type === item.type ? 3 : 0) + candidate.tags.filter((tag) => item.tags.includes(tag)).length }))
@@ -36,7 +40,8 @@ export default async function LibraryDetailPage({ params }: { params: Promise<{ 
       <article className={styles.article}>
         <div className={styles.backRow}><Link href="/library">← LIBRARY</Link><span>{item.access} · {item.type.toUpperCase()}</span></div>
 
-        <header className={styles.hero}>
+        <header className={styles.hero} style={{ backgroundImage: `url("${heroVisual}")` }}>
+          <div className={styles.heroShade}/>
           <div className={styles.heroMark}>{item.type === "exercise" ? "↗" : item.type === "recipe" ? "◌" : "▤"}</div>
           <div>
             <span className={styles.kicker}>{item.eyebrow}</span>
