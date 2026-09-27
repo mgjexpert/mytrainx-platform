@@ -5,7 +5,8 @@ import { CoachPreview } from "@/components/landing/ProductPreview";
 import { HumanTeamSection } from "@/components/landing/HumanTeamSection";
 import { Badge, ButtonLink, Container, SectionHeading } from "@/components/ui/primitives";
 import { getUnifiedLibraryItems } from "@/lib/library-live";
-import { driveThumbnailUrl, workouts } from "@/lib/workouts";
+import { workouts } from "@/lib/workouts";
+import { mediaFor } from "@/lib/media-catalog";
 import styles from "./home.module.css";
 
 const pillars = [
@@ -32,16 +33,16 @@ export default async function Home() {
     recipes: library.filter((item) => item.type === "recipe").length,
   };
 
-  const heroImage = driveThumbnailUrl(workouts[4].driveFileId, 1800);
-  const progressImage = driveThumbnailUrl(workouts[15].driveFileId, 1200);
-  const programImage = driveThumbnailUrl(workouts[10].driveFileId, 1200);
+  const heroImage = mediaFor("homeHero", 1800);
+  const progressImage = mediaFor("homeProgress", 1200);
+  const programImage = mediaFor("programWkt", 1200);
   const goalImages = [
-    driveThumbnailUrl(workouts[12].driveFileId, 900),
-    driveThumbnailUrl(workouts[15].driveFileId, 900),
-    driveThumbnailUrl(workouts[17].driveFileId, 900),
-    driveThumbnailUrl(workouts[7].driveFileId, 900),
+    mediaFor("goalWeight", 900),
+    mediaFor("goalMuscle", 900),
+    mediaFor("goalConditioning", 900),
+    mediaFor("goalWellbeing", 900),
     null,
-    driveThumbnailUrl(workouts[20].driveFileId, 900),
+    mediaFor("goalCommunity", 900),
   ];
 
   return (
