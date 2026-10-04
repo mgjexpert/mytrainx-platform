@@ -77,7 +77,13 @@ export default async function Trainer(){
       <section className={styles.chatShell}>
         <div className={styles.chatTop}>
           <div><span className={styles.avatar}>X</span><div><b>Coach X</b><small>Atendimento.Center conversation layer</small></div></div>
-          <span className={styles.state}>{gateway.configured ? "GATEWAY + DOMAIN TOOLS · READY" : "DOMAIN TOOLS · READY"}</span>
+          <span className={styles.state}>{
+  gateway.configured
+    ? "GATEWAY + DOMAIN TOOLS · READY"
+    : gateway.hasBaseUrl
+      ? "DOMAIN TOOLS READY · GATEWAY TOKEN PENDING"
+      : "DOMAIN TOOLS · READY"
+}</span>
         </div>
 
         <div className={styles.messages}>
@@ -86,7 +92,7 @@ export default async function Trainer(){
             <strong>{workout ? `Próximo treino: ${label(workout.title, workout.code)}` : "Nenhum treino ativo para recomendar."}</strong>
             <p>
               {workout
-                ? "A tool get_today_workout já devolve esta sessão usando a tua conta real. O próximo passo técnico é o Atendimento.Center consumir esta tool e devolver a resposta em streaming nesta mesma superfície."
+                ? gateway.configured ? "A tool get_today_workout já devolve esta sessão usando a tua conta real e o gateway está configurado para streaming nesta superfície." : gateway.hasBaseUrl ? "A tool get_today_workout já devolve esta sessão usando a tua conta real. O endpoint do Atendimento.Center está configurado; falta o token do gateway em produção." : "A tool get_today_workout já devolve esta sessão usando a tua conta real. O runtime conversacional aguarda configuração do Atendimento.Center."
                 : "Sem programa ativo, o comportamento correto é orientar para um caminho disponível em vez de fabricar uma sessão."}
             </p>
           </div>
