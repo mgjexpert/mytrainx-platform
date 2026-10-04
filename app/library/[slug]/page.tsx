@@ -24,6 +24,15 @@ export default async function LibraryDetailPage({ params }: { params: Promise<{ 
   if (!item) notFound();
 
   const heroVisual = slugMedia(item.slug, 1400);
+  const nutritionVisual = item.tags.some((tag) =>
+    ["nutrição","alimentação","hidratação","cozinha"].includes(tag.toLowerCase())
+  );
+  const heroStyle =
+    item.type === "recipe"
+      ? { backgroundImage: "radial-gradient(circle at 72% 22%,rgba(255,112,52,.28),transparent 29%),radial-gradient(circle at 24% 76%,rgba(99,151,116,.18),transparent 25%),linear-gradient(145deg,#1a1511,#080c0e)" }
+      : nutritionVisual
+        ? { backgroundImage: "radial-gradient(circle at 72% 18%,rgba(255,105,48,.18),transparent 30%),linear-gradient(145deg,#171811,#080c0e)" }
+        : { backgroundImage: `url("${heroVisual}")` };
 
   const related = items
     .filter((candidate) => candidate.slug !== item.slug)
@@ -39,7 +48,7 @@ export default async function LibraryDetailPage({ params }: { params: Promise<{ 
       <article className={styles.article}>
         <div className={styles.backRow}><Link href="/library">← LIBRARY</Link><span>{item.access} · {item.type.toUpperCase()}</span></div>
 
-        <header className={styles.hero} style={{ backgroundImage: `url("${heroVisual}")` }}>
+        <header className={styles.hero} style={heroStyle}>
           <div className={styles.heroShade}/>
           <div className={styles.heroMark}>{item.type === "exercise" ? "↗" : item.type === "recipe" ? "◌" : "▤"}</div>
           <div>
