@@ -48,3 +48,9 @@
 .programAbstract .programShade{
   background:linear-gradient(0deg,#060809ec 4%,#06080975 55%,#06080920 88%);
 }
+
+
+.coachAbstract{background:radial-gradient(circle at 78% 45%,#ff4b0a22,transparent 18%),radial-gradient(circle at 78% 45%,#ff4b0a0a,transparent 42%),linear-gradient(145deg,#111920,#07090b)!important}
+.coachOrb{position:absolute;right:7%;top:50%;transform:translateY(-50%);z-index:1;width:205px;height:205px;border-radius:50%;display:grid;place-items:center;border:1px solid #ff5f2288;color:#ff5c1e;font:800 8rem/.75 var(--font-display);box-shadow:0 0 0 24px #ff4b0a07,0 0 100px #ff4b0a20,inset 0 0 60px #ff4b0a0f;text-shadow:0 0 40px #ff4b0a36}
+.coachGrid{position:absolute;right:2%;top:12%;bottom:12%;width:38%;z-index:1;opacity:.3;background-image:linear-gradient(#ffffff08 1px,transparent 1px),linear-gradient(90deg,#ffffff08 1px,transparent 1px);background-size:26px 26px;mask-image:linear-gradient(90deg,transparent,#000)}
+@media(max-width:760px){.coachOrb{right:4%;width:150px;height:150px;font-size:6rem;opacity:.72}.coachGrid{width:50%}}
