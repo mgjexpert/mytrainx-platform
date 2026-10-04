@@ -4,6 +4,7 @@ import { getProgressDashboard } from "@/lib/progress";
 import { getUnifiedLibraryItems } from "@/lib/library-live";
 import { workouts } from "@/lib/workouts";
 import { mediaFor } from "@/lib/media-catalog";
+import { getAgentTodayWorkout } from "@/lib/domain/agent-tools";
 import styles from "./command.module.css";
 
 function number(value: number | null, suffix = "") {
@@ -12,9 +13,12 @@ function number(value: number | null, suffix = "") {
 
 export default async function CommandCenter() {
   const session = await getSession();
-  const [progress, library] = await Promise.all([
+  const [progress, library, todayContext] = await Promise.all([
     session?.userId ? getProgressDashboard(session.userId) : Promise.resolve(null),
     getUnifiedLibraryItems(),
+    session?.userId
+      ? getAgentTodayWorkout(session.userId)
+      : Promise.resolve({ mode: "no_active_program" as const, program: null, workout: null }),
   ]);
 
   const show = (metric: string) => progress?.dashboardMetrics.includes(metric) ?? false;
@@ -31,7 +35,29 @@ export default async function CommandCenter() {
   };
 
   const coachImage = mediaFor("coachX", 1600);
-  const todayImage = mediaFor("programWkt", 1400);
+  const activeProgram = todayContext.program;
+  const nextWorkout = todayContext.mode === "next_available" ? todayContext.workout : null;
+  const isWktToday = activeProgram?.slug === "wkt-militar";
+  const todayImage = isWktToday ? mediaFor("programWkt", 1400) : null;
+  const todayHref =
+    !activeProgram
+      ? "/app/programas"
+      : todayContext.mode === "program_complete"
+        ? "/app/performance"
+        : activeProgram.slug === "wkt-militar"
+          ? `/app/workout/${nextWorkout?.slug}`
+          : activeProgram.slug === "mytrainx-start-4-weeks"
+            ? `/app/programas/mytrainx-start/session/${nextWorkout?.slug}`
+            : `/app/programas/${activeProgram.slug}/session/${nextWorkout?.slug}`;
+  const todayTitle =
+    todayContext.mode === "program_complete"
+      ? "PROGRAMA CONCLUÍDO"
+      : nextWorkout?.title || nextWorkout?.code || "ESCOLHE O TEU CAMINHO";
+  const todaySubtitle = activeProgram?.name ?? "Nenhum programa ativo";
+  const todayFocus =
+    todayContext.mode === "program_complete"
+      ? "O próximo passo é rever o Progress e escolher a próxima jornada."
+      : nextWorkout?.focus ?? "Escolhe um programa ativo para criar um próximo treino real.";
   const programImages: Array<string | null> = [
     mediaFor("programWkt", 900),
     null,
@@ -162,33 +188,36 @@ export default async function CommandCenter() {
         <div className={styles.midGrid}>
           <article className={styles.today}>
             <div className={styles.panelTitle}>
-              <div><b>TREINO EM DESTAQUE</b><small>WKT Militar · acesso por entitlement</small></div>
-              <span>21 SESSÕES</span>
+              <div><b>O TEU PRÓXIMO TREINO</b><small>{todaySubtitle}</small></div>
+              <span>{todayContext.mode === "program_complete" ? "CONCLUÍDO" : nextWorkout ? `SESSÃO ${String(nextWorkout.number).padStart(2,"0")}` : "SEM PROGRAMA"}</span>
             </div>
-            <div className={styles.todayCard} style={{backgroundImage:`url("${todayImage}")`}}>
+            <div
+              className={`${styles.todayCard} ${!todayImage ? styles.todayAbstract : ""}`}
+              style={todayImage ? {backgroundImage:`url("${todayImage}")`} : undefined}
+            >
               <div className={styles.todayShade}/>
               <div className={styles.todayContent}>
-                <span>DIA 1 · WKT MILITAR</span>
-                <h3>FORÇA &<br/>RESISTÊNCIA</h3>
-                <p>{workouts[0].focus}</p>
+                <span>{activeProgram ? activeProgram.name.toUpperCase() : "MYTRAINX PROGRAM ENGINE"}</span>
+                <h3>{todayTitle}</h3>
+                <p>{todayFocus}</p>
                 <div className={styles.todayMeta}>
-                  <small>◷ Sessão guiada</small>
-                  <small>▣ Programa verificado</small>
+                  <small>◷ Contexto real da conta</small>
+                  <small>▣ Progress integrado</small>
                 </div>
-                <Link href="/app/programas/wkt-militar">VER PROGRAMA →</Link>
+                <Link href={todayHref}>{todayContext.mode === "program_complete" ? "VER PROGRESS →" : nextWorkout ? "ABRIR SESSÃO →" : "ESCOLHER PROGRAMA →"}</Link>
               </div>
               <ul className={styles.exercisePreview}>
-                <li>Push / pull</li>
-                <li>Lower body</li>
-                <li>Core</li>
-                <li>Conditioning</li>
+                <li>Programa ativo</li>
+                <li>Próxima sessão</li>
+                <li>Progress</li>
+                <li>Coach X context</li>
               </ul>
             </div>
           </article>
 
           <article className={styles.programs}>
             <div className={styles.panelTitle}>
-              <div><b>MEUS PROGRAMAS</b><small>Ativos, validados e próximos lançamentos</small></div>
+              <div><b>PROGRAMAS DISPONÍVEIS</b><small>Ativos e validados no catálogo atual</small></div>
               <Link href="/app/programas">VER TODOS →</Link>
             </div>
             <div className={styles.programCards}>
