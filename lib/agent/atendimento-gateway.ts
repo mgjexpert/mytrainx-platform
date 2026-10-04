@@ -32,7 +32,7 @@ export function getAtendimentoGatewayStatus() {
     configured: Boolean(config),
     hasBaseUrl: Boolean(rawBaseUrl),
     hasToken: Boolean(rawToken),
-    agent: config?.agent ?? process.env.ATENDIMENTO_CENTER_TRAINER_AGENT?.trim() || "trainer-x",
+    agent: config?.agent ?? (process.env.ATENDIMENTO_CENTER_TRAINER_AGENT?.trim() || "trainer-x"),
   };
 }
 
