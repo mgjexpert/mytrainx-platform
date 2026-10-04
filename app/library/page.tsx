@@ -8,8 +8,19 @@ import styles from "./library.module.css";
 const typeLabel = { article: "LEARN", exercise: "EXERCISE", recipe: "KITCHEN" } as const;
 const typeIcon = { article: "▤", exercise: "↗", recipe: "◌" } as const;
 
-function visualFor(item: LibraryItem, index: number) {
-  return libraryMedia(item.type, index, 1000);
+function visualStyle(item: LibraryItem, index: number) {
+  if (item.type === "recipe") {
+    return {
+      backgroundImage: "radial-gradient(circle at 75% 20%,rgba(255,114,52,.24),transparent 28%),radial-gradient(circle at 22% 78%,rgba(103,151,117,.18),transparent 24%),linear-gradient(145deg,#1b1612,#090d0f)",
+    };
+  }
+  const nutrition = item.tags.some((tag) => ["nutrição","alimentação","hidratação","cozinha"].includes(tag.toLowerCase()));
+  if (nutrition) {
+    return {
+      backgroundImage: "radial-gradient(circle at 70% 18%,rgba(255,109,51,.18),transparent 30%),linear-gradient(145deg,#171811,#090d0f)",
+    };
+  }
+  return { backgroundImage: `url("${libraryMedia(item.type, index, 1000)}")` };
 }
 
 export default async function LibraryPage() {
@@ -74,7 +85,7 @@ export default async function LibraryPage() {
         </div>
         <div className={styles.featuredGrid}>
           {featured.map((item, index) => (
-            <Link href={`/library/${item.slug}`} className={styles.featureCard} key={item.slug} style={{ backgroundImage: `url("${visualFor(item,index)}")` }}>
+            <Link href={`/library/${item.slug}`} className={styles.featureCard} key={item.slug} style={visualStyle(item,index)}>
               <div className={styles.featureShade}/>
               <div className={styles.featureGlow}/>
               <div className={styles.featureTop}><span>0{index + 1}</span><small>{typeLabel[item.type]}</small></div>
@@ -122,7 +133,7 @@ function LibrarySection({ id, eyebrow, title, intro, items }: { id: string; eyeb
       </div>
       <div className={styles.cardGrid}>
         {items.map((item,index) => (
-          <Link href={`/library/${item.slug}`} className={styles.card} key={item.slug} style={{ backgroundImage: `url("${visualFor(item,index)}")` }}>
+          <Link href={`/library/${item.slug}`} className={styles.card} key={item.slug} style={visualStyle(item,index)}>
             <div className={styles.cardShade}/>
             <div className={styles.cardTop}><span>{typeLabel[item.type]}</span><small>{item.access}</small></div>
             <div className={styles.cardIcon}>{typeIcon[item.type]}</div>
