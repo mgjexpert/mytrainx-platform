@@ -21,3 +21,13 @@
 .info{position:sticky;top:80px;min-height:calc(100vh - 100px);box-shadow:0 24px 70px #0006}.info h1{font-size:3rem}.complete,.completed{transition:transform .16s ease,filter .16s ease}.complete:hover,.completed:hover{transform:translateY(-1px);filter:brightness(1.05)}
 @media(max-width:1100px){.info{position:static;min-height:auto}}
 .programProgress{width:min(520px,100%);height:5px;margin-top:15px;border-radius:99px;background:#ffffff12;overflow:hidden}.programProgress span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#ff7d45,var(--color-orange));box-shadow:0 0 16px #ff4b0a55}
+
+.sessionRail{display:grid;grid-template-columns:repeat(21,minmax(22px,1fr));gap:4px;margin:0 0 9px}
+.sessionRail a{min-height:30px;border:1px solid #263039;border-radius:4px;background:#090d10;color:#64736c;display:grid;place-items:center;font:.44rem var(--font-micro);transition:border-color .16s ease,background .16s ease,color .16s ease}
+.sessionRail a:hover{border-color:#ff4b0a55;color:#dce4df}
+.sessionRail .railDone{border-color:#36c87844;background:#0a1b12;color:#70d898}
+.sessionRail .railCurrent{border-color:#ff4b0a88;background:#ff4b0a15;color:#ff8350;box-shadow:0 0 20px #ff4b0a18}
+.videoProgress{min-width:110px;text-align:right}.videoProgress b{display:block;color:var(--color-orange);font:800 1rem var(--font-display)}.videoProgress small{display:block;margin-top:2px;color:#65736c;font-size:.48rem}
+.upNext{margin-top:14px;padding:12px;border:1px solid #29343c;border-radius:5px;background:radial-gradient(circle at 88% 0,#ff4b0a0c,transparent 30%),#090d10;display:grid;gap:4px}.upNext span{color:#ff7540;font:.45rem var(--font-micro);letter-spacing:.1em}.upNext b{font:800 .78rem var(--font-display);text-transform:uppercase}.upNext small{color:#718078;font-size:.5rem;line-height:1.4}
+@media(max-width:1100px){.sessionRail{grid-template-columns:repeat(11,1fr)}}
+@media(max-width:620px){.sessionRail{display:flex;overflow-x:auto;padding-bottom:3px}.sessionRail a{min-width:31px}.videoProgress{display:none}}
