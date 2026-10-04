@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/session";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { setCurrentProgramSlug } from "@/lib/domain/program-preferences";
 
 async function getRegisteredProgram(slug: string) {
   const admin = createAdminClient();
@@ -40,6 +41,7 @@ export async function enrollRegisteredProgram(programSlug: string) {
     updated_at: new Date().toISOString(),
   }, { onConflict: "user_id,program_id" });
   if (error) throw error;
+  await setCurrentProgramSlug(session.userId, programSlug);
   redirect(`/app/programas/${programSlug}`);
 }
 
