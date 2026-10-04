@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/session";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { setCurrentProgramSlug } from "@/lib/domain/program-preferences";
 
 const PROGRAM_SLUG = "mytrainx-start-4-weeks";
 
@@ -23,6 +24,7 @@ export async function enrollMyTrainXStart() {
     updated_at: new Date().toISOString(),
   }, { onConflict: "user_id,program_id" });
   if (error) throw error;
+  await setCurrentProgramSlug(session.userId, PROGRAM_SLUG);
   redirect("/app/programas/mytrainx-start");
 }
 
