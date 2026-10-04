@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getSession } from "@/lib/session";
 import { getProgressDashboard } from "@/lib/progress";
+import { WeightTrendChart } from "@/components/progress/WeightTrendChart";
 import styles from "./performance.module.css";
 
 function fmt(value: number | null, suffix = "") {
@@ -19,10 +20,6 @@ export default async function PerformancePage() {
   if (!session?.userId) return null;
   const progress = await getProgressDashboard(session.userId);
 
-  const values = progress.weightSeries.map((point) => point.value);
-  const min = values.length ? Math.min(...values) : 0;
-  const max = values.length ? Math.max(...values) : 0;
-  const range = Math.max(max - min, 0.5);
   const show = (metric: string) => progress.dashboardMetrics.includes(metric);
 
   return (
@@ -92,18 +89,13 @@ export default async function PerformancePage() {
               compara médias de janelas equivalentes.
             </p>
             {progress.weightSeries.length ? (
-              <div className={styles.bars} aria-label="Histórico visual de peso">
-                {progress.weightSeries.map((point) => {
-                  const normalized = 22 + ((point.value - min) / range) * 75;
-                  return (
-                    <div
-                      key={point.measuredAt}
-                      className={styles.bar}
-                      style={{ height: `${normalized}%` }}
-                      title={`${point.value.toFixed(1)} kg — ${point.measuredAt.slice(0, 10)}`}
-                    />
-                  );
-                })}
+              <div className={styles.trendChart}>
+                <WeightTrendChart points={progress.weightSeries} />
+                <div className={styles.trendSummary}>
+                  <span>7 DIAS</span>
+                  <b>{fmt(progress.weightTrend7d, " kg")}</b>
+                  <small>{deltaText(progress.weightTrendDelta, " kg")}</small>
+                </div>
               </div>
             ) : (
               <div className={styles.empty}>Registre a primeira medição para iniciar a tendência.</div>
