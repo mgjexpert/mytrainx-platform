@@ -34,7 +34,6 @@ export default async function CommandCenter() {
     recipes: library.filter((item) => item.type === "recipe").length,
   };
 
-  const coachImage = mediaFor("coachX", 1600);
   const activeProgram = todayContext.program;
   const nextWorkout = todayContext.mode === "next_available" ? todayContext.workout : null;
   const isWktToday = activeProgram?.slug === "wkt-militar";
@@ -136,8 +135,8 @@ export default async function CommandCenter() {
         </div>
 
         <div className={styles.topGrid}>
-          <article className={styles.coachHero} style={{backgroundImage:`url("${coachImage}")`}}>
-            <div className={styles.coachShade}/>
+          <article className={`${styles.coachHero} ${styles.coachAbstract}`}>
+            <div className={styles.coachShade}/><div className={styles.coachOrb} aria-hidden="true">X</div><div className={styles.coachGrid} aria-hidden="true"/>
             <div className={styles.coachContent}>
               <span>COACH X · PERSONAL AI TRAINER</span>
               <h2>COACH <em>X</em></h2>
