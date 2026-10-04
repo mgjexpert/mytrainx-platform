@@ -48,7 +48,9 @@ export default async function ProgramsPage(){
         const meta = metadata(program.metadata);
         const weeks = typeof meta.duration_weeks === "number" ? `${meta.duration_weeks} semanas` : null;
         const sessions = typeof meta.sessions === "number" ? `${meta.sessions} sessões` : typeof meta.sessions_planned === "number" ? `${meta.sessions_planned} sessões` : null;
-        return <article className={styles.card} key={program.slug} style={{backgroundImage:`linear-gradient(#090d10cb,#090d10f4),url("${programMedia(program.slug,900)}")`,backgroundSize:"cover"}}>
+        return <article className={styles.card} key={program.slug} style={{
+          backgroundImage: "radial-gradient(circle at 82% 18%,rgba(255,75,10,.15),transparent 28%),linear-gradient(145deg,#11181d,#090d10)"
+        }}>
           <span>DISPONÍVEL · REGISTERED</span>
           <h2>{program.name}</h2>
           <p>{program.description}</p>
