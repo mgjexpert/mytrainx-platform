@@ -1,13 +1,12 @@
 import Link from "next/link";
 import { MyTrainXLogo } from "@/components/MyTrainXLogo";
 import { LoginForm } from "./LoginForm";
-import { mediaFor } from "@/lib/media-catalog";
 import styles from "./login.module.css";
 
 export default function LoginPage() {
   return (
     <main className={styles.page}>
-      <section className={styles.visual} style={{ backgroundImage: `url("${mediaFor("login",1600)}")` }}><div className={styles.visualShade}/>
+      <section className={`${styles.visual} ${styles.visualAbstract}`}><div className={styles.visualShade}/><div className={styles.brandOrb}>X</div><div className={styles.brandGrid}/>
         <div className={styles.visualTop}><Link href="/"><MyTrainXLogo /></Link><span>MEMBER ACCESS · 2026</span></div>
         <div className={styles.visualCopy}>
           <span>WELCOME BACK</span>
