@@ -1,6 +1,6 @@
 # Current Project State
 
-**Project version:** 0.6.0-main-first-v3.2  
+**Project version:** 0.7.0-main-first-v3.3  
 **State date:** 2026-10-04  
 **Overall status:** IN PROGRESS
 
@@ -64,7 +64,7 @@ Live Supabase foundation now includes:
 - **100 canonical PT-BR exercises**, all published/approved for general educational use; clinical/rehabilitation validation is not claimed;
 - **60 structured MyTrainX Kitchen recipes** with owned/verified rights; numeric nutrients remain blocked pending FoodData Central mapping/review; 55 canonical food items are in review; the newest 20-recipe batch adds 100 normalized ingredient rows (79 mapped, 21 intentionally unresolved/composite);
 - food/nutrient entities and normalized recipe ingredients;
-- **45 ready knowledge documents / 323 knowledge chunks** across the owned knowledge core; 6 Progress documents are intentionally retrieval-blocked pending scientific review;
+- **55 ready knowledge documents / 363 knowledge chunks** across the owned knowledge core; 6 Progress documents are intentionally retrieval-blocked pending scientific review;
 - owned foundation ebooks: Treino de Força sem Complicação, Nutrição sem Ruído, Progress sem Ruído and Recovery sem Ruído;
 - **MyTrainX Start — 4 Weeks** active for registered members with 12 executable workouts, self-enrollment, workout completion and Progress integration;
 - initial inventory of the two supplied Google Drive roots;
@@ -148,7 +148,7 @@ Do not continue building placeholder UX ahead of domain/tool foundations.
 8. recursively inventory priority Drive content and PLR packages;
 9. validate package-level rights before any commercial reuse;
 10. seed canonical exercise and nutrition datasets from compatible open sources — **IN PROGRESS: 873 exercise sources indexed, 100 canonical exercises published; 55 canonical food items in review; FoodData Central nutrient mapping/review still pending**;
-11. prepare the first owned MyTrainX production set — **IN PROGRESS: MyTrainX Start active with 12 executable sessions, 60 Kitchen recipes, 40 public educational articles, four owned knowledge ebooks still gated for final review**;
+11. prepare the first owned MyTrainX production set — **IN PROGRESS: MyTrainX Start active with 12 executable sessions, 60 Kitchen recipes, 50 public educational articles, four owned knowledge ebooks still gated for final review**;
 12. close expert review gates for exercises, nutrition and scientific content before retrieval/publication;
 13. migrate Library surfaces progressively from static launch content to the canonical live registry.
 
@@ -413,3 +413,40 @@ Production verification:
 - stale feature release branches must not be treated as canonical;
 - production truth comes from current `main` + Supabase + Vercel production state;
 - no feature should be presented as active unless its backend/access/review state agrees.
+
+
+## Main-first V3.3 execution — 2026-10-04
+
+Direct-to-`main` quality pass completed:
+
+- Progress:
+  - replaced the basic bar visualization with an accessible SVG line-trend chart;
+  - added shaded trend area, per-point values and 7-day summary context;
+- Library:
+  - added client-side smart search across title, description and tags;
+  - added TUDO / LEARN / EXERCISE / KITCHEN filters;
+  - preserved the editorial category layout while adding fast discovery;
+- WKT player:
+  - added 21-mission navigation rail;
+  - current/completed mission states;
+  - program-position percentage;
+  - next-session context and final check-in prompt;
+- Access:
+  - entitlement lookups now explicitly scope to the authenticated user in addition to RLS;
+  - an initial TypeScript narrowing regression was detected by Vercel and fixed immediately;
+- Media integrity:
+  - public Coach X no longer reuses a WKT workout still as persona media;
+  - login no longer reuses WKT footage as generic brand identity;
+  - home Progress now uses a branded data visualization instead of training imagery;
+  - WKT media remains reserved for training/program contexts.
+
+Production gate after the access fix:
+- deployment `dpl_BrZ2sP8HdaYtz5aM62q933R4BU2D`: READY;
+- aliases include `mytrainx.fit` and `www.mytrainx.fit`;
+- alias error: none.
+
+External blockers remain:
+- Atendimento.Center gateway token;
+- FoodData Central API key + reviewed mappings;
+- qualified specialist sign-off for HIIT/foundation scientific content;
+- approved bespoke Coach X / Specialists / APP_UI / non-WKT program media.
