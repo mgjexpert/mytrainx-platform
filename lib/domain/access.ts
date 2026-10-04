@@ -3,7 +3,7 @@ import { getSession } from "@/lib/session";
 
 export async function getActiveEntitlement(productSlug: string) {
   const session = await getSession();
-  if (!session) return null;
+  if (!session?.userId) return null;
 
   const supabase = await createClient();
   const now = new Date().toISOString();
