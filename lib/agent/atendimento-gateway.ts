@@ -5,18 +5,34 @@ type GatewayConfig = {
 };
 
 function getConfig(): GatewayConfig | null {
-  const baseUrl = process.env.ATENDIMENTO_CENTER_AGENT_URL?.trim().replace(/\/$/, "");
-  const token = process.env.ATENDIMENTO_CENTER_AGENT_TOKEN?.trim();
+  const baseUrl = (
+    process.env.ATENDIMENTO_CENTER_AGENT_URL ||
+    process.env.ATENDIMENTO_AGENT_BASE_URL
+  )?.trim().replace(/\/$/, "");
+  const token = (
+    process.env.ATENDIMENTO_CENTER_AGENT_TOKEN ||
+    process.env.ATENDIMENTO_AGENT_TOKEN
+  )?.trim();
   const agent = process.env.ATENDIMENTO_CENTER_TRAINER_AGENT?.trim() || "trainer-x";
   if (!baseUrl || !token) return null;
   return { baseUrl, token, agent };
 }
 
 export function getAtendimentoGatewayStatus() {
+  const rawBaseUrl = (
+    process.env.ATENDIMENTO_CENTER_AGENT_URL ||
+    process.env.ATENDIMENTO_AGENT_BASE_URL
+  )?.trim();
+  const rawToken = (
+    process.env.ATENDIMENTO_CENTER_AGENT_TOKEN ||
+    process.env.ATENDIMENTO_AGENT_TOKEN
+  )?.trim();
   const config = getConfig();
   return {
     configured: Boolean(config),
-    agent: config?.agent ?? "trainer-x",
+    hasBaseUrl: Boolean(rawBaseUrl),
+    hasToken: Boolean(rawToken),
+    agent: config?.agent ?? process.env.ATENDIMENTO_CENTER_TRAINER_AGENT?.trim() || "trainer-x",
   };
 }
 
