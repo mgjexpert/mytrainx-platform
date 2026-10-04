@@ -58,12 +58,13 @@ export default async function CommandCenter() {
     todayContext.mode === "program_complete"
       ? "O próximo passo é rever o Progress e escolher a próxima jornada."
       : nextWorkout?.focus ?? "Escolhe um programa ativo para criar um próximo treino real.";
-  const programImages: Array<string | null> = [
-    mediaFor("programWkt", 900),
-    null,
-    null,
-    null,
-  ];
+  const programCards = [
+    ["WKT", "MILITAR", "ENTITLEMENT", "21 sessões guiadas", "/app/programas/wkt-militar", mediaFor("programWkt", 900)],
+    ["MYTRAINX", "START", "REGISTERED", "12 sessões · 4 semanas", "/app/programas/mytrainx-start", null],
+    ["CORE", "21", "REGISTERED", "21 sessões · 7 semanas", "/app/programas/core-21", null],
+    ["HOME", "30", "REGISTERED", "12 sessões · 30 dias", "/app/programas/home-30", null],
+    ["CALISTHENICS", "", "REGISTERED", "12 sessões · 4 semanas", "/app/programas/calisthenics-foundations", null],
+  ] as const;
 
   const metrics = [
     {
@@ -221,17 +222,12 @@ export default async function CommandCenter() {
               <Link href="/app/programas">VER TODOS →</Link>
             </div>
             <div className={styles.programCards}>
-              {[
-                ["WKT", "MILITAR", "DISPONÍVEL", "21 sessões guiadas", "/app/programas/wkt-militar"],
-                ["MYTRAINX", "START", "DISPONÍVEL", "12 sessões · 4 semanas", "/app/programas/mytrainx-start"],
-                ["CORE", "21", "DISPONÍVEL", "21 sessões · 7 semanas", "/app/programas/core-21"],
-                ["HOME", "30", "DISPONÍVEL", "12 sessões · 30 dias", "/app/programas/home-30"],
-              ].map(([a,b,status,description,href], index) => (
+              {programCards.map(([a,b,status,description,href,image]) => (
                 <Link
                   key={a+b}
                   href={href}
-                  className={styles.programCard}
-                  style={programImages[index] ? {backgroundImage:`url("${programImages[index]}")`} : undefined}
+                  className={`${styles.programCard} ${!image ? styles.programAbstract : ""}`}
+                  style={image ? {backgroundImage:`url("${image}")`} : undefined}
                 >
                   <div className={styles.programShade}/>
                   <i>{status}</i>
