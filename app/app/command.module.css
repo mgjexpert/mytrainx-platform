@@ -27,3 +27,15 @@
 @media(max-width:1180px){.topGrid,.midGrid,.lowerGrid{grid-template-columns:1fr}.programCards{grid-template-columns:repeat(4,1fr)}.titleMeta{display:none}.master{grid-template-columns:1fr auto}.master>p,.masterFeatures{display:none}}
 @media(max-width:760px){.dashboard{width:calc(100% - 18px);padding-top:8px}.titleRow{min-height:64px}.titleRow h1{font-size:1.35rem}.coachHero{min-height:355px}.coachContent{padding:24px 20px}.coachContent h2{font-size:3.7rem}.coachScript{display:none}.coachContent p{font-size:.7rem}.coachSignals{display:none}.metrics{grid-template-columns:1fr 1fr}.trendPanel{grid-template-columns:1fr}.programCards{grid-template-columns:1fr 1fr}.programCard{min-height:210px}.todayContent{width:72%}.exercisePreview{display:none}.resultCards,.libraryGrid{grid-template-columns:1fr 1fr}.master{grid-template-columns:1fr}.master>a{justify-self:start}.masterFeatures{display:none}}
 @media(max-width:480px){.coachActions{flex-direction:column}.coachActions a{justify-content:center}.todayContent{width:100%}.programCards{grid-template-columns:1fr}.resultCards,.libraryGrid{grid-template-columns:1fr 1fr}}
+
+.todayAbstract{
+  background:
+    radial-gradient(circle at 78% 24%,#ff4b0a1d,transparent 27%),
+    radial-gradient(circle at 24% 76%,#3d6bff10,transparent 24%),
+    linear-gradient(145deg,#12191d,#080c0f);
+}
+.todayAbstract .todayShade{
+  background:
+    linear-gradient(90deg,#07090aee 0,#07090abb 52%,#07090a35 82%),
+    linear-gradient(0deg,#060809d6,transparent 66%);
+}
