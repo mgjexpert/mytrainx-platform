@@ -1,30 +1,46 @@
 import Link from "next/link";
 import { PublicHeader } from "@/components/PublicHeader";
-import styles from "@/components/public-sections.module.css";
+import styles from "./master.module.css";
+
+const features = [
+  ["01","COACH X PRO","Contexto ampliado e futuras capacidades premium quando o runtime estiver operacional."],
+  ["02","PREMIUM LIBRARY","Ebooks, guias, coleções e knowledge drops dentro do mesmo sistema editorial."],
+  ["03","MASTER COMMUNITY","Ativações exclusivas sem misturar espaços sociais com conversas privadas."],
+  ["04","LIVE & EVENTS","Masterclasses, sessões e experiências publicadas apenas quando confirmadas."],
+  ["05","CHALLENGES","Desafios ligados a consistência e Progress real."],
+  ["06","PROGRAM DROPS","Novas jornadas usando Exercise Engine, Progress, Library e Coach X."],
+];
 
 export default function MasterPage(){
   return (
     <main className={styles.page}>
       <PublicHeader/>
       <section className={styles.hero}>
-        <div className={styles.heroContent}>
-          <span className={styles.kicker}>MYTRAINX MASTER · PREMIUM LAYER</span>
+        <div className={styles.crown}>♛</div>
+        <div className={styles.heroCopy}>
+          <span>MYTRAINX MASTER · PREMIUM LAYER</span>
           <h1>GO<br/><em>FURTHER.</em></h1>
           <p>
-            Master é a camada premium do ecossistema MyTrainX. O produto ainda está em preparação:
-            os benefícios abaixo representam a arquitetura aprovada, não uma promessa de features
-            já ativas.
+            Master é a camada premium recorrente do ecossistema. A arquitetura já está definida,
+            mas benefícios só passam de roadmap para produto quando estiverem realmente operacionais.
           </p>
-          <Link className={styles.cta} href="/login">ENTRAR NO MYTRAINX →</Link>
+          <div className={styles.actions}><Link href="/login">ENTRAR NO MYTRAINX →</Link><Link href="/library">EXPLORAR LIBRARY</Link></div>
         </div>
+        <div className={styles.masterMark}>MASTER<span>2026</span></div>
       </section>
+
       <section className={styles.grid}>
-        <article className={styles.card}><span>01 · COACH X</span><h2>AI Trainer Pro</h2><p>Maior profundidade de contexto e futuras capacidades premium, liberadas apenas quando a integração estiver pronta.</p></article>
-        <article className={styles.card}><span>02 · CONTENT</span><h2>Knowledge Drops</h2><p>Ebooks, guias, programas e coleções premium dentro da mesma Library e sistema de direitos.</p></article>
-        <article className={styles.card}><span>03 · COMMUNITY</span><h2>Master Community</h2><p>Espaços e ativações exclusivas sem misturar conversas privadas do Coach X com canais sociais.</p></article>
-        <article className={styles.card}><span>04 · EVENTS</span><h2>Live & In Person</h2><p>Lives, masterclasses e experiências entram no calendário apenas quando realmente confirmadas.</p></article>
-        <article className={styles.card}><span>05 · CHALLENGES</span><h2>Desafios</h2><p>Desafios periódicos ligados a Progress e consistência, sem gamificação fictícia.</p></article>
-        <article className={styles.card}><span>06 · PROGRAMS</span><h2>Programas premium</h2><p>Novas jornadas podem usar o mesmo Exercise Engine, Progress, Library e Coach X.</p></article>
+        {features.map(([n,title,text])=>(
+          <article key={title}>
+            <span>{n}</span><b>{title}</b><p>{text}</p><small>ROADMAP · VERIFIED BEFORE RELEASE</small>
+          </article>
+        ))}
+      </section>
+
+      <section className={styles.rule}>
+        <span>PRODUCT RULE</span>
+        <h2>PREMIUM NÃO SIGNIFICA PROMETER O QUE AINDA NÃO EXISTE.</h2>
+        <p>Master cresce sobre componentes reais: Programs, Progress, Library, Community e Coach X. Cada camada entra quando produto, direitos, segurança e operação estiverem prontos.</p>
       </section>
     </main>
   );
