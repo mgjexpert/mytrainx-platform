@@ -1,16 +1,13 @@
 import Link from "next/link";
 import { PublicHeader } from "@/components/PublicHeader";
-import { driveThumbnailUrl, workouts } from "@/lib/workouts";
 import styles from "@/components/public-sections.module.css";
-
-const cover = driveThumbnailUrl(workouts[14].driveFileId,1600);
 
 export default function TrainerPage(){
   return (
     <main className={styles.page}>
       <PublicHeader/>
       <section className={styles.hero}>
-        <div className={styles.heroMedia} style={{backgroundImage:`url("${cover}")`}}/>
+        <div className={`${styles.heroMedia} ${styles.coachAbstract}`}><div className={styles.coachOrb}>X</div><div className={styles.coachGrid}/></div>
         <div className={styles.heroContent}>
           <span className={styles.kicker}>MYTRAINX AI · COACH X</span>
           <h1>CONHECE O TEU<br/><em>PRÓXIMO PASSO.</em></h1>
