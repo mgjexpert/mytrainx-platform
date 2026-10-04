@@ -10,7 +10,8 @@ export async function getActiveEntitlement(productSlug: string) {
 
   const { data, error } = await supabase
     .from("entitlements")
-    .select("id, product_slug, status, starts_at, expires_at")
+    .select("id, user_id, product_slug, status, starts_at, expires_at")
+    .eq("user_id", session.userId)
     .eq("product_slug", productSlug)
     .eq("status", "active")
     .or(`expires_at.is.null,expires_at.gt.${now}`)
