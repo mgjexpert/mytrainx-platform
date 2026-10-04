@@ -3,6 +3,7 @@ import { PublicHeader } from "@/components/PublicHeader";
 import { getUnifiedLibraryItems } from "@/lib/library-live";
 import type { LibraryItem } from "@/lib/library-launch";
 import { libraryMedia } from "@/lib/media-catalog";
+import { LibraryExplorer } from "@/components/library/LibraryExplorer";
 import styles from "./library.module.css";
 
 const typeLabel = { article: "LEARN", exercise: "EXERCISE", recipe: "KITCHEN" } as const;
@@ -77,6 +78,15 @@ export default async function LibraryPage() {
         <a href="#nutrition"><span>04</span><b>Nutrição</b></a>
         <a href="#kitchen"><span>05</span><b>Kitchen</b></a>
       </section>
+
+      <LibraryExplorer items={items.map((item) => ({
+        slug: item.slug,
+        title: item.title,
+        type: item.type,
+        description: item.description,
+        tags: item.tags,
+        readTime: item.readTime,
+      }))} />
 
       <section className={styles.featured} id="explorar">
         <div className={styles.sectionHeading}>
