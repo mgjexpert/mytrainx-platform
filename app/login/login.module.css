@@ -9,3 +9,10 @@
 .visual{background-size:cover;background-position:center;isolation:isolate}.visualShade{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#060809ed 0,#060809b8 55%,#06080966),linear-gradient(0deg,#060809f4 0,#06080956 60%,#06080950)}
 .visual:before{z-index:-1}.card{box-shadow:0 40px 120px #000b,inset 0 1px 0 #ffffff05}.trust div{background:linear-gradient(155deg,#0d1317,#080b0d)}
 @media(max-width:900px){.visual{background-position:center 30%}.visualShade{background:linear-gradient(0deg,#060809f4 0,#0608099a 62%,#06080956)}}
+
+
+.visualAbstract{background:radial-gradient(circle at 72% 42%,#ff4b0a24,transparent 20%),radial-gradient(circle at 72% 42%,#ff4b0a0c,transparent 42%),linear-gradient(145deg,#11181d,#060809 72%)!important}
+.brandOrb{position:absolute;right:9%;top:50%;transform:translateY(-50%);width:min(34vw,430px);height:min(34vw,430px);border-radius:50%;display:grid;place-items:center;border:1px solid #ff5f2280;color:#ff5618;font:800 min(24vw,300px)/.75 var(--font-display);box-shadow:0 0 0 40px #ff4b0a08,0 0 150px #ff4b0a20,inset 0 0 100px #ff4b0a0d;text-shadow:0 0 50px #ff4b0a30;opacity:.8}
+.brandGrid{position:absolute;right:0;top:0;width:62%;height:100%;opacity:.28;background-image:linear-gradient(#ffffff08 1px,transparent 1px),linear-gradient(90deg,#ffffff08 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(90deg,transparent,#000)}
+@media(max-width:900px){.brandOrb{right:4%;width:250px;height:250px;font-size:170px}.brandGrid{width:75%}}
+@media(max-width:520px){.brandOrb{width:190px;height:190px;font-size:130px;opacity:.55}}
