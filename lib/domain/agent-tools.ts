@@ -1,4 +1,5 @@
 import { createAdminClient } from "@/lib/supabase/admin";
+import { getCurrentProgramSlug } from "@/lib/domain/program-preferences";
 
 export async function getAgentProfile(userId: string) {
   const admin = createAdminClient();
@@ -45,6 +46,29 @@ export async function getAgentEntitlements(userId: string) {
 
 export async function getAgentCurrentProgram(userId: string) {
   const admin = createAdminClient();
+  const preferredSlug = await getCurrentProgramSlug(userId);
+
+  if (preferredSlug) {
+    const { data: preferredProgram, error: preferredProgramError } = await admin
+      .from("programs")
+      .select("id, slug, name, description, metadata")
+      .eq("slug", preferredSlug)
+      .eq("active", true)
+      .maybeSingle();
+    if (preferredProgramError) throw preferredProgramError;
+
+    if (preferredProgram) {
+      const { data: preferredEnrollment, error: preferredEnrollmentError } = await admin
+        .from("program_enrollments")
+        .select("id, program_id, status, started_at, completed_at")
+        .eq("user_id", userId)
+        .eq("program_id", preferredProgram.id)
+        .eq("status", "active")
+        .maybeSingle();
+      if (preferredEnrollmentError) throw preferredEnrollmentError;
+      if (preferredEnrollment) return { enrollment: preferredEnrollment, program: preferredProgram };
+    }
+  }
 
   const { data: enrollment, error: enrollmentError } = await admin
     .from("program_enrollments")
