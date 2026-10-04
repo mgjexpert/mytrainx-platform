@@ -4,3 +4,16 @@
 .grid{width:min(1340px,calc(100% - 48px));margin:10px auto 0;padding-bottom:72px;display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.card{min-height:210px;padding:22px;border:1px solid #28323a;border-radius:7px;background:linear-gradient(150deg,#11181d,#090d10);position:relative;overflow:hidden}.card:before{content:"";position:absolute;width:120px;height:120px;border-radius:50%;background:#ff4b0a0d;right:-35px;top:-35px}.card>*{position:relative}.card span{color:#ff7840;font:.55rem var(--font-micro);letter-spacing:.1em}.card h2{font:800 1.65rem/.95 var(--font-display);margin:34px 0 8px;text-transform:uppercase}.card p{color:#7e8d85;font-size:.68rem;line-height:1.6}.card a{display:inline-block;margin-top:15px;color:var(--color-orange);font-size:.58rem;font-weight:950}.footer{width:min(1340px,calc(100% - 48px));height:90px;margin:auto;border-top:1px solid #ffffff12;display:flex;align-items:center;justify-content:space-between;color:#68756e;font-size:.58rem}
 @media(max-width:900px){.header{grid-template-columns:1fr auto}.header nav{display:none}.hero{padding:50px 32px}.grid{grid-template-columns:1fr 1fr}.header:after{display:none}}
 @media(max-width:620px){.header,.hero,.grid,.footer{width:calc(100% - 24px)}.hero{min-height:420px;padding:42px 22px}.hero h1{font-size:3.6rem}.grid{grid-template-columns:1fr}.card{min-height:180px}}
+
+
+.coachAbstract{
+  position:absolute;inset:0;overflow:hidden;
+  background:
+    radial-gradient(circle at 72% 42%,#ff4b0a28 0,transparent 18%),
+    radial-gradient(circle at 76% 44%,#ff4b0a0f 0,transparent 36%),
+    linear-gradient(145deg,#111920,#07090b 72%);
+}
+.coachAbstract:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#060809fb 0,#060809e8 43%,#06080972 67%,#0608091f),radial-gradient(circle at 76% 42%,transparent 0,#05060720 36%,#0506078a 72%)}
+.coachOrb{position:absolute;z-index:1;right:9%;top:50%;transform:translateY(-50%);width:240px;height:240px;border-radius:50%;display:grid;place-items:center;border:1px solid #ff6c2f88;color:#ff5a1f;font:800 10rem/.8 var(--font-display);box-shadow:0 0 0 28px #ff4b0a08,0 0 120px #ff4b0a24,inset 0 0 70px #ff4b0a10;text-shadow:0 0 35px #ff4b0a38}
+.coachGrid{position:absolute;z-index:1;right:4%;top:12%;width:43%;height:76%;opacity:.38;background-image:linear-gradient(#ffffff09 1px,transparent 1px),linear-gradient(90deg,#ffffff09 1px,transparent 1px);background-size:28px 28px;mask-image:linear-gradient(90deg,transparent,#000)}
+@media(max-width:760px){.coachOrb{right:5%;width:170px;height:170px;font-size:7rem}.coachGrid{width:55%}}
