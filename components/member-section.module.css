@@ -20,3 +20,8 @@
 @media(max-width:900px){.profileGrid{grid-template-columns:1fr}.profileAside{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:700px){.twoCol,.equipmentGrid,.profileAside{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.twoCol,.equipmentGrid,.profileAside{grid-template-columns:1fr}}
+
+.communityHero{max-width:1260px;min-height:420px;margin:22px auto 10px;position:relative;border:1px solid #ff4b0a42;border-radius:8px;overflow:hidden;background-size:cover;background-position:center}
+.communityShade{position:absolute;inset:0;background:linear-gradient(90deg,#060809f7 0,#060809d8 42%,#06080950 72%),linear-gradient(0deg,#060809e8,transparent 58%)}
+.communityCopy{position:relative;z-index:2;max-width:650px;padding:54px 38px}.communityCopy>span{color:#ff7540;font:.58rem var(--font-micro);letter-spacing:.13em}.communityCopy h1{margin:8px 0 10px;font:800 clamp(3rem,5vw,5.2rem)/.82 var(--font-display);text-transform:uppercase}.communityCopy h1 em{font-style:normal;color:var(--color-orange)}.communityCopy p{max-width:570px;color:#aab4af;font-size:.76rem;line-height:1.6}.communityActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.communityActions a{min-height:40px;padding:0 14px;display:flex;align-items:center;border:1px solid #ff4b0a58;border-radius:5px;color:#eef2ef;font-size:.6rem;font-weight:900;background:#090c0ecd}.communityActions a:first-child{background:#37d67a;color:#08100b;border-color:#37d67a}
+@media(max-width:700px){.communityHero{min-height:390px;margin-top:14px;background-position:60% center}.communityCopy{padding:42px 22px}.communityCopy h1{font-size:3.4rem}}
