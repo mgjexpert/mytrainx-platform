@@ -34,7 +34,6 @@ export default async function Home() {
   };
 
   const heroImage = mediaFor("homeHero", 1800);
-  const progressImage = mediaFor("homeProgress", 1200);
   const programImage = mediaFor("programWkt", 1200);
   const goalImages = [
     mediaFor("goalWeight", 900),
@@ -116,8 +115,8 @@ export default async function Home() {
             <CoachPreview />
           </article>
 
-          <article id="progresso" className={styles.progressFeature} style={{ backgroundImage: `url("${progressImage}")` }}>
-            <div className={styles.progressShade}/>
+          <article id="progresso" className={`${styles.progressFeature} ${styles.progressAbstract}`}>
+            <div className={styles.progressShade}/><div className={styles.progressGraphic} aria-hidden="true"><span/><span/><span/><span/><span/></div>
             <div className={styles.progressCopy}>
               <span>ACOMPANHA A TUA</span>
               <h2>EVOLUÇÃO <em>REAL.</em></h2>
