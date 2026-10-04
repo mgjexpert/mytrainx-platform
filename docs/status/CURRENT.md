@@ -1,7 +1,7 @@
 # Current Project State
 
-**Project version:** 0.5.0-visual-v3.1-product  
-**State date:** 2026-09-26  
+**Project version:** 0.6.0-main-first-v3.2  
+**State date:** 2026-10-04  
 **Overall status:** IN PROGRESS
 
 ## Product
@@ -328,3 +328,88 @@ Direct-to-main expansion completed:
 
 Security note:
 Supabase advisor currently reports leaked-password protection disabled. This should be enabled in Supabase Auth settings when available; it is not a content/database schema blocker.
+
+
+## Main-first V3.2 execution — 2026-10-04
+
+The product owner requested that all ongoing implementation advance directly on `main`.
+
+Completed in this execution:
+
+- Atendimento.Center gateway now accepts both current and legacy ENV aliases:
+  - `ATENDIMENTO_CENTER_AGENT_URL`
+  - `ATENDIMENTO_AGENT_BASE_URL`
+  - `ATENDIMENTO_CENTER_AGENT_TOKEN`
+  - `ATENDIMENTO_AGENT_TOKEN`
+- Coach X member UI now distinguishes:
+  - domain tools ready;
+  - gateway endpoint present but token missing;
+  - full gateway configured.
+- member Profile is no longer a placeholder:
+  - reads the real `profiles` row;
+  - saves display name, locale, timezone, goal, experience level and equipment;
+  - uses existing owner-only RLS.
+- member Community is now a real hub:
+  - validated Community media;
+  - Sara/WhatsApp reception CTA;
+  - Events / Coach X / Master routing;
+  - no fictitious group/member metrics.
+- Library media integrity improved:
+  - recipes no longer use WKT workout photography;
+  - nutrition content uses category art until approved Kitchen media exists;
+  - workout photography remains limited to training-related editorial surfaces.
+- active Programs catalog rebuilt with abstract program-specific art instead of fake WKT covers.
+- public and member Master surfaces rebuilt with a distinct premium/gold design language.
+- stale draft PR #12 (`feat/wkt-launch-v1`) closed as superseded; work continues on `main`.
+
+Production verification:
+- build-breaking gateway fallback syntax was detected in Vercel, fixed immediately on `main`;
+- first post-fix production deployment returned READY with production aliases and no runtime errors;
+- subsequent V3.2 visual commits continue through the same Git-to-production path.
+
+### Current canonical scale
+
+- 100 published/approved exercise guides;
+- 60 public Kitchen recipes;
+- 50 public educational articles (210 public Library items through the unified Library surface);
+- 55 ready knowledge documents / 363 chunks;
+- 55 canonical food items;
+- numeric food nutrient rows remain 0 until reviewed FoodData Central mapping;
+- active registered programs:
+  - MyTrainX Start;
+  - Core 21;
+  - Home 30;
+  - Calisthenics Foundations;
+- WKT Militar remains the entitlement-backed commercial program;
+- HIIT Pathway remains inactive AMBER pending specialist safety review.
+
+### External blockers that cannot be truthfully bypassed
+
+1. **Atendimento.Center token**
+   - Vercel currently has the gateway base URL;
+   - no project-level gateway token is present;
+   - no separate Atendimento.Center Vercel project was discoverable in the connected workspace;
+   - full conversation streaming therefore remains blocked by a real credential dependency.
+
+2. **FoodData Central numeric nutrition**
+   - mapping/import tooling is implemented;
+   - `FDC_API_KEY` is not present in the Vercel project;
+   - 60 recipes remain publishable as general culinary content;
+   - calories/macros remain intentionally absent rather than guessed.
+
+3. **Specialist review**
+   - HIIT safety gate remains pending;
+   - four foundation ebooks still require the appropriate exercise/nutrition/scientific sign-off for final PDF/commercial/retrieval release;
+   - scientific Progress content remains retrieval-blocked where the review record is pending.
+
+4. **Bespoke production media**
+   - Coach X, Specialists and App UI production folders are currently empty;
+   - Micaela production folder structure exists but contains no usable media files;
+   - until approved media is supplied, the product uses truthful abstract/category art rather than pretending WKT footage represents unrelated products.
+
+### Main-only release policy
+
+- implementation path: `main`;
+- stale feature release branches must not be treated as canonical;
+- production truth comes from current `main` + Supabase + Vercel production state;
+- no feature should be presented as active unless its backend/access/review state agrees.
