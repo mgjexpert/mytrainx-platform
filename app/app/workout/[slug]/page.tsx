@@ -31,10 +31,26 @@ export default async function WorkoutPage({ params }: { params: Promise<{ slug: 
           <Link className={styles.back} href="/app/programas/wkt-militar">← WKT MILITAR</Link>
           <div className={styles.missionTitle}><span>MISSÃO {String(workout.id).padStart(2,"0")} / {String(workouts.length).padStart(2,"0")}</span><b>{workout.code}</b></div>
         </div>
+        <div className={styles.sessionRail} aria-label="Posição no programa WKT">
+          {workouts.map((item,railIndex) => (
+            <Link
+              key={item.slug}
+              href={`/app/workout/${item.slug}`}
+              className={railIndex < index ? styles.railDone : railIndex === index ? styles.railCurrent : undefined}
+              aria-label={`Missão ${item.id}: ${item.code}`}
+              title={`Missão ${item.id}: ${item.code}`}
+            >
+              <span>{String(item.id).padStart(2,"0")}</span>
+            </Link>
+          ))}
+        </div>
         <div className={styles.playerGrid}>
           <section className={styles.videoPanel}>
             <div className={styles.videoFrame}><iframe src={drivePreviewUrl(workout.driveFileId)} allow="autoplay; fullscreen" allowFullScreen title={`Treino ${workout.id} ${workout.code}`}/></div>
-            <div className={styles.underVideo}><div><span>FOLLOW-ALONG SESSION</span><b>Faça junto. Adapte o ritmo quando necessário.</b><small>O vídeo é reproduzido diretamente da fonte WKT no Google Drive.</small></div></div>
+            <div className={styles.underVideo}>
+              <div><span>FOLLOW-ALONG SESSION</span><b>Faça junto. Adapte o ritmo quando necessário.</b><small>O vídeo é reproduzido diretamente da fonte WKT no Google Drive.</small></div>
+              <div className={styles.videoProgress}><b>{Math.round(((index+1)/workouts.length)*100)}%</b><small>posição no programa</small></div>
+            </div>
           </section>
           <aside className={styles.info}>
             <span>WKT · MISSÃO {String(workout.id).padStart(2,"0")}</span>
@@ -52,6 +68,7 @@ export default async function WorkoutPage({ params }: { params: Promise<{ slug: 
               </button>
             </form>
             <div className={styles.note}>A conclusão é agora persistida no `workout_progress` da tua conta e alimenta Progress e as tools internas do Coach X.</div>
+            {next ? <div className={styles.upNext}><span>A SEGUIR</span><b>MISSÃO {String(next.id).padStart(2,"0")} · {next.code}</b><small>{next.focus}</small></div> : <div className={styles.upNext}><span>FINAL DO PROGRAMA</span><b>FECHA O CICLO COM UM CHECK-IN.</b><small>Regista como o programa correu antes de escolher a próxima jornada.</small></div>}
             <nav className={styles.nav}>
               {previous ? <Link href={`/app/workout/${previous.slug}`}>← MISSÃO {String(previous.id).padStart(2,"0")}</Link> : <Link href="/app/programas/wkt-militar">CATÁLOGO</Link>}
               {next ? <Link href={`/app/workout/${next.slug}`}>MISSÃO {String(next.id).padStart(2,"0")} →</Link> : <Link href="/app/performance/check-in">CHECK-IN →</Link>}
