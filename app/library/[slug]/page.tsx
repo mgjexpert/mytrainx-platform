@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { PublicHeader } from "@/components/PublicHeader";
 import { libraryLaunchItems } from "@/lib/library-launch";
 import { getUnifiedLibraryItem, getUnifiedLibraryItems } from "@/lib/library-live";
-import { slugMedia } from "@/lib/media-catalog";
 import styles from "./page.module.css";
 
 export function generateStaticParams() {
@@ -23,16 +22,19 @@ export default async function LibraryDetailPage({ params }: { params: Promise<{ 
   const [item, items] = await Promise.all([getUnifiedLibraryItem(slug), getUnifiedLibraryItems()]);
   if (!item) notFound();
 
-  const heroVisual = slugMedia(item.slug, 1400);
-  const nutritionVisual = item.tags.some((tag) =>
-    ["nutrição","alimentação","hidratação","cozinha"].includes(tag.toLowerCase())
-  );
+  const normalizedTags = item.tags.map((tag) => tag.toLowerCase());
   const heroStyle =
     item.type === "recipe"
-      ? { backgroundImage: "radial-gradient(circle at 72% 22%,rgba(255,112,52,.28),transparent 29%),radial-gradient(circle at 24% 76%,rgba(99,151,116,.18),transparent 25%),linear-gradient(145deg,#1a1511,#080c0e)" }
-      : nutritionVisual
-        ? { backgroundImage: "radial-gradient(circle at 72% 18%,rgba(255,105,48,.18),transparent 30%),linear-gradient(145deg,#171811,#080c0e)" }
-        : { backgroundImage: `url("${heroVisual}")` };
+      ? { backgroundImage: "radial-gradient(circle at 72% 22%,rgba(255,112,52,.30),transparent 29%),radial-gradient(circle at 24% 76%,rgba(99,151,116,.18),transparent 25%),linear-gradient(145deg,#201711,#080c0e)" }
+      : item.type === "exercise"
+        ? { backgroundImage: "radial-gradient(circle at 76% 22%,rgba(255,76,10,.26),transparent 24%),linear-gradient(135deg,#171e23,#080b0d)" }
+        : normalizedTags.some((tag) => ["nutrição","alimentação","hidratação","cozinha"].includes(tag))
+          ? { backgroundImage: "radial-gradient(circle at 72% 18%,rgba(255,105,48,.20),transparent 30%),radial-gradient(circle at 18% 78%,rgba(104,151,94,.12),transparent 24%),linear-gradient(145deg,#171911,#080c0e)" }
+          : normalizedTags.some((tag) => ["progresso","progress","peso","bia","medidas"].includes(tag))
+            ? { backgroundImage: "radial-gradient(circle at 76% 28%,rgba(75,121,150,.20),transparent 25%),linear-gradient(145deg,#101921,#080b0d)" }
+            : normalizedTags.some((tag) => ["sono","recovery","recuperação","stress","hábitos"].includes(tag))
+              ? { backgroundImage: "radial-gradient(circle at 78% 18%,rgba(108,91,166,.18),transparent 28%),linear-gradient(145deg,#11151d,#080b0d)" }
+              : { backgroundImage: "radial-gradient(circle at 76% 18%,rgba(255,76,10,.20),transparent 27%),linear-gradient(145deg,#151c21,#080b0d)" };
 
   const related = items
     .filter((candidate) => candidate.slug !== item.slug)
