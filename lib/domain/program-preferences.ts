@@ -1,8 +1,11 @@
 import { createAdminClient } from "@/lib/supabase/admin";
+import type { Json } from "@/lib/supabase/database.types";
 
-function objectPreferences(value: unknown): Record<string, unknown> {
+type JsonObject = { [key: string]: Json | undefined };
+
+function objectPreferences(value: unknown): JsonObject {
   return value && typeof value === "object" && !Array.isArray(value)
-    ? { ...(value as Record<string, unknown>) }
+    ? { ...(value as JsonObject) }
     : {};
 }
 
