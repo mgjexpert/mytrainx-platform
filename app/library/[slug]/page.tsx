@@ -19,7 +19,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function LibraryDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const [item, items] = await Promise.all([getUnifiedLibraryItem(slug), getUnifiedLibraryItems()]);
+  const items = await getUnifiedLibraryItems();
+  const item = items.find((candidate) => candidate.slug === slug) ?? await getUnifiedLibraryItem(slug);
   if (!item) notFound();
 
   const normalizedTags = item.tags.map((tag) => tag.toLowerCase());
