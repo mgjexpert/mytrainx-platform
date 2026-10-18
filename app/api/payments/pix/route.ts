@@ -5,11 +5,25 @@ import { z } from "zod";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createPixCharge } from "@/lib/payments/xpayments";
 
+const trackingValue = z.string().trim().max(200);
+
+const trackingSchema = z.object({
+  src: trackingValue.optional(),
+  utm_source: trackingValue.optional(),
+  utm_medium: trackingValue.optional(),
+  utm_campaign: trackingValue.optional(),
+  utm_content: trackingValue.optional(),
+  utm_term: trackingValue.optional(),
+  fbclid: trackingValue.optional(),
+  gclid: trackingValue.optional(),
+  ttclid: trackingValue.optional(),
+}).strict();
+
 const requestSchema = z.object({
-  name: z.string().trim().min(2),
-  email: z.string().trim().email(),
-  document: z.string().min(11),
-  source: z.record(z.string(), z.string()).optional(),
+  name: z.string().trim().min(2).max(120),
+  email: z.string().trim().email().max(254),
+  document: z.string().trim().min(11).max(20),
+  source: trackingSchema.optional(),
 });
 
 export async function POST(request: Request) {
@@ -26,6 +40,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "CPF/CNPJ inválido." }, { status: 400 });
   }
 
+  const email = parsed.data.email.toLowerCase();
   const reference =
     `MTX-WKT-${Date.now()}-${randomUUID().slice(0, 8).toUpperCase()}`;
   if (!process.env.SUPABASE_SECRET_KEY) {
@@ -55,9 +70,30 @@ export async function POST(request: Request) {
 
     const amountCents = product.price_cents;
 
+    const cooldownSince = new Date(Date.now() - 20_000).toISOString();
+    const { data: recentOrder, error: recentOrderError } = await admin
+      .from("orders")
+      .select("id")
+      .eq("user_email", email)
+      .eq("provider", "xpayments")
+      .eq("product_slug", product.slug)
+      .in("status", ["creating", "pending"])
+      .gte("created_at", cooldownSince)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    if (recentOrderError) throw recentOrderError;
+    if (recentOrder) {
+      return NextResponse.json(
+        { error: "Já existe uma tentativa de PIX em processamento. Aguarde alguns segundos e tente novamente se necessário." },
+        { status: 429 }
+      );
+    }
+
     const { error: orderError } = await admin.from("orders").insert({
       external_id: reference,
-      user_email: parsed.data.email.toLowerCase(),
+      user_email: email,
       provider: "xpayments",
       product_slug: product.slug,
       product_id: product.id,
@@ -70,7 +106,7 @@ export async function POST(request: Request) {
 
     const charge = await createPixCharge({
       name: parsed.data.name,
-      email: parsed.data.email.toLowerCase(),
+      email,
       document,
       amountCents,
       reference,
@@ -108,8 +144,8 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : "PIX_CREATE_FAILED" },
-      { status: 400 }
+      { error: "Não foi possível gerar o PIX agora. Tente novamente ou fale com a recepção MyTrainX." },
+      { status: 502 }
     );
   }
 }
