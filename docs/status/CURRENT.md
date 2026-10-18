@@ -1,7 +1,7 @@
 # Current Project State
 
-**Project version:** 0.7.0-main-first-v3.3  
-**State date:** 2026-10-04  
+**Project version:** 0.8.0-main-first-v4  
+**State date:** 2026-10-18  
 **Overall status:** IN PROGRESS
 
 ## Product
@@ -40,16 +40,19 @@ CI on that main commit: successful.
 ## Active parallel tracks
 
 ### Track A — Product & Data
-Next objective:
-Supabase production foundation + domain schema/RLS.
+**PRODUCTION FOUNDATION ACTIVE**
+
+Supabase is the production domain source of truth for identity-linked product data, entitlements, programs, workout progress, Progress and content metadata. Current work is expansion, review closure, nutrition normalization and hardening rather than foundation creation.
 
 ### Track B — Agent Platform
-Next objective:
-Atendimento.Center Agent Core contract and runtime foundation.
+**MYTRAINX BRIDGE READY / EXTERNAL RUNTIME CREDENTIAL PENDING**
+
+The MyTrainX Atendimento.Center bridge, conversation forwarding and SSE path are implemented. Production has an Atendimento.Center base URL but no agent token, so the external runtime cannot be truthfully marked live yet.
 
 ### Track C — Integration
-Next objective:
-MyTrainX Internal API contract + first Trainer X vertical slice.
+**DOMAIN TOOLING READY / FULL C1 TEST BLOCKED BY ATENDIMENTO TOKEN**
+
+MyTrainX exposes the authorized domain context required by Coach X: profile, entitlements, current program, today workout, Progress summary, Library knowledge, exercise and recipe lookup. The final end-to-end streamed conversation/persistence test awaits the external Atendimento.Center token/runtime connection.
 
 ### Track E — Content & Knowledge
 **IN PROGRESS**
@@ -64,7 +67,7 @@ Live Supabase foundation now includes:
 - **100 canonical PT-BR exercises**, all published/approved for general educational use; clinical/rehabilitation validation is not claimed;
 - **60 structured MyTrainX Kitchen recipes** with owned/verified rights; numeric nutrients remain blocked pending FoodData Central mapping/review; 55 canonical food items are in review; the newest 20-recipe batch adds 100 normalized ingredient rows (79 mapped, 21 intentionally unresolved/composite);
 - food/nutrient entities and normalized recipe ingredients;
-- **55 ready knowledge documents / 363 knowledge chunks** across the owned knowledge core; 6 Progress documents are intentionally retrieval-blocked pending scientific review;
+- **65 ready knowledge documents / 403 knowledge chunks** across the owned knowledge core; Progress/scientific items with pending specialist review remain retrieval-blocked;
 - owned foundation ebooks: Treino de Força sem Complicação, Nutrição sem Ruído, Progress sem Ruído and Recovery sem Ruído;
 - **MyTrainX Start — 4 Weeks** active for registered members with 12 executable workouts, self-enrollment, workout completion and Progress integration;
 - initial inventory of the two supplied Google Drive roots;
@@ -82,7 +85,7 @@ Library V2 is now the canonical product direction:
 The library target now explicitly includes public/member surfaces, Exercise Encyclopedia, MyTrainX Kitchen, learning paths, individually sold digital products, Master collections, program resources and entitlement-aware Coach X retrieval.
 
 Library delivery is now consolidated on production `main`:
-- public Library now exposes **50 educational articles + 100 approved exercise guides + 60 live Kitchen recipes = 210 public content items**;
+- public Library now exposes **60 educational articles + 100 approved exercise guides + 60 live Kitchen recipes = 220 public content items**;
 - exercise exposure is driven by `status=published` + `review_status=approved`;
 - all current canonical exercises have passed the general-education publication gate;
 - recipe nutrient values remain intentionally absent until FoodData Central mapping/review.
@@ -138,19 +141,20 @@ Do not continue building placeholder UX ahead of domain/tool foundations.
 
 ## Immediate P0 architecture milestone
 
-1. validate MyTrainX Supabase project access — project `oitfnnsfgaxcxqvizorw` is now connected and empty;
-2. implement A1 schema/RLS on `oitfnnsfgaxcxqvizorw`;
-3. migrate WKT catalogue into domain data;
-4. define content registry and source inventory;
-5. implement A2 Internal Agent API contracts;
-6. implement Atendimento.Center B1 Agent Core;
-7. deliver C1 Coach X vertical slice;
-8. recursively inventory priority Drive content and PLR packages;
-9. validate package-level rights before any commercial reuse;
-10. seed canonical exercise and nutrition datasets from compatible open sources — **IN PROGRESS: 873 exercise sources indexed, 100 canonical exercises published; 55 canonical food items in review; FoodData Central nutrient mapping/review still pending**;
-11. prepare the first owned MyTrainX production set — **IN PROGRESS: MyTrainX Start active with 12 executable sessions, 60 Kitchen recipes, 50 public educational articles, four owned knowledge ebooks still gated for final review**;
-12. close expert review gates for exercises, nutrition and scientific content before retrieval/publication;
-13. migrate Library surfaces progressively from static launch content to the canonical live registry.
+The original foundation milestones are complete. Current P0 priorities are:
+
+1. complete the external Atendimento.Center production connection by supplying the real agent token and run the C1 streamed end-to-end test;
+2. obtain qualified specialist sign-off for:
+   - Treino de Força sem Complicação;
+   - Nutrição sem Ruído;
+   - HIIT Pathway;
+   - eight pending scientific Progress/Recovery reviews;
+3. configure FoodData Central access and review canonical food mappings before publishing any numeric calories/macros;
+4. obtain provider-confirmed XPayments webhook signature documentation and add cryptographic verification without inventing a signature scheme;
+5. enable Supabase Auth leaked-password protection when available in account settings;
+6. ingest approved bespoke media for Coach X, Specialists, APP_UI, Home and Micaela when those assets actually exist;
+7. continue Library/program expansion only through the existing rights/review/access gates;
+8. keep implementation directly on `main`, with production deployment verification after code changes.
 
 ## Immediate visual milestone
 
@@ -203,7 +207,7 @@ Implemented in this branch:
 - initial signed Internal Agent API
 - Atendimento.Center GPT implementation handoff
 
-Security advisor currently reports 0 findings.
+Security advisor currently reports one Auth hardening warning: leaked-password protection is disabled. No database-schema security finding is currently blocking the product.
 
 
 ## Visual V3.1 / Product consolidation — 2026-09-26
@@ -246,9 +250,9 @@ Current Kitchen nutrition foundation:
 
 - 60 public recipes;
 - 55 canonical `food_items` in review;
-- the latest 20-recipe expansion adds 100 `recipe_ingredients` rows;
-- 79 of those rows map to a canonical food;
-- 21 of those rows remain intentionally unresolved/composite;
+- the structured Kitchen now contains **303 `recipe_ingredients` rows**;
+- **253** map to a canonical food;
+- **50** remain intentionally unresolved/composite or ambiguous;
 - 0 public nutrient rows until FoodData Central IDs and values pass review.
 
 Canonical workflow:
@@ -450,3 +454,147 @@ External blockers remain:
 - FoodData Central API key + reviewed mappings;
 - qualified specialist sign-off for HIIT/foundation scientific content;
 - approved bespoke Coach X / Specialists / APP_UI / non-WKT program media.
+
+
+## Main-first V4 execution — 2026-10-18
+
+The product owner reaffirmed that all ongoing implementation should advance directly on `main`.
+
+### Production recovery
+
+A latent October build blocker was found in `lib/domain/program-preferences.ts`:
+
+- generic `Record<string, unknown>` preferences were not assignable to Supabase `Json`;
+- fixed on `main` by typing the object as the generated database `Json` shape;
+- production deployment recovered to READY;
+- `mytrainx.fit` and `www.mytrainx.fit` returned to the healthy Git-to-production path;
+- runtime error scan after recovery was clean.
+
+### Library / editorial
+
+Current canonical public scale:
+
+- **60 public articles**;
+- **100 published/approved exercise guides**;
+- **60 public Kitchen recipes**;
+- **220 public Library items** across the three primary types;
+- **65 ready Knowledge documents / 403 chunks**.
+
+October GREEN expansion added ten new practical guides covering:
+
+- walking and daily movement;
+- 2/3/4-day training organization;
+- minimum sessions for busy days;
+- return after a missed week;
+- supersets;
+- breaking sedentary time;
+- wearable-data interpretation;
+- exercise order;
+- when to change programs;
+- avoiding “extreme” training as a quality metric.
+
+These ten items are:
+- MyTrainX original;
+- rights verified;
+- editorial approved;
+- canonical in Supabase;
+- Knowledge-ready and retrievable;
+- non-clinical.
+
+Library art direction was also hardened so WKT workout photography is no longer reused as generic article/exercise imagery. Category-specific abstract art now distinguishes training, Progress, recovery, nutrition and Kitchen until bespoke production media exists.
+
+### Nutrition normalization
+
+Without inventing FDC data:
+
+- recipe ingredients total: **303**;
+- canonical food mappings: **253**;
+- unresolved/composite/ambiguous: **50**;
+- numeric nutrition remains unpublished;
+- `FDC_API_KEY` is not currently configured in Vercel.
+
+Only unambiguous existing canonical-name mappings were resolved. Composite alternatives such as “leite ou bebida vegetal”, generic “folhas”, “pão ou wrap” and multi-ingredient seasonings remain intentionally unresolved.
+
+### Specialist review readiness
+
+Created/updated:
+
+- `docs/review/PROGRESS-SCIENTIFIC-REVIEW-PACK-2026-10-18.md`;
+- `docs/review/FOUNDATION-EBOOK-QUALIFIED-REVIEW-PACK-2026-10-18.md`;
+- `docs/content/HIIT-PATHWAY-SAFETY-REVIEW-2026.md`.
+
+All corresponding specialist/scientific review records remain `pending`; the packs improve review readiness but do not falsely substitute internal editorial review for qualified sign-off.
+
+Current specialist blockers:
+- 1 exercise review — Strength foundation ebook;
+- 1 safety review — HIIT Pathway;
+- 8 scientific reviews — Progress/Recovery materials;
+- nutrition review remains required for numeric recipe nutrition and the Nutrition foundation ebook.
+
+### Coach X
+
+MyTrainX side is ready for the next integration test:
+- authenticated Coach X API;
+- domain context/tools;
+- review-gated knowledge retrieval;
+- conversation forwarding;
+- SSE support.
+
+External blocker:
+- `ATENDIMENTO_AGENT_BASE_URL` exists;
+- no Atendimento.Center agent token exists in the MyTrainX Vercel project.
+
+Do not fabricate or silently replace this credential.
+
+### Payments / security hardening
+
+XPayments remains configured for PIX.
+
+Vercel security hardening performed:
+- `XPAYMENTS_API_KEY` changed from readable encrypted config to `sensitive`;
+- `XPAYMENTS_WEBHOOK_SECRET` changed to `sensitive`.
+
+The webhook already reconciles:
+- order reference;
+- BRL currency;
+- PIX method;
+- transaction id;
+- exact amount;
+- success event/status;
+- idempotent entitlement creation.
+
+Remaining payment-security blocker:
+- cryptographic webhook signature verification cannot be implemented safely until XPayments.digital documents the exact signature header/canonical payload/HMAC scheme. A similarly named provider's signature format must not be assumed.
+
+### Media status
+
+Re-audited production Drive folders on 2026-10-18:
+
+Empty:
+- COACH_X;
+- SPECIALISTS;
+- APP_UI;
+- HOME.
+
+PROGRAMS contains WKT only.
+
+MICAELA contains the prepared subfolder structure but no newly approved production image binary in the inspected top-level state.
+
+Policy remains:
+- no invented persona imagery;
+- no WKT footage masquerading as unrelated program/persona media;
+- use truthful branded/category art until approved media exists.
+
+### Backlog cleanup
+
+Closed as implemented/superseded:
+- #2 A1 Supabase Domain Foundation;
+- #3 A2 MyTrainX Internal Agent API;
+- #9 Orange Visual System V1;
+- #15 Visual V2 mockup implementation.
+
+Kept open because the blockers remain real:
+- #18 Library V2;
+- #4 Atendimento.Center Agent Core dependency;
+- #5 Coach X vertical slice;
+- #21 Micaela/human-team approved assets.
