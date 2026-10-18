@@ -9,6 +9,16 @@
 **Sessions:** 12 / 4 weeks  
 **Frequency:** 3 sessions per week  
 **Maximum programmed effort:** RPE 7/10
+**Evidence refresh:** 2026-10-18
+
+## 2026 evidence anchors
+
+- ACSM 2026 Resistance Training Position Stand:
+  https://acsm.org/science-spotlight-acsm-releases-new-position-stand-on-resistance-training/
+- WHO physical activity guidance:
+  https://www.who.int/news-room/fact-sheets/detail/physical-activity
+
+These sources support the general physical-activity/resistance-training context. They do **not** substitute for the requested specialist review of this specific HIIT work:rest progression.
 
 ## Why this is not active yet
 
