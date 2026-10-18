@@ -9,6 +9,7 @@ import { libraryExpansion2026 } from "@/lib/library-expansion-2026";
 import { libraryExpansion2026B } from "@/lib/library-expansion-2026-b";
 import { libraryExpansion2026C } from "@/lib/library-expansion-2026-c";
 import { libraryExpansion2026D } from "@/lib/library-expansion-2026-d";
+import { libraryExpansion2026E } from "@/lib/library-expansion-2026-e";
 
 type RecipeRow = {
   content_id: string;
@@ -234,7 +235,7 @@ export async function getUnifiedLibraryItems(): Promise<LibraryItem[]> {
     getLiveApprovedExercises(),
   ]);
   const liveSlugs = new Set([...liveRecipes, ...liveExercises].map((item) => item.slug));
-  const publishableStatic = [...libraryLaunchItems, ...libraryExpansion2026, ...libraryExpansion2026B, ...libraryExpansion2026C, ...libraryExpansion2026D].filter(
+  const publishableStatic = [...libraryLaunchItems, ...libraryExpansion2026, ...libraryExpansion2026B, ...libraryExpansion2026C, ...libraryExpansion2026D, ...libraryExpansion2026E].filter(
     (item) =>
       item.type !== "exercise" &&
       (item.type !== "recipe" || !liveSlugs.has(item.slug))
@@ -253,7 +254,7 @@ export async function getUnifiedLibraryItem(slug: string): Promise<LibraryItem |
   const liveExercise = liveExercises.find((item) => item.slug === slug);
   if (liveExercise) return liveExercise;
 
-  const expansion = [...libraryExpansion2026, ...libraryExpansion2026B, ...libraryExpansion2026C, ...libraryExpansion2026D].find((item) => item.slug === slug);
+  const expansion = [...libraryExpansion2026, ...libraryExpansion2026B, ...libraryExpansion2026C, ...libraryExpansion2026D, ...libraryExpansion2026E].find((item) => item.slug === slug);
   if (expansion) return expansion;
 
   const fallback = getLibraryItem(slug);
