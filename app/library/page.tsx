@@ -2,7 +2,6 @@ import Link from "next/link";
 import { PublicHeader } from "@/components/PublicHeader";
 import { getUnifiedLibraryItems } from "@/lib/library-live";
 import type { LibraryItem } from "@/lib/library-launch";
-import { libraryMedia } from "@/lib/media-catalog";
 import { LibraryExplorer } from "@/components/library/LibraryExplorer";
 import styles from "./library.module.css";
 
@@ -10,18 +9,54 @@ const typeLabel = { article: "LEARN", exercise: "EXERCISE", recipe: "KITCHEN" } 
 const typeIcon = { article: "▤", exercise: "↗", recipe: "◌" } as const;
 
 function visualStyle(item: LibraryItem, index: number) {
+  const tags = item.tags.map((tag) => tag.toLowerCase());
+  const variant = index % 4;
+
   if (item.type === "recipe") {
     return {
-      backgroundImage: "radial-gradient(circle at 75% 20%,rgba(255,114,52,.24),transparent 28%),radial-gradient(circle at 22% 78%,rgba(103,151,117,.18),transparent 24%),linear-gradient(145deg,#1b1612,#090d0f)",
+      backgroundImage:
+        "radial-gradient(circle at 78% 18%,rgba(255,126,66,.28),transparent 26%),radial-gradient(circle at 22% 82%,rgba(93,154,112,.18),transparent 24%),linear-gradient(145deg,#211810,#090d0f)",
     };
   }
-  const nutrition = item.tags.some((tag) => ["nutrição","alimentação","hidratação","cozinha"].includes(tag.toLowerCase()));
-  if (nutrition) {
+
+  if (item.type === "exercise") {
+    const palettes = [
+      "radial-gradient(circle at 76% 22%,rgba(255,76,10,.28),transparent 24%),linear-gradient(135deg,#171d22,#080b0d)",
+      "linear-gradient(115deg,rgba(255,76,10,.18),transparent 34%),radial-gradient(circle at 72% 72%,rgba(93,119,135,.16),transparent 24%),linear-gradient(145deg,#141a1f,#080b0d)",
+      "radial-gradient(circle at 25% 78%,rgba(255,76,10,.16),transparent 25%),linear-gradient(155deg,#182027,#080b0d)",
+      "linear-gradient(135deg,#10161a,#18120f 68%,#080b0d)",
+    ];
+    return { backgroundImage: palettes[variant] };
+  }
+
+  if (tags.some((tag) => ["nutrição","alimentação","hidratação","cozinha"].includes(tag))) {
     return {
-      backgroundImage: "radial-gradient(circle at 70% 18%,rgba(255,109,51,.18),transparent 30%),linear-gradient(145deg,#171811,#090d0f)",
+      backgroundImage:
+        "radial-gradient(circle at 72% 18%,rgba(255,105,48,.20),transparent 28%),radial-gradient(circle at 18% 82%,rgba(112,148,84,.12),transparent 24%),linear-gradient(145deg,#181a11,#080c0e)",
     };
   }
-  return { backgroundImage: `url("${libraryMedia(item.type, index, 1000)}")` };
+
+  if (tags.some((tag) => ["progresso","progress","peso","bia","medidas"].includes(tag))) {
+    return {
+      backgroundImage:
+        "linear-gradient(155deg,rgba(255,76,10,.10),transparent 42%),radial-gradient(circle at 78% 34%,rgba(75,121,150,.18),transparent 24%),linear-gradient(145deg,#101920,#080b0d)",
+    };
+  }
+
+  if (tags.some((tag) => ["sono","recovery","recuperação","stress","hábitos"].includes(tag))) {
+    return {
+      backgroundImage:
+        "radial-gradient(circle at 78% 18%,rgba(108,91,166,.18),transparent 28%),linear-gradient(145deg,#11151d,#080b0d)",
+    };
+  }
+
+  const palettes = [
+    "radial-gradient(circle at 76% 18%,rgba(255,76,10,.22),transparent 26%),linear-gradient(145deg,#171d21,#080b0d)",
+    "linear-gradient(125deg,rgba(255,76,10,.12),transparent 36%),radial-gradient(circle at 78% 72%,rgba(98,130,145,.14),transparent 25%),linear-gradient(145deg,#12191e,#080b0d)",
+    "radial-gradient(circle at 22% 78%,rgba(255,76,10,.14),transparent 24%),linear-gradient(145deg,#161a1d,#080b0d)",
+    "linear-gradient(145deg,#141a1f,#18110d 78%,#080b0d)",
+  ];
+  return { backgroundImage: palettes[variant] };
 }
 
 export default async function LibraryPage() {
